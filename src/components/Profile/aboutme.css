@@ -1,0 +1,75 @@
+.about-me {
+    margin-top:20px;
+    padding: 20px 0;
+    position: relative;
+}
+
+.about-me--gif {
+    position: absolute;
+    right: 0;
+    bottom: 20%;
+}
+
+.about-me-category--title {
+    font-size: 22px;
+}
+
+.about-me-category {
+}
+
+.about-me-category--edit {
+    margin-left: 10px;
+    opacity: 0;
+}
+
+.about-me-category:hover .about-me-category--edit {
+    opacity: 1;
+}
+
+.about-me-category {
+    cursor: pointer;
+}
+
+.about-me-category--input {
+    padding: 5px 10px;
+}
+
+.about-me-btn--save-part-small {
+    padding: 7px 12px;
+    margin-left: 10px;
+    border: none;
+    border-radius: 5px;
+}
+
+.about-me-btn--save-part-small--contain{
+    width: 40%;
+    text-align: end;
+}
+
+.about-me-btn--save-part-small--save {
+    background-color: var(--color--primary);
+    color: white;
+}
+
+.about-me-category--child--tr th,
+td {
+    text-align: start;
+    padding: 0px 30px 10px 0;
+}
+
+.about-me-category--submit {
+    text-align: center;
+}
+
+.about-me-category--submit--btn {
+    padding: 15px 30px;
+    background: linear-gradient(262deg, #1d2b77, var(--color--primary));
+    border: none;
+    color:white;
+    border-radius: 5px;
+    box-shadow: 0px 0px 18px -1px rgb(0 0 0 / 88%);
+}
+
+.about-me-category--submit--btn:hover{
+    background: linear-gradient(262deg, var(--color--primary), #1d2b77);
+}

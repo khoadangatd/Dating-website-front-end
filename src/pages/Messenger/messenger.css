@@ -1,0 +1,152 @@
+.messenger--main{
+    height: 100%;
+    display: flex;  
+}
+
+.messenger--title{
+    /* font-size: ; */
+}
+
+.messenger--left{
+    width: 30%;
+}
+
+.messenger--user-search{
+    background-color: #f0f2f5;
+    display: flex;
+    padding:8px;
+    border-radius: 100px;
+    margin-bottom: 20px;
+}
+
+.messenger--user-search i{
+    font-size: 20px;
+    color:#797f87
+}
+
+.messenger--user-search--main{
+    border: none;
+    outline: none;
+    background-color: #f0f2f5;
+    color:#797f87;
+    width: 100%;
+}
+.messenger--user-search--main::placeholder{
+    color:#797f87;
+}
+
+.messenger--user{
+    border-top:1px solid #919497;
+    padding-top: 20px;
+    overflow: auto;
+}
+
+.messenger--user__item{
+    display: flex;
+    align-items: center;
+    padding:4px;
+}
+.messenger--user__item:hover{
+    background-color:#c5c9ce;
+    cursor: pointer;
+}
+
+.messenger--user__item-avatar{
+    margin-right: 10px;
+    position: relative;
+}
+.messenger--user__item-avatar-circle{
+    position: absolute;
+    bottom: 0;
+    right:0;
+    width: 10px;
+    height: 10px;
+    border-radius: 100%;
+}
+
+.user__item-avatar-circle--online{
+    background-color: #31a24c;
+}
+
+.user__item-avatar-circle--offline{
+    background-color: #797f87;
+}
+
+.messenger--user__item-avatar--img{
+    height: 100%;
+    border-radius: 100%;
+}
+
+.messenger--user__item__detail{
+
+}
+
+.messenger--user__item__detail--name{
+    font-size: 18px;
+    font-weight: 500;
+    margin-bottom: 2px;
+}
+
+.messenger--user__item__detail--content{
+    color:#797f87;
+}
+
+.messenger--right{
+    width: 70%;
+    margin-left:10px;
+    padding-left:10px;
+    border-left: 1px solid #797f87;
+}
+
+.messenger-content{
+    height: 80%;
+    overflow: auto;
+}
+
+.messenger-content--main{
+    display: flex;
+    align-items: center;
+}
+
+.messenger-content--main--left{
+
+}
+
+.messenger-content--main--right{
+    justify-content: flex-end;
+}
+
+.messenger-content--main--detail{
+    padding:8px;
+    background-color: #f0f2f5;
+    border-radius: 100px;
+    margin: 0 10px;
+}
+
+.messenger-chat-input{
+    background-color:#f0f2f5;
+    display: flex;
+    align-items: center;
+    border-radius: 100px;
+    overflow: hidden;
+}
+
+.messenger-chat-input i{
+    color:#797f87;
+    font-size: 20px;
+    margin-right: 20px;
+    cursor: pointer;
+}
+
+.messenger-chat-input i:hover{
+    color:var(--color--primary);
+}
+
+.messenger-chat-input--main{
+    border: none;
+    outline: none;
+    background-color:#f0f2f5;
+    padding: 10px;
+    width: 100%;
+}
+

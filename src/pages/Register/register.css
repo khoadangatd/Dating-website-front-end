@@ -1,0 +1,90 @@
+.register-main-form {
+    background-color: white;
+    max-width: 800px;
+    margin: 50px auto;
+    padding: 40px 30px;
+    border-radius:20px;
+    box-shadow: 0 20px 40px rgb(0 0 0 / 10%);
+}
+
+.register-main-form--logo {
+    width: 90px;
+}
+
+.register-main-form--title {
+    margin-top: 0;
+    font-weight: 500;
+}
+
+.register-main-form--sub-title {
+    font-size: 18px;
+    font-weight: 400;
+}
+
+.register-main-form--input {
+    width: 100%;
+    padding: 5px 10px;
+    outline: none;
+}
+
+.register-form{
+    display: flex;
+    margin: 10px 0;
+    justify-content: space-between;
+}
+
+.form--input--half{
+    width: 49%;
+}
+
+.register-form--render{
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+.register-form--render--main{
+    display: flex;
+    width: 49%;
+    justify-content: center;
+}
+
+.form--input--render{
+    padding:4px 6px;
+}
+
+.form--input--age{
+    width: 49%;
+}
+.form--input--render--detail{
+    margin-right: 20px;
+}
+
+.register-main-form--forgot-contain {
+    margin: 10px 0 20px;
+    text-align: start;
+}
+
+.register-main-form--forgot {
+}
+
+.register-main-form--submit {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.register-main-form--create {
+
+}
+
+.register-main-form--submit__main {
+    background-color: rgb(55, 151, 230);
+    padding: 8px 18px;
+    color: white;
+    border-radius: 2px;
+    cursor: pointer;
+}
+
+.register-main-form--submit__main:hover{
+    background-color: rgb(32, 134, 218);
+}

@@ -1,0 +1,98 @@
+
+.login-main-form {
+    background-color: white;
+    max-width: 800px;
+    margin: 100px auto;
+    padding: 40px 30px;
+    border-radius:20px;
+    box-shadow: 0 20px 40px rgb(0 0 0 / 10%);
+}
+
+.login-main-form--logo {
+    width: 90px;
+}
+
+.login-main-form--title {
+    font-weight: 500;
+    margin:8px 0;
+}
+
+.login-main-form--sub-title {
+    font-size: 18px;
+    font-weight: 400;
+    margin:5px 0;
+}
+
+.login-main-form--input {
+    width: 100%;
+    padding: 12px 10px;
+    outline: none;
+    margin:8px 0;
+}
+
+.login-main-form--forgot-contain {
+    margin: 10px 0 20px;
+    text-align: start;
+}
+
+.login-main-form--forgot {
+
+}
+
+.descripttion-quantity-people{
+    margin-top: 80px;
+    text-align: center;
+    font-size: 20px;
+}
+
+.quantity-people{
+    font-size: 60px;
+    margin:20px 0;
+}
+
+.login-main-form--external{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.login-main-form--submit {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-top: 14px;
+}
+
+.login-main-form--create {
+
+}
+
+.login-main-form--submit__main {
+    background-color: rgb(55, 151, 230);
+    padding: 10px 20px;
+    color: white;
+    border-radius: 5px;
+    cursor: pointer;
+    border: none;
+}
+
+.login-main-form--submit__main:hover{
+    background-color: rgb(32, 134, 218);
+}
+
+.login-main-form--external-link{
+    color:white;
+    padding:8px 16px;
+    border-radius: 2px;
+    margin:20px 10px;
+}
+.login-main-form--external-link i{
+    margin-right: 10px;
+}
+
+.login-main-form--external-link:nth-child(1){
+    background-color: #db4437;
+}
+.login-main-form--external-link:nth-child(2){
+    background-color: #1778f2;
+}
