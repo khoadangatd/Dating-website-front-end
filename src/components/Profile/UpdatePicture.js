@@ -57,15 +57,16 @@ const UpdatePicture = (props) => {
                         style={{ backgroundImage: `url("http://localhost/images/${pic.src}")` }}
                         onClick={() => setdismodal({ item: pic, stt: index })}
                     >
-                        {/* <img src={`http://localhost/images/${pic.src}`}
-                            alt="Hình hiển thị"
-                            class="board--profile-image__box__main"
-                            onClick={() => setdismodal({ item: pic, stt: index })
-                            }></img> */}
                     </div>
                 )
             })
         }
+        // else{
+        //     result=(<img src="https://icon-library.com/images/loading-icon-animated-gif/loading-icon-animated-gif-19.jpg"></img>)
+        //     setTimeout(
+        //         result=(<h1>Người dùng chưa cập nhật hình ảnh</h1>)
+        //     ,500)
+        // }
         return result;
     }
     async function onHandleChange(e) {
@@ -92,12 +93,17 @@ const UpdatePicture = (props) => {
     return (
         <div className="board--profile-image">
             <input type="file" name="image" id="upload-image" onChange={onHandleChange} style={{ display: "none" }}></input>
+            {window.location.pathname==="/profile"
+            ?
             <label for="upload-image" className="board--profile-image__box">
                 <div className="board--profile-image__box__detail" >
                     <i class="fas fa-camera"></i>
                     <p>Thêm ảnh của bạn</p>
                 </div>
             </label>
+            :
+            ""
+            }
             {renderListImage()}
             {dismodal ? <ModalPicture src={dismodal} QuitModal={QuitModal} ChangeModal={ChangeModal}></ModalPicture> : ""}
         </div>

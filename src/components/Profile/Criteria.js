@@ -10,6 +10,8 @@ import MenuItem from '@material-ui/core/MenuItem';
 import InputLabel from '@material-ui/core/InputLabel';
 import CallApi from '../../helper/axiosClient';
 import { toast } from 'react-toastify';
+import { useDispatch } from 'react-redux';
+import * as actions from '../../actions';
 
 const useStyles = makeStyles((theme) => ({
     root: {
@@ -54,6 +56,7 @@ const Criteria = (props) => {
     const { user } = props
     const [age, setAge] = useState(user.data.setting.age);
     const [gender,setGender] =useState(user.data.setting.gender);
+    const dispatch= useDispatch();
     const classes = useStyles();
     const handleChange = (event, newValue) => {
         setAge(newValue);
@@ -69,8 +72,9 @@ const Criteria = (props) => {
                 method:`put`,
                 data: form,
             })
+            dispatch(actions.FetchLoginUser())
             toast.success(data.message);
-            toast.success(data.submessage);
+            // toast.success(data.submessage);
         }
         catch{
             toast.error("Có lỗi gì đó!");

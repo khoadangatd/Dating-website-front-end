@@ -46,7 +46,13 @@
     align-items: center;
     padding:4px;
 }
+
 .messenger--user__item:hover{
+    background-color:#c5c9ce;
+    cursor: pointer;
+}
+
+.messenger--user__item--active{
     background-color:#c5c9ce;
     cursor: pointer;
 }
@@ -55,6 +61,7 @@
     margin-right: 10px;
     position: relative;
 }
+
 .messenger--user__item-avatar-circle{
     position: absolute;
     bottom: 0;
@@ -73,7 +80,8 @@
 }
 
 .messenger--user__item-avatar--img{
-    height: 100%;
+    height: 50px;
+    width: 50px;
     border-radius: 100%;
 }
 
@@ -106,6 +114,7 @@
 .messenger-content--main{
     display: flex;
     align-items: center;
+    margin:4px 0;
 }
 
 .messenger-content--main--left{
@@ -123,12 +132,17 @@
     margin: 0 10px;
 }
 
+.messenger-content--main--detail--user{
+    background-color: var(--color--primary);
+    color:white;
+}
+
 .messenger-chat-input{
     background-color:#f0f2f5;
     display: flex;
     align-items: center;
     border-radius: 100px;
-    overflow: hidden;
+    /* overflow: hidden; */
 }
 
 .messenger-chat-input i{
@@ -150,3 +164,20 @@
     width: 100%;
 }
 
+.messenger-chat-input-contain-icon{
+    display: flex;
+}
+
+.messenger-chat-input-icon-submit{
+    border: none;
+}
+
+.messenger-chat-input-icon-emoji-contain{
+    position: relative;
+}
+
+.messenger-chat-input-icon-emoji--contain__main{
+    position: absolute;
+    bottom: 40px;
+    right: 30px;
+}

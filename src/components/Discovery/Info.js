@@ -1,10 +1,9 @@
 import React from 'react';
-import PropTypes from 'prop-types';
-
 
 const Info = (props) => {
     const {user}=props;
-    return user&&(
+    console.log(user);
+    return (
         <div className="discovery__info">
             <h1 class="discovery__info--name">{user.name},{user.age} tuổi</h1>
             <p class="discovery__info--detail">{user.city}</p>
@@ -18,11 +17,5 @@ const Info = (props) => {
         </div>
     );
 };
-
-
-Info.propTypes = {
-
-};
-
 
 export default Info;

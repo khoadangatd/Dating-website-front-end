@@ -1,29 +1,46 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
 import './liked.css';
+import callApi from '../../helper/axiosClient';
+import ItemInteract from '../../components/Interact/ItemInteract';
+import { useSelector } from 'react-redux';
 
 const Liked = () => {
-    return (
+    const [userLiked,setUserLiked]=useState(null);
+    const user=useSelector(state=>state.user);
+    const getUserLiked=async ()=>{
+        try{
+            const data=await callApi({
+                url:`http://localhost/users/likers`,
+                method:`POST`,
+                data:{
+                    liked: user.data.liked
+                }
+            })
+            setUserLiked(data.data);
+        }
+        catch{
+            setTimeout(getUserLiked,3000);
+        }
+    }
+    useEffect(()=>{
+        if(user)
+            getUserLiked();
+    },[user])
+    function renderItemInteract(){
+        var rs=null;
+        rs=userLiked.map((other,index)=>{
+            return <ItemInteract other={other} key={index}></ItemInteract>
+        })
+        return rs;
+    }
+    return userLiked&&(
         <div className="main">
             <div className="board">
                 <div className="board--main">
                     <h2 className="">Đã thích bạn</h2>
                     <div className="interaction row">
-                        <div className="interaction--item--contain col-lg-3">
-                            <div className="interaction--item" style={{ backgroundImage: `url('https://pd2us.badoocdn.com/p523/hidden?euri=jzGo0F9-uV2T8F.Zu2433qX4kgEGUyT9fb4qj2SnFqJtEj09eyaTCsPfCYU0wAxisnss60TQbOpkUkzdf8bhKMeumvNl7RsTkNWmGGF-j5DrSzc9t05qtouU-3D7667tTyE4IDClsBSbUs3.Tgxwaw&size=__size__&wm_size=120x120&wm_offs=23x23&')` }}>
-                                <div className="interaction--item--detail--contain">
-                                    <div className="interaction--item--detail">
-                                        <p className="interaction--item__name">Võ Nguyễn Khoa Đăng</p>
-                                        <p className="interaction--item__intro">18 tuổi</p>
-                                        <p className="interaction--item__intro">Hồ Chí Minh</p>
-                                        {/* <p className="interaction--item__name--main--title">Đã thích bạn</p> */}
-                                    </div>
-                                    <div className="interaction--item--hover">
-                                        <i class="fas fa-comment-dots"></i>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
+                        {renderItemInteract()}
                     </div>
                 </div>
             </div>

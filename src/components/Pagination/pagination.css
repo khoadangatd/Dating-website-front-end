@@ -1,0 +1,26 @@
+.pagination{
+    
+}
+
+.pagination-number{
+    padding: 8px 14px;
+    border:none;
+    margin: 0 1px;
+}
+
+.pagination-number i{
+    font-size: 12px;
+}
+
+.pagination-number-left{
+
+} 
+
+.pagination-number-right{
+
+}
+
+.pagination-number--current{
+    background-color: var(--color--primary);
+    color:#fff;
+}

@@ -5,16 +5,18 @@ import citys from '../../helper/City';
 import gif from '../../assets/img/heartprofile.gif';
 import { toast } from 'react-toastify';
 import CallApi from '../../helper/axiosClient';
+import { useDispatch } from 'react-redux';
+import * as actions from '../../actions';
 
 const AboutMe = (props) => {
     const { user } = props;
+    const dispatch=useDispatch();
     const [edit, setEdit] = useState({
         job: false,
         city: false,
         target: false,
         about: false,
     })
-    console.log(user.data.gender);
     const [form, setform] = useState({
         aboutme:user.data.aboutme,
         job: user.data.job,
@@ -36,6 +38,8 @@ const AboutMe = (props) => {
 
     function onHandleInput(e, input, value, change) {
         e.stopPropagation();
+        if(window.location.pathname!=="/profile")
+            return;
         setEdit({
             ...edit,
             [input]: value,
@@ -64,8 +68,9 @@ const AboutMe = (props) => {
                 method: `put`,
                 data: form,
             })
+            dispatch(actions.FetchLoginUser());
             toast.success(data.message);
-            toast.success(data.submessage);
+            // toast.success(data.submessage);
         }
         catch {
             toast.error("Có lỗi gì đó!");
@@ -73,7 +78,7 @@ const AboutMe = (props) => {
     }
     return (
         <div className="about-me">
-            <div className="about-me-category" onClick={(e) => onHandleInput(e, "job", true)}>
+            <div className={window.location.pathname==="/profile"?"about-me-category":""} onClick={(e) => onHandleInput(e, "job", true)}>
                 <h3 className="about-me-category--title">Công việc & học vấn<i class="far fa-edit about-me-category--edit"></i></h3>
                 {!edit.job ?
                     <p>{form.job || "Hãy cho mọi người biết thêm về bạn bằng cách điền thông tin về công việc và học vấn"}</p>
@@ -84,7 +89,7 @@ const AboutMe = (props) => {
                     </div>
                 }
             </div>
-            <div className="about-me-category" onClick={(e) => onHandleInput(e, "city", true)}>
+            <div className={window.location.pathname==="/profile"?"about-me-category":""} onClick={(e) => onHandleInput(e, "city", true)}>
                 <h3 className="about-me-category--title">Vị trí<i class="far fa-edit about-me-category--edit"></i></h3>
                 {!edit.city ?
                     <p>{form.city || "Hãy cho vị trí của bạn"}</p>
@@ -97,7 +102,7 @@ const AboutMe = (props) => {
                     </div>
                 }
             </div>
-            <div className="about-me-category" onClick={(e) => onHandleInput(e, "target", true)}>
+            <div className={window.location.pathname==="/profile"?"about-me-category":""} onClick={(e) => onHandleInput(e, "target", true)}>
                 <h3 className="about-me-category--title">Tôi ở đây để <i class="far fa-edit about-me-category--edit"></i></h3>
                 {!edit.target ?
                     <p>{form.target || "Hãy cho mọi người câu trả lời chính xác từ bạn"}</p>
@@ -108,7 +113,7 @@ const AboutMe = (props) => {
                     </div>
                 }
             </div>
-            <div className="about-me-category" onClick={(e) => onHandleInput(e, "about", true)}>
+            <div className={window.location.pathname==="/profile"?"about-me-category":""} onClick={(e) => onHandleInput(e, "about", true)}>
                 <h3 className="about-me-category--title">Thông tin cá nhân <i class="far fa-edit about-me-category--edit"></i></h3>
                 <table className="about-me-category--child">
                     <tr className="about-me-category--child--tr">
@@ -188,9 +193,13 @@ const AboutMe = (props) => {
                     </div>
                 }
             </div>
+            {window.location.pathname==="/profile"
+            ?
             <div className="about-me-category--submit">
                 <button className="about-me-category--submit--btn" onClick={onSubmitEdit}>Cập nhật</button>
             </div>
+            :""
+            }
             <img src={gif} alt="gif" className="about-me--gif"></img>
         </div>
     );

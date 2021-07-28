@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from 'react';
-import PropTypes from 'prop-types';
 import './login.css';
-import { Link, Redirect } from 'react-router-dom';
+import { Link, Redirect, withRouter } from 'react-router-dom';
 import FacebookLogin from 'react-facebook-login/dist/facebook-login-render-props';
 import callApi from '../../helper/axiosClient';
 import { toast } from 'react-toastify';
@@ -9,9 +8,10 @@ import { useHistory } from "react-router-dom";
 import { useDispatch, useSelector } from 'react-redux';
 import * as actions from '../../actions/index';
 import logo from '../../assets/img/LOGO.png';
-import { io } from "socket.io-client";
 
-const Login = () => {
+const Login = (props) => {
+    const { setupSocket } = props;
+    const user = useSelector(state => state.user);
     const [form, setform] = useState({
         email: null,
         password: null,
@@ -52,11 +52,7 @@ const Login = () => {
                 toast.success(data.message);
                 localStorage.setItem("accessToken", data.accessToken);
                 localStorage.setItem("refreshToken", data.refreshToken);
-                const user = await callApi({
-                    url: `http://localhost/users/login`,
-                    method: "get",
-                })
-                dispatch(actions.loginUser(user));
+                dispatch(actions.FetchLoginUser());
                 history.push("/discovery");
             }
             catch (err) {
@@ -78,10 +74,8 @@ const Login = () => {
             toast.success(data.message);
             localStorage.setItem("accessToken", data.accessToken);
             localStorage.setItem("refreshToken", data.refreshToken);
-            callApi({
-                url: `http://localhost/users/login`,
-                method: "get",
-            }).then(data => dispatch(actions.loginUser(data)));
+            dispatch(actions.FetchLoginUser());
+            setupSocket();
             history.push("/discovery");
         }
         catch (error) {
@@ -132,10 +126,4 @@ const Login = () => {
     );
 };
 
-
-Login.propTypes = {
-
-};
-
-
-export default Login;
+export default withRouter(Login);

@@ -1,6 +1,4 @@
 import React from 'react';
-import PropTypes from 'prop-types';
-
 
 const NoneInfo = () => {
     return (
@@ -10,11 +8,5 @@ const NoneInfo = () => {
         </div>
     );
 };
-
-
-NoneInfo.propTypes = {
-
-};
-
 
 export default NoneInfo;
