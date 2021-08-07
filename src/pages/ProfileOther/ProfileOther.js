@@ -28,16 +28,16 @@ const ProfileOther = () => {
     }, []);
     function renderProfileUser() {
         if (!user || user.data.length < 0) {
-            setTimeout(function(){
+            setTimeout(function () {
                 return (<h1>Không tìm thấy hồ sơ của người này</h1>)
-            },500)
+            }, 500)
         }
         else {
             return (
                 <div className="board--main">
                     <div className="board__heading">
                         <div className="board__heading__name">
-                            <img src={user.data.avatar} alt="avatar" class="sidebar--avatar"></img>
+                            <div style={{ backgroundImage: `url("http://localhost/images/${user.data.avatar}")` }} className="sidebar--avatar"></div>
                             <h1>{user.data.name}, {user.data.age} tuổi</h1>
                         </div>
                         {/* <div className="board__heading__setting">

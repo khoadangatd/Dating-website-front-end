@@ -7,6 +7,7 @@ import PictureView from './../../components/Discovery/PictureView';
 import NoneInfo from './../../components/Discovery/NoneInfo';
 import { useHistory } from 'react-router-dom';
 import { toast } from 'react-toastify';
+import loadingGif from '../../assets/img/loading.gif';
 
 import Button from '@material-ui/core/Button';
 import TextField from '@material-ui/core/TextField';
@@ -30,6 +31,7 @@ const Discovery = (props) => {
         checkedC: false,
         detail: null
     });
+    const [loading, setLoading] = useState(true);
     const user = useSelector(state => state.user);
     const history = useHistory();
     const findPartner = async () => {
@@ -43,14 +45,10 @@ const Discovery = (props) => {
                 like: user.data.like,
             }
         })
+        setuserOther(userFind.data);
         return userFind.data;
-        // }
-        // catch{
-        //     setTimeout(findPartner,2000)
-        // }
     }
     const getPicture = async (data) => {
-        // try{
         if (!data) return;
         var temp = [];
         for (let i = 0; i < data.length; i++) {
@@ -61,20 +59,16 @@ const Discovery = (props) => {
             temp.push(form);
         }
         setimages(temp);
-        setuserOther(data);
-        // }
-        // catch{
-        //     setTimeout(getPicture,2000)
-        // }
     }
     useEffect(() => {
-        if (user) {
-            if (user.data.role == 0)
-                history.push('/management')
+        if (!user) return;
+        if (user.data.role == 0)
+            history.push('/management')
+        else
             findPartner().then((data) => getPicture(data));
-        }
     }, [user, userOther.length == 0]);
     function removeUserOther() {
+        console.log(userOther);
         var cloneuserOther = [...userOther];
         var cloneimages = [...images];
         cloneuserOther.shift();
@@ -98,16 +92,16 @@ const Discovery = (props) => {
         e.preventDefault();
         if (userOther.length <= 0) return;
         try {
-            const data=await callApi({
+            const data = await callApi({
                 url: `http://localhost/replies/report`,
                 method: "post",
                 data: {
                     targetId: userOther[0]._id,
                     detail: report.detail,
-                    reason: 
-                        report.checkedA?"- Đăng hình ảnh không phù hợp.":""+
-                        report.checkedB?"- Sử dụng ngôn từ không phù hợp.":""+
-                        report.checkedC?"- Tạo tài khoản giả đăng thông tin sai sự thật.":""
+                    reason:
+                        report.checkedA ? "- Đăng hình ảnh không phù hợp." : "" +
+                            report.checkedB ? "- Sử dụng ngôn từ không phù hợp." : "" +
+                                report.checkedC ? "- Tạo tài khoản giả đăng thông tin sai sự thật." : ""
                 }
             })
             toast.success(data.message);
@@ -123,9 +117,17 @@ const Discovery = (props) => {
             toast.error(error.response.data.message);
         }
     }
+    function renderNone() {
+        return new Promise((resolve, reject) => {
+            setTimeout(() => {
+                resolve(!loading)
+            }, 500);
+        })
+    }
     function renderInfo() {
+        var rs = null;
         if (userOther.length > 0 && images.length > 0 && user) {
-            return (
+            rs = (
                 <div className="discovery--main">
                     <PictureView
                         pictures={images[0]}
@@ -140,10 +142,18 @@ const Discovery = (props) => {
             )
         }
         else {
-            return (
-                <NoneInfo></NoneInfo>
-            )
+            if (loading) {
+                rs = 
+                (<div className="none-contain">
+                    <img src={loadingGif} className="loading-gif"></img>
+                </div>);
+                renderNone().then(a => setLoading(a));
+            }
+            else {
+                rs = <NoneInfo></NoneInfo>
+            }
         }
+        return rs;
     }
     return (
         <div className="main">

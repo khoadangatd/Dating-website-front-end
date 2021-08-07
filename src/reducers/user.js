@@ -3,29 +3,27 @@ import * as types from '../constants/ActionTypes';
 var initialState = null;
 
 const reducer = (state = initialState, action) => {
+    let { _id, name, disable } = action;
     switch (action.type) {
         case types.LOGIN_USER:
             return { ...action.data };
-        case types.INTERACT_LIKED:
-            var { liked } = action;
+        case types.INTERACT_USER:
             return {
                 ...state,
                 data: {
                     ...state.data,
-                    liked: [...liked, liked]
+                    [name]: [...state.data[name], _id]
                 }
             };
-        case types.INTERACT_MATCHED:
-            var { match } = action;
+        case types.REMOVE_INTERACT:
+            let index = state.data[name].findIndex((id) => {
+                return id == _id;
+            })
+            state.data[name].split(index, 1);
             return {
                 ...state,
-                data: {
-                    ...state.data,
-                    match: [...match, match]
-                }
             };
-        case types.DISABLED_USER:
-            var { disable } = action;
+        case types.DISABLED_USER:   
             return {
                 ...state,
                 data: {

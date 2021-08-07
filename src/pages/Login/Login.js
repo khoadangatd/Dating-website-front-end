@@ -74,6 +74,7 @@ const Login = (props) => {
             toast.success(data.message);
             localStorage.setItem("accessToken", data.accessToken);
             localStorage.setItem("refreshToken", data.refreshToken);
+            dispatch(actions.FetchReceiveNotify());
             dispatch(actions.FetchLoginUser());
             setupSocket();
             history.push("/discovery");

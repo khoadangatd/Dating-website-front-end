@@ -1,17 +1,11 @@
 import React, { useEffect, useRef, useState } from 'react';
 import { useDispatch } from 'react-redux';
-import * as actions from  '../../actions'
+import * as actions from '../../actions'
 const PictureView = (props) => {
-    const { pictures, socket, removeUserOther, other,me,dialog } = props;
+    const { pictures, socket, removeUserOther, other, me, dialog } = props;
     const [view, setview] = useState(null);
     const dispatch = useDispatch();
-    console.log(pictures);
-    var i = 0;
-    if (pictures) {
-        i = pictures.data.findIndex(picture => picture.type === "main")
-    }
-    var index = useRef(i);
-    console.log(index.current);
+    var index = useRef(0);
     function changePicture(value) {
         if (!pictures) return;
         index.current += parseInt(value);
@@ -21,37 +15,51 @@ const PictureView = (props) => {
             index.current = pictures.data.length - 1;
         setview("http://localhost/images/" + pictures.data[index.current].src);
     }
-    function onHandleReport(){
+    function onHandleReport() {
+        if(!dialog) return;
         dialog();
     }
     useEffect(() => {
-        if(!pictures) return;
-        if (pictures.data.length > 0&&pictures) {
-            var pic = pictures.data.find(picture => picture.type === "main");
-            setview("http://localhost/images/" + pic.src);
-        }
-        else {
-            setview(null);
-        }
+        if (!pictures || pictures.data.length < 1) return;
+        // if (pictures.data.length > 0 && pictures) {
+        setview("http://localhost/images/" + pictures.data[index.current].src);
+        // }
+        // else {
+        //     setview(null);
+        // }
     }, [pictures])
     // Socket
     function handleInteract(data) {
-        if(socket){
-            if (data){
+        if (socket) {
+            if (data) {
                 socket.emit("like", {
-                    _idother:other._id,
-                    name:me.data.name,
-                    liked:me.data.liked
+                    _idother: other._id,
+                    name: me.data.name,
+                    liked: me.data.liked
                 });
+                dispatch(actions.interactUser(other._id, "like"))
             }
-            else{
-                socket.emit("unlike", other._id);
+            else {
+                socket.emit("unlike", {
+                    _idother: other._id,
+                });
+                dispatch(actions.interactUser(other._id, "unlike"))
             }
-            dispatch(actions.FetchLoginUser())
         }
     }
-    return pictures&&(
+    function renderVideo() {
+        var rs = null;
+        if (!view) return;
+        if (view.includes(".mp4")) {
+            rs = <video className="discovery__user--video" loop autoPlay key={`${view}`}>
+                <source src={`${view}`} type="video/mp4"></source>
+            </video>
+        }
+        return rs;
+    }
+    return pictures && (
         <div class="discovery__user--image" style={{ backgroundImage: `url("${view}"` }}>
+            {renderVideo()}
             {pictures.data.length > 1 ?
                 <button class="discovery__user--button discovery__user--button--left" onClick={() => changePicture(-1)}>
                     <i class="fas fa-chevron-left"></i>
@@ -61,6 +69,16 @@ const PictureView = (props) => {
                     <i class="fas fa-chevron-right"></i>
                 </button> : ""}
             <div class="discovery__user--button-main">
+                <div className="discovery__user--image--info--tablet-mobile">
+                    <div className="discovery__user--image--info--tablet-mobile__name">
+                        <h1 class="discovery__info--name" style={{ color: "#fff" }}>
+                            {other.name},{other.age} tuổi
+                        </h1>
+                        <p class="discovery__info--detail" style={{ color: "#fff" }}>
+                            {other.city}
+                        </p>
+                    </div>
+                </div>
                 <button class="discovery__user--button-main--detail btn-discovery-like"
                     onClick={() => {
                         handleInteract(true);

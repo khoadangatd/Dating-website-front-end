@@ -34,11 +34,16 @@
     padding: 5px 10px;
 }
 
+.about-me-category--input--textarea{
+    width: 400px;
+}
+
 .about-me-btn--save-part-small {
     padding: 7px 12px;
     margin-left: 10px;
     border: none;
     border-radius: 5px;
+    margin-top: 5px;
 }
 
 .about-me-btn--save-part-small--contain{
@@ -72,4 +77,8 @@
 
 .about-me-category--submit--btn:hover{
     background: linear-gradient(262deg, var(--color--primary), #1d2b77);
+}
+
+.about-me-category--child--title{
+    width: 90px;
 }

@@ -4,9 +4,10 @@ import { toast } from 'react-toastify';
 import callApi from '../../helper/axiosClient';
 import ScrollToBottom from 'react-scroll-to-bottom';
 import Picker, { SKIN_TONE_MEDIUM_DARK } from "emoji-picker-react";
+import { Link } from 'react-router-dom';
 
 const MainChat = (props) => {
-    const { matcher, user, socket, idcon } = props;
+    const { matcher, user, socket, idcon, sendMessage } = props;
     const online = useSelector(state => state.online);
     const [text, settext] = useState('');
     const [messages, setmessages] = useState([]);
@@ -21,7 +22,7 @@ const MainChat = (props) => {
             return false;
         }
     }
-
+    console.log(matcher);
     function onHandleChange(e) {
         settext(e.target.value);
     }
@@ -41,7 +42,8 @@ const MainChat = (props) => {
     useEffect(() => {
         if (!socket) return;
         socket.on("getMessage", (message) => {
-            console.log(123);
+            if (message.idconversation != idcon)
+                return;
             setmessages([...messages, message]);
         })
     }, [socket, messages])
@@ -54,18 +56,30 @@ const MainChat = (props) => {
         var rs = null;
         if (messages.length > 0) {
             rs = messages.map((message, index) => {
-                if (message.sender !== user.data._id)
+                if (message.sender === user.data._id)
                     return (
-                        <div className="messenger-content--main messenger-content--main--left" key={message._id}>
-                            <img src={user.data.avatar || user.data.avatarD} alt="avatar" className="messenger--user__item-avatar--img"></img>
-                            <div className="messenger-content--main--detail">{message.text}</div>
+                        <div className="messenger-content--main messenger-content--main--right" key={message._id}>
+                            <div className="messenger-content--main--detail messenger-content--main--detail--user">
+                                {message.text}
+                                <div className="messenger-content--main--detail--user__time">
+                                    {`${new Date(message.createdAt).getDate()}/${new Date(message.createdAt).getMonth()}/${new Date(message.createdAt).getFullYear()} 
+                                    ${new Date(message.createdAt).getUTCHours()}:${new Date(message.createdAt).getUTCMinutes()}`}
+                                </div>
+                            </div>
+                            {/* <div style={{ backgroundImage: `url("http://localhost/images/${user.data.avatar}")` }} className="sidebar--avatar"></div> */}
                         </div>
                     )
                 else
                     return (
-                        <div className="messenger-content--main messenger-content--main--right" key={message._id}>
-                            <div className="messenger-content--main--detail messenger-content--main--detail--user">{message.text}</div>
-                            <img src={matcher.avatar || matcher.avatarD} alt="avatar" className="messenger--user__item-avatar--img"></img>
+                        <div className="messenger-content--main messenger-content--main--left" key={message._id}>
+                            <div style={{ backgroundImage: `url("http://localhost/images/${matcher.avatar}")` }} className="messenger--user__item-avatar--img"></div>
+                            <div className="messenger-content--main--detail messenger-content--partner--detail--user">
+                                {message.text}
+                                <div className="messenger-content--partner--detail--user__time">
+                                    {`${new Date(message.createdAt).getDate()}/${new Date(message.createdAt).getMonth()}/${new Date(message.createdAt).getFullYear()} 
+                                    ${new Date(message.createdAt).getUTCHours()}:${new Date(message.createdAt).getUTCMinutes()}`}
+                                </div>
+                            </div>
                         </div>
                     )
             })
@@ -93,20 +107,32 @@ const MainChat = (props) => {
         else {
             toast.error("Có lỗi xảy ra");
         }
+        sendMessage({
+            idconversation: idcon,
+            text,
+            sender: user.data._id
+        });
     }
 
     return matcher && (
         <div className="messenger--right">
-            <div className="messenger--user__item">
-                <div className="messenger--user__item-avatar">
-                    <img src={matcher.avatarD || matcher.avatar} alt="avatar" className="messenger--user__item-avatar--img"></img>
-                    <div class={`messenger--user__item-avatar-circle ${handleOnline() ? "user__item-avatar-circle--online" : "user__item-avatar-circle--offline"}`}></div>
+            <Link to={`/profileOther?id=${matcher._id}`} className="messenger--user__item messenger--user__item--main-chat">
+                <div style={{ display: "flex" }}>
+                    <div className="messenger--user__item-avatar">
+                        <div style={{ backgroundImage: `url("http://localhost/images/${matcher.avatar}")` }} className="messenger--user__item-avatar--img"></div>
+                        <div class={`messenger--user__item-avatar-circle ${handleOnline() ? "user__item-avatar-circle--online" : "user__item-avatar-circle--offline"}`}></div>
+                    </div>
+                    <div className="messenger--user__item__detail">
+                        <p className="messenger--user__item__detail--name">{matcher.name}</p>
+                        <p className="messenger--user__item__detail--content">{!handleOnline() ? "Không hoạt động" : "Đang hoạt động"}</p>
+                    </div>
                 </div>
-                <div className="messenger--user__item__detail">
-                    <p className="messenger--user__item__detail--name">{matcher.name}</p>
-                    <p className="messenger--user__item__detail--content">{!handleOnline() ? "Không hoạt động":"Đang hoạt động"}</p>
+                <div>
+                    <Link to="/messenger" className="messenger-mobile-turn-back">
+                        <i class="fas fa-undo"></i>
+                    </Link>
                 </div>
-            </div>
+            </Link>
             <ScrollToBottom initialScrollBehavior="auto" className="messenger-content">
                 {renderMessage()}
             </ScrollToBottom>

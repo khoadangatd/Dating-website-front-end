@@ -12,13 +12,21 @@
     background-size: cover;
 }
 
+.discovery__user--video{
+    position: absolute;
+    top:0;
+    left:0;
+    width: 100%;
+    height: 100%;
+}
+
 .discovery__info{
     padding:20px;
     width: 45%;
 }
 
 .discovery__info--name{
-    font-weight: 400;
+    font-weight: 500;
 }
 
 .discovery__info--detail{
@@ -108,5 +116,65 @@
 .discovery__user--button--report i{
     color:white;
 }
+
+.discovery__user--image--info--tablet-mobile{
+    display: none;
+}
+
+/* None info */
+.none-contain{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 100%;
+}
+
+.none{
+    text-align: center;
+}
+
+.none-main-content{
+    font-weight: 500;
+    font-size: 30px;
+}
+
+.none-main-content--main-chat{
+    margin:0 80px;
+}
+
+.none-sub-content{
+    font-size:20px;
+    margin-bottom: 20px;
+}
+
+.none-image{
+    width: 350px;
+}
+
+.none-sub-button-contain{
+    margin:10px 0;
+}
+
+.none-sub-button{
+    border: none;
+    padding:15px 25px;
+    cursor: pointer;
+    background-color: var(--color--primary);
+    color:white;
+    border-radius: 10px;
+    display: inline-block;
+    font-size: 18px;
+}
+
+.none-sub-button:hover{
+    background-color: rgb(32, 104, 187);
+}
+
+.none-contain--messenger{
+    margin-left:10px;
+    padding-left:10px;
+    border-left: 1px solid #797f87;
+}
+
 
 

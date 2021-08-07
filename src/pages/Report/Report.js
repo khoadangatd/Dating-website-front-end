@@ -4,8 +4,21 @@ import { useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
 import { toast } from 'react-toastify';
 
+import { makeStyles } from '@material-ui/core/styles';
+import SearchIcon from '@material-ui/icons/Search';
+import Input from '@material-ui/core/Input';
+import InputLabel from '@material-ui/core/InputLabel';
+import InputAdornment from '@material-ui/core/InputAdornment';
+import FormControl from '@material-ui/core/FormControl';
+
+const useStyles = makeStyles((theme) => ({
+    margin: {
+        margin: theme.spacing(1),
+    },
+}));
+
 const ItemReport = (props) => {
-    const { _id,detail, createdAt, reason, target, user } = props.report;
+    const { _id, detail, createdAt, reason, target, user } = props.report;
     const { stt } = props;
     async function handleClickWarning() {
         try {
@@ -31,7 +44,7 @@ const ItemReport = (props) => {
                 url: `http://localhost/replies/`,
                 method: `delete`,
                 data: {
-                    _id:_id
+                    _id: _id
                 }
             })
             toast.success(data.message);
@@ -48,8 +61,7 @@ const ItemReport = (props) => {
             <td>
                 <Link to={`/profileOther?id=${target._id}`}>
                     <div className="manage--users-item__name">
-                        <div className="manage--users-item__name--image">
-                            <img class="manage--users-item__name--image__main" src={target.avatar} alt="Avatar" />
+                        <div className="manage--users-item__name--image" style={{ backgroundImage: `url("http://localhost/images/${target.avatar}"` }}>
                         </div>
                         <div class="manage--users-item__name--detail">
                             <div class="manage--users-item__name--detail--main">
@@ -62,8 +74,7 @@ const ItemReport = (props) => {
             <td class="manage--users-item">
                 <Link to={`/profileOther?id=${user._id}`}>
                     <div className="manage--users-item__name">
-                        <div className="manage--users-item__name--image">
-                            <img class="manage--users-item__name--image__main" src={user.avatar} alt="Avatar" />
+                        <div className="manage--users-item__name--image" style={{ backgroundImage: `url("http://localhost/images/${user.avatar}"` }}>
                         </div>
                         <div class="manage--users-item__name--detail">
                             <div class="manage--users-item__name--detail--main">
@@ -92,36 +103,54 @@ const ItemReport = (props) => {
 }
 
 const Report = () => {
+    const classes = useStyles();
     const [report, setReport] = useState(null);
-    const user = useSelector(state => state.user);
-    const [rerender,setRerender]=useState(false);
+    const [viewReport, setViewReport] = useState(null);
+    const [rerender, setRerender] = useState(false);
+    const [find, setFind] = useState('');
+
     const getReport = async () => {
         try {
             const data = await callApi({
                 url: `http://localhost/replies/report`,
                 method: `GET`,
             })
-            console.log(data);
             setReport(data.data);
+            setViewReport(data.data);
         }
         catch (err) {
             // setTimeout(getReport, 3000);
         }
     }
+
     useEffect(() => {
         getReport();
     }, [rerender])
-    function ClickDelete(){
+
+    function ClickDelete() {
         setRerender(!rerender);
     }
+
     function renderReport() {
         var rs = null;
-        rs = report.map((report, index) => {
+        if (!viewReport) return;
+        rs = viewReport.map((report, index) => {
             return (
                 <ItemReport report={report} key={index} stt={index} delete={ClickDelete}></ItemReport>
             )
         })
         return rs;
+    }
+
+    function onHandleChange(e) {
+        setFind(e.target.value);
+        var filterUser = null
+        filterUser = report.filter((rchild, index) => {
+            return rchild.user.name.toLowerCase().indexOf(e.target.value.toLowerCase()) !== -1;
+        })
+        setViewReport([
+            ...filterUser
+        ]);
     }
     return report && (
         <div className="main-manage">
@@ -133,9 +162,19 @@ const Report = () => {
                                 <i class="fas fa-people-arrows"></i>
                                 NGƯỜI DÙNG TỐ CÁO
                             </div>
-                            <div>
-
-                            </div>
+                            <FormControl className={classes.margin} >
+                                <InputLabel htmlFor="input-with-icon-adornment">Tìm kiếm</InputLabel>
+                                <Input
+                                    id="input-with-icon-adornment"
+                                    value={find}
+                                    onChange={onHandleChange}
+                                    startAdornment={
+                                        <InputAdornment position='end'>
+                                            <SearchIcon type="submit" />
+                                        </InputAdornment>
+                                    }
+                                />
+                            </FormControl>
                         </div>
                         <table className="manage__item--users">
                             <thead className="manage__item--overflow__fix">

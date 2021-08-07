@@ -39,8 +39,7 @@ const ItemUser = (props) => {
             <td class="manage--users-item">#{stt}</td>
             <td>
                 <div className="manage--users-item__name">
-                    <div className="manage--users-item__name--image">
-                        <img class="manage--users-item__name--image__main" src={avatar} alt="Avatar" />
+                    <div className="manage--users-item__name--image" style={{ backgroundImage: `url("http://localhost/images/${avatar}"` }}>
                     </div>
                     <div class="manage--users-item__name--detail">
                         <div class="manage--users-item__name--detail--main">

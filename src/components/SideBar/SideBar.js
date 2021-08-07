@@ -19,7 +19,10 @@ const SideBar = (props) => {
     const { socket } = props;
     const [feedback, setFeedback] = useState("");
     const [open, setOpen] = useState(false);
-
+    const dispatch = useDispatch();
+    const user = useSelector(state => state.user);
+    const notify = useSelector(state => state.notify)
+    const history = useHistory();
     const handleClickOpen = () => {
         setOpen(true);
     };
@@ -27,6 +30,24 @@ const SideBar = (props) => {
     const handleClose = () => {
         setOpen(false);
     };
+    function handleCountNotify() {
+        if (!notify) return;
+        var count =
+            ((notify.liked || 0) && notify.liked.noti.quantity) +
+            ((notify.matched || 0) && notify.matched.noti.quantity) +
+            ((notify.messenger || 0) && notify.messenger.noti.quantity);
+        var pattern = /^\(\d+\)/;
+        if (count == 0) {
+            document.title = document.title.replace(pattern, "")
+            return;
+        }
+        if (pattern.test(document.title)) {
+            document.title = document.title.replace(pattern, "(" + count + ") ")
+        }
+        else {
+            document.title = "(" + count + ") " + document.title
+        }
+    }
     async function handleSubmitFeedBack(e) {
         e.preventDefault();
         try {
@@ -44,7 +65,7 @@ const SideBar = (props) => {
             toast.error(error.response.data.message);
         }
     }
-    function MenuLink({ label, to, activeOnlyWhenExact, icon }) {
+    function MenuLink({ label, to, activeOnlyWhenExact, icon, notify }) {
         let match = useRouteMatch({
             path: to,
             exact: activeOnlyWhenExact
@@ -53,22 +74,28 @@ const SideBar = (props) => {
             <Link to={to} className={`${!match ? "sidebar-category__item" : "sidebar-category__item--active"}`}>
                 <table>
                     <tbody>
-                        <tr>
-                            <td className="sidebar-category__item--td">
+                        <tr style={{position:"relative"}}>
+                            <td className="sidebar-category__item--td--icon">
                                 <i className={`${icon} sidebar-category__item--icon`}></i>
                             </td>
-                            <td>
+                            <td className="sidebar-category__item--td--label">
                                 <p className="sidebar-category__item--title">{label}</p>
                             </td>
+                            {notify ?
+                                <td className="sidebar-category__item--circle--contain">
+                                    <div className="sidebar-category__item--circle">
+                                        {notify}
+                                    </div>
+                                </td>
+                                :
+                                ""
+                            }
                         </tr>
                     </tbody>
                 </table>
             </Link>
         );
     }
-    const dispatch = useDispatch();
-    const user = useSelector(state => state.user);
-    const history = useHistory();
     function logOut() {
         if (socket)
             socket.disconnect();
@@ -84,7 +111,7 @@ const SideBar = (props) => {
                     <MenuLink label="Bảng điều khiển" to="/management" activeOnlyWhenExact={true} icon="fas fa-tachometer-alt"></MenuLink>
                     <MenuLink label="Người dùng" to="/management/users" activeOnlyWhenExact={true} icon="fas fa-users"></MenuLink>
                     <MenuLink label="Báo cáo" to="/management/report" activeOnlyWhenExact={true} icon="fas fa-flag"></MenuLink>
-                    <MenuLink label="Tiền HP" to="/management/credit" activeOnlyWhenExact={true} icon="fas fa-money-check"></MenuLink>
+                    <MenuLink label="Giao dịch" to="/management/credit" activeOnlyWhenExact={true} icon="fas fa-money-check"></MenuLink>
                     <MenuLink label="Phản hồi" to="/management/feedback" activeOnlyWhenExact={true} icon="fas fa-comment-alt"></MenuLink>
                 </Fragment>)
         }
@@ -93,18 +120,18 @@ const SideBar = (props) => {
                 <Fragment>
                     <MenuLink label="Hồ sơ" to="/profile" activeOnlyWhenExact={true} icon="fas fa-user"></MenuLink>
                     <MenuLink label="Khám phá" to="/discovery" activeOnlyWhenExact={true} icon="fas fa-search-location"></MenuLink>
-                    <MenuLink label="Tin nhắn" to="/messenger" activeOnlyWhenExact={true} icon="fas fa-comments"></MenuLink>
-                    <MenuLink label="Kết đôi" to="/loved" activeOnlyWhenExact={true} icon="fas fa-heart"></MenuLink>
-                    <MenuLink label="Đã thích bạn" to="/liked" activeOnlyWhenExact={true} icon="far fa-heart"></MenuLink>
+                    <MenuLink label="Tin nhắn" to="/messenger" activeOnlyWhenExact={true} icon="fas fa-comments" notify={notify.messenger ? notify.messenger.noti.quantity : null}></MenuLink>
+                    <MenuLink label="Kết đôi" to="/loved" activeOnlyWhenExact={true} icon="fas fa-heart" notify={notify.matched ? notify.matched.noti.quantity : null}></MenuLink>
+                    <MenuLink label="Đã thích bạn" to="/liked" activeOnlyWhenExact={true} icon="far fa-heart" notify={notify.liked ? notify.liked.noti.quantity : null}></MenuLink>
                     <MenuLink label="Nâng cấp" to="/upgrade" activeOnlyWhenExact={true} icon="fas fa-crown"></MenuLink>
                     <li className="sidebar-category__item" onClick={handleClickOpen}>
                         <table>
                             <tbody>
                                 <tr>
-                                    <td className="sidebar-category__item--td">
+                                    <td className="sidebar-category__item--td--icon">
                                         <i className={`fas fa-comment-alt sidebar-category__item--icon`}></i>
                                     </td>
-                                    <td>
+                                    <td className="sidebar-category__item--td--label">
                                         <p className="sidebar-category__item--title">Phản hồi</p>
                                     </td>
                                 </tr>
@@ -114,13 +141,16 @@ const SideBar = (props) => {
                 </Fragment>)
         }
     }
-    return user && (
+    useEffect(() => {
+        handleCountNotify();
+    }, [notify])
+    return user && notify && (
         <div className="sidebar">
             <img src={logo} alt="logo" className="sidebar-logo"></img>
             <h1 className="sidebar-logo--des">HAPE</h1>
             <div className="sidebar__intro">
-                <img src={user.data.avatar} alt="avatar" className="sidebar--avatar"></img>
-                <p>{user.data.name}</p>
+                <Link to="/profile" style={{ backgroundImage: `url("http://localhost/images/${user.data.avatar}")` }} className="sidebar--avatar"></Link>
+                <p className="sidebar__intro__name">{user.data.name}</p>
             </div>
             <div className="sidebar-credit--contain">
                 <p className="sidebar-credit">
@@ -135,10 +165,10 @@ const SideBar = (props) => {
                     <table>
                         <tbody>
                             <tr>
-                                <td className="sidebar-category__item--td">
+                                <td className="sidebar-category__item--td--icon">
                                     <i className={`fas fa-sign-out-alt sidebar-category__item--icon`}></i>
                                 </td>
-                                <td>
+                                <td className="sidebar-category__item--td--label">
                                     <p className="sidebar-category__item--title">Đăng xuất</p>
                                 </td>
                             </tr>

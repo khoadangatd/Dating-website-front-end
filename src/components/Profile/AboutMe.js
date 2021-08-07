@@ -10,7 +10,7 @@ import * as actions from '../../actions';
 
 const AboutMe = (props) => {
     const { user } = props;
-    const dispatch=useDispatch();
+    const dispatch = useDispatch();
     const [edit, setEdit] = useState({
         job: false,
         city: false,
@@ -18,7 +18,7 @@ const AboutMe = (props) => {
         about: false,
     })
     const [form, setform] = useState({
-        aboutme:user.data.aboutme,
+        aboutme: user.data.aboutme,
         job: user.data.job,
         target: user.data.target,
         gender: user.data.gender,
@@ -38,7 +38,7 @@ const AboutMe = (props) => {
 
     function onHandleInput(e, input, value, change) {
         e.stopPropagation();
-        if(window.location.pathname!=="/profile")
+        if (window.location.pathname !== "/profile")
             return;
         setEdit({
             ...edit,
@@ -78,7 +78,7 @@ const AboutMe = (props) => {
     }
     return (
         <div className="about-me">
-            <div className={window.location.pathname==="/profile"?"about-me-category":""} onClick={(e) => onHandleInput(e, "job", true)}>
+            <div className={window.location.pathname === "/profile" ? "about-me-category" : ""} onClick={(e) => onHandleInput(e, "job", true)}>
                 <h3 className="about-me-category--title">Công việc & học vấn<i class="far fa-edit about-me-category--edit"></i></h3>
                 {!edit.job ?
                     <p>{form.job || "Hãy cho mọi người biết thêm về bạn bằng cách điền thông tin về công việc và học vấn"}</p>
@@ -89,7 +89,7 @@ const AboutMe = (props) => {
                     </div>
                 }
             </div>
-            <div className={window.location.pathname==="/profile"?"about-me-category":""} onClick={(e) => onHandleInput(e, "city", true)}>
+            <div className={window.location.pathname === "/profile" ? "about-me-category" : ""} onClick={(e) => onHandleInput(e, "city", true)}>
                 <h3 className="about-me-category--title">Vị trí<i class="far fa-edit about-me-category--edit"></i></h3>
                 {!edit.city ?
                     <p>{form.city || "Hãy cho vị trí của bạn"}</p>
@@ -102,18 +102,27 @@ const AboutMe = (props) => {
                     </div>
                 }
             </div>
-            <div className={window.location.pathname==="/profile"?"about-me-category":""} onClick={(e) => onHandleInput(e, "target", true)}>
+            <div className={window.location.pathname === "/profile" ? "about-me-category" : ""} onClick={(e) => onHandleInput(e, "target", true)}>
                 <h3 className="about-me-category--title">Tôi ở đây để <i class="far fa-edit about-me-category--edit"></i></h3>
                 {!edit.target ?
                     <p>{form.target || "Hãy cho mọi người câu trả lời chính xác từ bạn"}</p>
-                    : <div>
-                        <input type="text" className="about-me-category--input" name="target" onChange={onHandleChange} value={form.target || ""}></input>
+                    :
+                    <div>
+                        <select className="about-me-category--input" name="target" onChange={onHandleChange} value={form.target} required>
+                            <option value="Tìm người trò chuyện">Tìm người trò chuyện</option>
+                            <option value="Chat và gặp gỡ người mới">Chat và gặp gỡ người mới</option>
+                            <option value="Tìm mối quan hệ lâu dài">Tìm mối quan hệ lâu dài</option>
+                            <option value="Hẹn hò">Hẹn hò</option>
+                            <option value="Hẹn hò nghiêm túc">Hẹn hò nghiêm túc</option>
+                            <option value="Xem điều gì xảy ra">Xem điều gì xảy ra</option>
+                        </select>
+                        {/* <input type="text" className="about-me-category--input" name="target" onChange={onHandleChange} value={form.target || ""}></input> */}
                         <button className="about-me-btn--save-part-small about-me-btn--save-part-small--save" onClick={(e) => onHandleInput(e, "target", false, true)}>Lưu</button>
                         <button className="about-me-btn--save-part-small" onClick={(e) => onHandleInput(e, "target", false, false)}>Hủy</button>
                     </div>
                 }
             </div>
-            <div className={window.location.pathname==="/profile"?"about-me-category":""} onClick={(e) => onHandleInput(e, "about", true)}>
+            <div className={window.location.pathname === "/profile" ? "about-me-category" : ""} onClick={(e) => onHandleInput(e, "about", true)}>
                 <h3 className="about-me-category--title">Thông tin cá nhân <i class="far fa-edit about-me-category--edit"></i></h3>
                 <table className="about-me-category--child">
                     <tr className="about-me-category--child--tr">
@@ -122,8 +131,8 @@ const AboutMe = (props) => {
                         </th>
                         <td>
                             {!edit.about ?
-                                <p className="about-me-category--child--title">{form.aboutme || "Hãy mô tả về bản thân bạn"}</p> :
-                                <textarea type="text" rows = "4" cols="50" className="about-me-category--input" name="aboutme" onChange={onHandleChange} value={form.aboutme} placeholder="Hãy viết gì đó chân thật nhất về bản thân bạn"></textarea>
+                                <p className="about-me-category--child--title__content">{form.aboutme || "Hãy mô tả về bản thân bạn"}</p> :
+                                <textarea type="text" rows="4" className="about-me-category--input about-me-category--input--textarea" name="aboutme" onChange={onHandleChange} value={form.aboutme} placeholder="Hãy viết gì đó chân thật nhất về bản thân bạn"></textarea>
                             }
                         </td>
                     </tr>
@@ -133,7 +142,7 @@ const AboutMe = (props) => {
                         </th>
                         <td>
                             {!edit.about ?
-                                <p className="about-me-category--child--title">{form.marriage || "Chưa xác định"}</p> :
+                                <p className="about-me-category--child--title__content">{form.marriage || "Chưa xác định"}</p> :
                                 <input type="text" className="about-me-category--input" name="marriage" onChange={onHandleChange} value={form.marriage} placeholder="Chưa xác định"></input>
                             }
                         </td>
@@ -144,7 +153,7 @@ const AboutMe = (props) => {
                         </th>
                         <td>
                             {!edit.about ?
-                                <p className="about-me-category--child--title">{form.gender || "Chưa xác định"}</p> :
+                                <p className="about-me-category--child--title__content">{form.gender || "Chưa xác định"}</p> :
                                 <select className="about-me-category--input" name="gender" onChange={onHandleChange} value={form.gender} required>
                                     <option value="Nam">Nam</option>
                                     <option value="Nữ">Nữ</option>
@@ -158,7 +167,7 @@ const AboutMe = (props) => {
                         </th>
                         <td>
                             {!edit.about ?
-                                <p className="about-me-category--child--title">{form.height || "Chưa xác định"}</p> :
+                                <p className="about-me-category--child--title__content">{form.height || "Chưa xác định"}</p> :
                                 <input type="text" className="about-me-category--input" name="height" onChange={onHandleChange} value={form.height} placeholder="Chưa xác định"></input>
                             }
                         </td>
@@ -169,8 +178,13 @@ const AboutMe = (props) => {
                         </th>
                         <td>
                             {!edit.about ?
-                                <p className="about-me-category--child--title">{form.smoking || "Chưa xác định"}</p> :
-                                <input type="text" className="about-me-category--input" name="smoking" onChange={onHandleChange} value={form.smoking} placeholder="Chưa xác định"></input>
+                                <p className="about-me-category--child--title__content">{form.smoking || "Chưa xác định"}</p> :
+                                <select className="about-me-category--input" name="smoking" onChange={onHandleChange} value={form.smoking} required>
+                                    <option value="" disabled selected>--Hút thuốc--</option>
+                                    <option value="Không">Không </option>
+                                    <option value="Thỉnh thoảng">Thỉnh thoảng</option>
+                                    <option value="Thường xuyên">Thường xuyên</option>
+                                </select>
                             }
                         </td>
                     </tr>
@@ -180,8 +194,13 @@ const AboutMe = (props) => {
                         </th>
                         <td>
                             {!edit.about ?
-                                <p className="about-me-category--child--title">{form.liquor || "Chưa xác định"}</p> :
-                                <input type="text" className="about-me-category--input" name="liquor" onChange={onHandleChange} value={form.liquor} placeholder="Chưa xác định"></input>
+                                <p className="about-me-category--child--title__content">{form.liquor || "Chưa xác định"}</p> :
+                                <select className="about-me-category--input" name="liquor" onChange={onHandleChange} value={form.liquor} required>
+                                    <option value="" disabled selected>--Rượu bia--</option>
+                                    <option value="Không">Không </option>
+                                    <option value="Thỉnh thoảng">Thỉnh thoảng</option>
+                                    <option value="Thường xuyên">Thường xuyên</option>
+                                </select>
                             }
                         </td>
                     </tr>
@@ -193,12 +212,12 @@ const AboutMe = (props) => {
                     </div>
                 }
             </div>
-            {window.location.pathname==="/profile"
-            ?
-            <div className="about-me-category--submit">
-                <button className="about-me-category--submit--btn" onClick={onSubmitEdit}>Cập nhật</button>
-            </div>
-            :""
+            {window.location.pathname === "/profile"
+                ?
+                <div className="about-me-category--submit">
+                    <button className="about-me-category--submit--btn" onClick={onSubmitEdit}>Cập nhật</button>
+                </div>
+                : ""
             }
             <img src={gif} alt="gif" className="about-me--gif"></img>
         </div>

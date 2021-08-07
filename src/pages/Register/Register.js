@@ -9,15 +9,14 @@ import citys from '../../helper/City';
 
 const Register = () => {
     const [form, setform] = useState({
-        firstname: null,
-        lastname: null,
+        name:'',
         gender: "Nam",
-        age: null,
-        email: null,
-        phone: null,
-        city: null,
-        password: null,
-        repassword: null,
+        age: '',
+        email: '',
+        phone: '',
+        city: '',
+        password: '',
+        repassword: '',
     });
     let history = useHistory();
     const [dispass, setdispass] = useState(false);
@@ -53,7 +52,7 @@ const Register = () => {
                     method: "post",
                     data: {
                         email: form.email,
-                        name: `${form.lastname}\xa0${form.firstname}`,
+                        name: form.name,
                         gender: form.gender,
                         age: form.age,
                         phone: form.phone,
@@ -87,12 +86,11 @@ const Register = () => {
                         alt="" class="register-main-form--logo" />
                     <h1 class="register-main-form--title">Tạo tài khoản HAPE</h1>
                     <div class="register-form">
-                        <input type="text" class="register-main-form--input form--input--half" name="lastname" placeholder="Họ" onChange={onChangeForm} value={form.lastname} required />
-                        <input type="text" class="register-main-form--input form--input--half" name="firstname" placeholder="Tên" onChange={onChangeForm} value={form.firstname} required />
+                        <input type="text" class="register-main-form--input" name="name" placeholder="Họ và tên" onChange={onChangeForm} value={form.lastname} required />
                     </div>
                     <div class="register-form--render">
                         <div class="form--input--age">
-                            <input type="text" class="register-main-form--input" name="age" value={form.age} onChange={onChangeForm} placeholder="Tuổi" required></input>
+                            <input type="number" class="register-main-form--input" name="age" value={form.age} onChange={onChangeForm} placeholder="Tuổi" required></input>
                         </div>
                         <div class="register-form--render--main">
                             <div class="form--input--render--detail">

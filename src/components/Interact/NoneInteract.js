@@ -1,20 +1,20 @@
 import React from 'react';
-import lamp from '../../assets/img/lamp.jpg'
+import heartBlue from '../../assets/img/heartbluee.gif'
 
-const NoneInfo = () => {
+const NoneInteract = () => {
     return (
         <div className="none-contain">
             <div className="none">
                 <p className="none-main-content">
-                    Không tìm thấy người phù hợp.
+                    Hãy tích cực tìm kiếm để tìm ra người ấy
                 </p>
                 <p className="none-sub-content">
-                    Hãy lựa chọn lại tiêu chí của bạn!
+                    Khám phá ngay!
                 </p>
-                <img src={lamp} className="none-image"></img>
+                <img src={heartBlue} className="none-image"></img>
             </div>
         </div>
     );
 };
 
-export default NoneInfo;
+export default NoneInteract;

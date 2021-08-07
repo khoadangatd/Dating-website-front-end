@@ -2,7 +2,6 @@ import React from 'react';
 
 const Info = (props) => {
     const {user}=props;
-    console.log(user);
     return (
         <div className="discovery__info">
             <h1 class="discovery__info--name">{user.name},{user.age} tuổi</h1>

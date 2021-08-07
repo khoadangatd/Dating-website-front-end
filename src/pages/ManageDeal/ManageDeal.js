@@ -1,9 +1,6 @@
-import React, { useEffect, useState } from 'react';
-import callApi from '../../helper/axiosClient';
-import { useSelector } from 'react-redux';
+import React, { useEffect, useRef, useState } from 'react';
 import { Link } from 'react-router-dom';
-import { toast } from 'react-toastify';
-
+import callApi from '../../helper/axiosClient';
 import { makeStyles } from '@material-ui/core/styles';
 import SearchIcon from '@material-ui/icons/Search';
 import Input from '@material-ui/core/Input';
@@ -17,8 +14,8 @@ const useStyles = makeStyles((theme) => ({
     },
 }));
 
-const ItemFeedback = (props) => {
-    const {user,createdAt,mess}=props.feedback;
+const ItemDeal = (props) => {
+    const { updatedAt, mess, money, status, user } = props.deal;
     const { stt } = props;
     return (
         <tr>
@@ -26,7 +23,7 @@ const ItemFeedback = (props) => {
             <td>
                 <Link to={`/profileOther?id=${user._id}`}>
                     <div className="manage--users-item__name">
-                        <div className="manage--users-item__name--image" style={{backgroundImage:`url("http://localhost/images/${user.avatar}"`}}>
+                        <div className="manage--users-item__name--image" style={{ backgroundImage: `url("http://localhost/images/${user.avatar}"` }}>
                         </div>
                         <div class="manage--users-item__name--detail">
                             <div class="manage--users-item__name--detail--main">
@@ -37,70 +34,74 @@ const ItemFeedback = (props) => {
                 </Link>
             </td>
             <td class="manage--users-item">
-               {mess}
+                {mess}
             </td>
             <td class="manage--users-item">
-                {createdAt}
+                {status ? "Thành công" : "Chưa thực hiện gd"}
+            </td>
+            <td class="manage--users-item">
+                {money} VND
+            </td>
+            <td class="manage--users-item">
+                {updatedAt}
             </td>
         </tr>
     )
 }
-
-const Feedback = () => {
+const ManageDeal = () => {
     const classes = useStyles();
-    const [feedback, setFeedback] = useState(null);
-    const [viewFeedback, setViewFeedback] = useState(null);
+    const [deal, setDeal] = useState(null);
+    const [viewDeal, setViewDeal] = useState(null);
     const [find, setFind] = useState('');
-    const getFeedback = async () => {
+    const getDeal = async () => {
         try {
             const data = await callApi({
-                url: `http://localhost/replies/feedback`,
+                url: `http://localhost/deals/`,
                 method: `GET`,
             })
-            console.log(data);
-            setFeedback(data.data);
-            setViewFeedback(data.data);
+            setDeal(data.data);
+            setViewDeal(data.data);
         }
         catch (err) {
-            // setTimeout(getReport, 3000);
+            // setTimeout(getDeal, 3000);
         }
     }
-    
+
     useEffect(() => {
-        getFeedback();
+        getDeal();
     }, [])
 
-    function renderFeedback() {
+    function renderDeal() {
         var rs = null;
-        if(!viewFeedback) return
-        rs = viewFeedback.map((feedback, index) => {
+        if (!viewDeal) return;
+        console.log(viewDeal);
+        rs = viewDeal.map((deal, index) => {
             return (
-                <ItemFeedback feedback={feedback} key={index} stt={index}></ItemFeedback>
+                <ItemDeal deal={deal} key={index} stt={index}></ItemDeal>
             )
         })
         return rs;
     }
-
     function onHandleChange(e) {
         setFind(e.target.value);
         var filterUser = null
-        filterUser = feedback.filter((fchild, index) => {
-            return fchild.user.name.toLowerCase().indexOf(e.target.value.toLowerCase()) !== -1;
+        filterUser = deal.filter((dchild, index) => {
+            return dchild.user.name.toLowerCase().indexOf(e.target.value.toLowerCase()) !== -1;
         })
-        setViewFeedback([
+        console.log(filterUser);
+        setViewDeal([
             ...filterUser
         ]);
     }
-
-    return feedback && (
+    return (
         <div className="main-manage">
             <div className="manage row">
                 <div className="col-lg-12">
                     <div className="manage__item  manage__item--overflow">
                         <div className="manage__item--head">
                             <div className="manage__item--head--title">
-                                <i class="fas fa-people-arrows"></i>
-                                NGƯỜI DÙNG PHẢN HỒI
+                                <i class="fas fa-hands-helping"></i>
+                                LỊCH SỬ GIAO DỊCH
                             </div>
                             <FormControl className={classes.margin} >
                                 <InputLabel htmlFor="input-with-icon-adornment">Tìm kiếm</InputLabel>
@@ -120,20 +121,23 @@ const Feedback = () => {
                             <thead className="manage__item--overflow__fix">
                                 <tr>
                                     <th>#</th>
-                                    <th style={{ textAlign: "start" }}>Người dùng</th>
-                                    <th>Phản hồi</th>
-                                    <th>Thời gian</th>
+                                    <th style={{ textAlign: "start" }}>Người giao dịch</th>
+                                    <th>Nội dung</th>
+                                    <th>Thực hiện</th>
+                                    <th>Số tiền</th>
+                                    <th>Ngày thực hiện</th>
                                 </tr>
                             </thead>
                             <tbody>
-                                {renderFeedback()}
+                                {renderDeal()}
                             </tbody>
                         </table>
                     </div>
                 </div>
             </div>
         </div>
-    );
-}
+    )
+};
 
-export default Feedback;
+
+export default ManageDeal;

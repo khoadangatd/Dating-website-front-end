@@ -11,6 +11,7 @@
 
 .interaction--item--contain{
     margin-bottom: 20px;
+    cursor: pointer;
 }
 
 .interaction--item:hover .interaction--item--detail--contain{
@@ -46,7 +47,7 @@
 
 .interaction--item--hover{
     background-color: white;
-    padding:10px 0;
+    height: 40px;
     display: flex;
     align-items: center;
     justify-content: center;
@@ -58,4 +59,24 @@
 .interaction--item--hover i{
     color:var(--color--primary);
 
+}
+
+.interaction--item--hover--liked{
+    height: 100%;
+    width: 100%;
+}
+
+.interaction--item--hover--liked__icon{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 100%;
+}
+
+.interaction--item--hover--liked__icon:hover{
+    background-color: #e0e7ea;
+}
+
+.interaction--item--hover--liked__icon:first-child{
+    border-right: 1px solid #c7bfbf;
 }

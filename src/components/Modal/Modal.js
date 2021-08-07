@@ -33,7 +33,7 @@ const Modal = (props) => {
         <div className="modal">
             <div className="modal-board">
                 <div className="modal-main">
-                    <PictureView pictures={pictures}></PictureView>
+                    <PictureView pictures={pictures} other={user.data} removeUserOther={()=>{}}></PictureView>
                     <Info user={user.data}></Info>
                 </div>
             </div>

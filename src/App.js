@@ -21,6 +21,9 @@ import ManageUser from './pages/ManageUser/ManageUser';
 import Report from './pages/Report/Report';
 import Feedback from './pages/Feedback/Feedback';
 import Upgrade from './pages/Upgrade/Upgrade';
+import callApi from './helper/axiosClient';
+import { useSelector } from 'react-redux';
+import ManageDeal from './pages/ManageDeal/ManageDeal';
 
 function App() {
     const [Ssocket, setSsocket] = useState(null);
@@ -29,26 +32,51 @@ function App() {
     useEffect(() => {
         setupSocket();
         dispatch(actions.FetchLoginUser());
-    },[]);// eslint-disable-line react-hooks/exhaustive-deps
+        dispatch(actions.FetchReceiveNotify());
+    }, []);// eslint-disable-line react-hooks/exhaustive-deps
 
     useEffect(() => {
         if (Ssocket) {
-            Ssocket.on("matched", (data) => {
+            Ssocket.on("matched", async (data) => {
                 toast.success(data.message);
-                dispatch(actions.interactMatch(data.id))
+                dispatch(actions.interactUser(data.id, "match"))
+                if (window.location.pathname != "/loved") {
+                    await callApi({
+                        url: `http://localhost/replies/notify/matched`,
+                        method: `post`
+                    })
+                    dispatch(actions.addNotify('matched'));
+                }
             })
-            Ssocket.on("liked", (data) => {
+            Ssocket.on("liked", async (data) => {
                 toast.success(data.message);
-                dispatch(actions.interactLiked(data.id))
+                dispatch(actions.interactUser(data.id, "liked"))
+                if (window.location.pathname != "/liked") {
+                    await callApi({
+                        url: `http://localhost/replies/notify/liked`,
+                        method: `post`
+                    })
+                    dispatch(actions.addNotify('liked'));
+                }
             })
             Ssocket.on("online", (online) => {
                 dispatch(actions.onlineUser(online));
+            })
+            Ssocket.on("getMessage", async (message) => {
+                if (window.location.pathname != "/messenger") {
+                    await callApi({
+                        url: `http://localhost/replies/notify/messenger`,
+                        method: `post`
+                    })
+                    dispatch(actions.addNotify('messenger'));
+                }   
             })
         }
     }, [Ssocket])// eslint-disable-line react-hooks/exhaustive-deps
 
     const setupSocket = () => {
         const token = localStorage.getItem("refreshToken");
+        console.log('chay socket')
         if (token && !Ssocket) {
             const socket = io("http://localhost", {
                 query: {
@@ -57,7 +85,7 @@ function App() {
             });
             socket.on("disconnect", () => {
                 setSsocket(null);
-                setTimeout(setupSocket, 3000);
+                // setTimeout(setupSocket, 3000);
                 toast.error("Ngắt kết nối đến socket");
             })
             setSsocket(socket);
@@ -95,6 +123,7 @@ function App() {
                 <PrivateRoute path='/management' exact={true} component={Dashboard}></PrivateRoute>
                 <PrivateRoute path='/management/users' exact={true} component={ManageUser}></PrivateRoute>
                 <PrivateRoute path='/management/report' exact={true} component={Report}></PrivateRoute>
+                <PrivateRoute path='/management/credit' exact={true} component={ManageDeal}></PrivateRoute>
                 <PrivateRoute path='/management/feedback' exact={true} component={Feedback}></PrivateRoute>
             </Switch>
             <ToastContainer />

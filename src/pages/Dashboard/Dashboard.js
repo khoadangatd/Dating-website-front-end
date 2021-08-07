@@ -145,13 +145,13 @@ const Dashboard = () => {
             history.push("/discovery");
         }
     }
-    function caculateUser(...registers) {
-        let sum = 0, rs = 0;
-        console.log(registers);
-        registers.forEach(register => {
-            sum += register;
-        })
-        return sum / registers.length;
+
+    function caculateUser(dataUser,registers1,registers2) {
+        console.log(dataUser);
+        // if(dataUser[dataUser.length - 1].month!=dataUser[dataUser.length-2].month+1){
+        //     return 0
+        // }
+        return ((registers1/registers2)-1)*100
     }
 
     useEffect(() => {
@@ -164,6 +164,7 @@ const Dashboard = () => {
             });
         return () => mounted = false;
     }, [years])
+
     return dataUser && (
         <div className="main-manage">
             <div className="manage row">
@@ -288,15 +289,15 @@ const Dashboard = () => {
                                     <span className="pl-1">
 
                                         {dataUser[0].ResbyMonth.length > 1 ?
-                                            caculateUser(dataUser[0].ResbyMonth[dataUser[0].ResbyMonth.length - 1].register,
+                                            caculateUser(dataUser[0].ResbyMonth,dataUser[0].ResbyMonth[dataUser[0].ResbyMonth.length - 1].register,
                                                 dataUser[0].ResbyMonth[dataUser[0].ResbyMonth.length - 2].register
                                             ) > 0 ?
                                                 [<i class="fas fa-arrow-up" key={1}></i>,
-                                                Math.abs(caculateUser(dataUser[0].ResbyMonth[dataUser[0].ResbyMonth.length - 1].register,
+                                                Math.abs(caculateUser(dataUser[0].ResbyMonth,dataUser[0].ResbyMonth[dataUser[0].ResbyMonth.length - 1].register,
                                                     dataUser[0].ResbyMonth[dataUser[0].ResbyMonth.length - 2].register
                                                 ))] :
                                                 [<i class="fas fa-arrow-down" key={1}></i>,
-                                                Math.abs(caculateUser(dataUser[0].ResbyMonth[dataUser[0].ResbyMonth.length - 1].register,
+                                                Math.abs(caculateUser(dataUser[0].ResbyMonth,dataUser[0].ResbyMonth[dataUser[0].ResbyMonth.length - 1].register,
                                                     dataUser[0].ResbyMonth[dataUser[0].ResbyMonth.length - 2].register
                                                 ))] : 0
                                         }
@@ -324,15 +325,15 @@ const Dashboard = () => {
                                 <div className="management--data-description">
                                     <span className="pl-1">
                                         {dataUser[1].UserPres.length > 1 ?
-                                            caculateUser(dataUser[1].UserPres[dataUser[1].UserPres.length - 1].registerPremium,
+                                            caculateUser(dataUser[1].UserPres,dataUser[1].UserPres[dataUser[1].UserPres.length - 1].registerPremium,
                                                 dataUser[1].UserPres[dataUser[1].UserPres.length - 2].registerPremium
                                             ) > 0 ?
                                                 [<i class="fas fa-arrow-up" key={1}></i>,
-                                                Math.abs(caculateUser(dataUser[1].UserPres[dataUser[1].UserPres.length - 1].registerPremium,
+                                                Math.abs(caculateUser(dataUser[1].UserPres,dataUser[1].UserPres[dataUser[1].UserPres.length - 1].registerPremium,
                                                     dataUser[1].UserPres[dataUser[1].UserPres.length - 2].registerPremium
                                                 ))] :
                                                 [<i class="fas fa-arrow-down" key={1}></i>,
-                                                Math.abs(caculateUser(dataUser[1].UserPres[dataUser[1].UserPres.length - 1].registerPremium,
+                                                Math.abs(caculateUser(dataUser[1].UserPres,dataUser[1].UserPres[dataUser[1].UserPres.length - 1].registerPremium,
                                                     dataUser[1].UserPres[dataUser[1].UserPres.length - 2].registerPremium
                                                 ))] : 0
                                         }
@@ -359,15 +360,15 @@ const Dashboard = () => {
                                 <div className="management--data-description">
                                     <span className="pl-1">
                                         {dataUser[1].UserFrees.length > 1 ?
-                                            caculateUser(dataUser[1].UserFrees[dataUser[1].UserFrees.length - 1].registerFree,
+                                            caculateUser(dataUser[1].UserFrees,dataUser[1].UserFrees[dataUser[1].UserFrees.length - 1].registerFree,
                                                 dataUser[1].UserFrees[dataUser[1].UserFrees.length - 2].registerFree
                                             ) > 0 ?
                                                 [<i class="fas fa-arrow-up" key={1}></i>,
-                                                Math.abs(caculateUser(dataUser[1].UserFrees[dataUser[1].UserFrees.length - 1].registerFree,
+                                                Math.abs(caculateUser(dataUser[1].UserFrees,dataUser[1].UserFrees[dataUser[1].UserFrees.length - 1].registerFree,
                                                     dataUser[1].UserFrees[dataUser[1].UserFrees.length - 2].registerFree
                                                 ))] :
                                                 [<i class="fas fa-arrow-down" key={1}></i>,
-                                                Math.abs(caculateUser(dataUser[1].UserFrees[dataUser[1].UserFrees.length - 1].registerFree,
+                                                Math.abs(caculateUser(dataUser[1].UserFrees,dataUser[1].UserFrees[dataUser[1].UserFrees.length - 1].registerFree,
                                                     dataUser[1].UserFrees[dataUser[1].UserFrees.length - 2].registerFree
                                                 ))] : 0
                                         }

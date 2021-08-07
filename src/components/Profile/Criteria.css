@@ -14,8 +14,6 @@
 }
 
 .criteria-main--part{
-    width: 50%;
-    margin:0 30px;
     position: relative;
 }
 
@@ -50,10 +48,11 @@
     margin: 6px 0;
 }
 
+.criteria--submit{
+    text-align: end;
+}
+
 .criteria--submit--btn{
-    position: absolute;
-    bottom: 0;
-    right:0;
     padding:8px 10px;
     /* background-color: var(--color--primary); */
     background: linear-gradient(262deg, #1d2b77, var(--color--primary));

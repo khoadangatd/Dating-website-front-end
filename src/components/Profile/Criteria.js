@@ -85,9 +85,9 @@ const Criteria = (props) => {
     }
     return (
         <div className="criteria">
-            <div className="criteria-main">
-                <div className="criteria-main--part">
-                    <h3 className="criteria--title">Cài đặt tìm kiếm của bạn</h3>
+            <div className="criteria-main row">
+                <div className="criteria-main--part col-lg-6">
+                    <h3 className="criteria--title">Cài đặt tìm kiếm</h3>
                     <Typography id="range-slider" gutterBottom>
                         <div className="criteria--age">
                             <p className="criteria--content">Độ tuổi</p>
@@ -113,7 +113,7 @@ const Criteria = (props) => {
                         <button className="criteria--submit--btn" onClick={onSubmitEditForm}>Lưu</button>
                     </div>
                 </div>
-                <div className="criteria-main--part">
+                <div className="criteria-main--part col-lg-6">
                     <img src={Heartblue} alt="heartblue" className="criteria--img"></img>
                 </div>
             </div>

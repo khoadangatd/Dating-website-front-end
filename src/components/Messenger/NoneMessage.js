@@ -1,20 +1,20 @@
 import React from 'react';
-import lamp from '../../assets/img/lamp.jpg'
+import message from '../../assets/img/none-message.png'
 
-const NoneInfo = () => {
+const NoneMessage = () => {
     return (
         <div className="none-contain">
             <div className="none">
                 <p className="none-main-content">
-                    Không tìm thấy người phù hợp.
+                    Hãy tích cực tìm kiếm để tìm ra người ấy
                 </p>
                 <p className="none-sub-content">
-                    Hãy lựa chọn lại tiêu chí của bạn!
+                    Khám phá ngay!
                 </p>
-                <img src={lamp} className="none-image"></img>
+                <img src={message} className="none-image"></img>
             </div>
         </div>
     );
 };
 
-export default NoneInfo;
+export default NoneMessage;

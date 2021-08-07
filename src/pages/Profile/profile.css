@@ -1,0 +1,17 @@
+.profile-update-avatar{
+    width: 200px;
+    height: 200px;
+    background: linear-gradient(262deg, var(--color--primary), #1d2b77);
+    cursor: pointer;
+    border-radius: 100%;
+    display: flex;
+    color:white;
+    align-items: center;
+    justify-content: center;
+}
+.profile-update-avatar--detail{
+    text-align: center;
+}
+.profile-update-avatar--detail i{
+    font-size: 40px;
+}

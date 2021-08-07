@@ -1,10 +1,11 @@
 import React, { useEffect, useState } from 'react';
 import callApi from '../../helper/axiosClient';
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import './upgrade.css';
 import message from '../../assets/img/message.png'
 import liked from '../../assets/img/liked.png'
 import present from '../../assets/img/present.jpg'
+import { FetchLoginUser } from '../../actions';
 
 import Button from '@material-ui/core/Button';
 import TextField from '@material-ui/core/TextField';
@@ -17,15 +18,12 @@ import { toast } from 'react-toastify';
 
 const Upgrade = () => {
     const user = useSelector(state => state.user);
-    const [open, setOpen] = useState(false);
+    const dispatch = useDispatch();
+    const [open, setOpen] = useState({
+        dialogCard: false,
+        dialogPre: false
+    });
     const [money, setMoney] = useState(0);
-    const handleClickOpen = () => {
-        setOpen(true);
-    };
-
-    const handleClose = () => {
-        setOpen(false);
-    };
 
     function onHandleChange(e) {
         setMoney(e.target.value);
@@ -35,19 +33,25 @@ const Upgrade = () => {
     function renderCredit() {
         // // Tìm tổng số trong credit vd như 800 sẽ có 3 số
         var rs = [];
-        // var temp = parseInt(user.data.credit);
-        // var temp1 = [];
-        // while (temp > 0) {
-        //     temp1.push(temp % 10);
-        //     temp = Math.floor(temp / 10);
-        // }
-        // for (let i = temp1.length-1; i >= 0; i++) {
-        //     rs.push(
-        //         <div class="upgrade--credits-header__counter__list__item" key={i}>
-        //             { temp1[i]}
-        //         </div>
-        //     )
-        // }
+        var temp = parseInt(user.data.credit);
+        if (temp == 0) {
+            rs = <div class="upgrade--credits-header__counter__list__item">
+                0
+            </div>
+            return rs;
+        }
+        var temp1 = [];
+        while (temp > 0) {
+            temp1.push(temp % 10);
+            temp = Math.floor(temp / 10);
+        }
+        for (let i = temp1.length - 1; i >= 0; i--) {
+            rs.push(
+                <div class="upgrade--credits-header__counter__list__item" key={i}>
+                    {temp1[i]}
+                </div>
+            )
+        }
         return rs;
     }
 
@@ -69,13 +73,17 @@ const Upgrade = () => {
     }
 
     async function handleUpgradeUser() {
-        await callApi({
-            url: ``,
-            method: `post`,
-            data: {
-
-            }
-        })
+        try {
+            const data = await callApi({
+                url: `http://localhost/deals/premium`,
+                method: `get`,
+            })
+            dispatch(FetchLoginUser())
+            toast.success(data.message)
+        }
+        catch (error) {
+            toast.error(error.response.data.message);
+        }
     }
 
     return user && (
@@ -105,25 +113,25 @@ const Upgrade = () => {
                         </div>
                     </div>
                     <div className="upgrade-button">
-                        <button className="upgrade-button__main" onClick={handleClickOpen}>
+                        <button className="upgrade-button__main" onClick={() => setOpen({ ...open, dialogCard: true })}>
                             Nạp ngay
                         </button>
                     </div>
                     <div className="upgrade-main">
                         <div className="row">
-                            <div className="col-lg-4 upgrade-main__item">
+                            <div className="col-lg-4 col-md-4 upgrade-main__item">
                                 <img src={message} className="upgrade-main--image"></img>
                                 <p>
                                     Bạn có thể gửi tin nhắn cho bất kì ai
                                 </p>
                             </div>
-                            <div className="col-lg-4 upgrade-main__item">
+                            <div className="col-lg-4 col-md-4 upgrade-main__item">
                                 <img src={liked} className="upgrade-main--image"></img>
                                 <p>
                                     Xem được những người đã thích bạn
                                 </p>
                             </div>
-                            <div className="col-lg-4 upgrade-main__item">
+                            <div className="col-lg-4 col-md-4 upgrade-main__item">
                                 <img src={present} className="upgrade-main--image"></img>
                                 <p>
                                     Tặng quà cho người nhắn tin
@@ -132,11 +140,11 @@ const Upgrade = () => {
                         </div>
                     </div>
                     <div className="upgrade-button">
-                        <button className="upgrade-button__main upgrade-button--premium" onClick={handleUpgradeUser}>
+                        <button className="upgrade-button__main upgrade-button--premium" onClick={() => setOpen({ ...open, dialogPre: true })}>
                             Nâng cấp tài khoản premium
                         </button>
                     </div>
-                    <Dialog open={open} onClose={handleClose} aria-labelledby="form-dialog-title">
+                    <Dialog open={open.dialogCard} onClose={() => { setOpen({ ...open, dialogCard: false }) }} aria-labelledby="form-dialog-title">
                         <DialogTitle id="form-dialog-title">Nạp HP</DialogTitle>
                         <DialogContent>
                             <DialogContentText>
@@ -180,11 +188,36 @@ const Upgrade = () => {
                             <p>Quy đổi thành HP: {money / 100}</p>
                         </DialogContent>
                         <DialogActions>
-                            <Button onClick={handleClose} color="primary">
+                            <Button onClick={() => { setOpen({ ...open, dialogCard: false }) }} color="primary">
                                 Hủy
                             </Button>
                             <Button onClick={handleBuyingHP} color="primary">
                                 Nạp ngay
+                            </Button>
+                        </DialogActions>
+                    </Dialog>
+                    <Dialog
+                        open={open.dialogPre}
+                        onClose={() => setOpen({ ...open, dialogPre: false })}
+                        aria-labelledby="alert-dialog-title"
+                        aria-describedby="alert-dialog-description"
+                    >
+                        <DialogTitle id="alert-dialog-title">Nâng cấp tài khoản Premium</DialogTitle>
+                        <DialogContent>
+                            <h2 className="LOGO_PREMIUM">
+                                HAPE PREMIUM
+                                <i class="fas fa-crown"></i>
+                            </h2>
+                            <DialogContentText id="alert-dialog-description">
+                                Bạn có chắc chắn muốn tiêu tốn 500HP để nâng cấp tài khoản trở thành Premium?
+                            </DialogContentText>
+                        </DialogContent>
+                        <DialogActions>
+                            <Button onClick={() => setOpen({ ...open, dialogPre: false })} color="primary" >
+                                Hủy
+                            </Button>
+                            <Button onClick={() => { handleUpgradeUser(); setOpen({ ...open, dialogPre: false }) }} color="primary" autoFocus>
+                                Đồng ý
                             </Button>
                         </DialogActions>
                     </Dialog>

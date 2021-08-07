@@ -47,6 +47,21 @@
     padding:4px;
 }
 
+.messenger--user__item--main-chat{
+    background-color: rgba(0,0,0,0.1);
+    border-radius: 10px;
+    justify-content: space-between;
+}
+
+.messenger-mobile-turn-back{
+    padding:20px;
+}
+
+.messenger-mobile-turn-back i{
+    color:black;
+    font-size: 20px;
+}
+
 .messenger--user__item:hover{
     background-color:#c5c9ce;
     cursor: pointer;
@@ -83,6 +98,9 @@
     height: 50px;
     width: 50px;
     border-radius: 100%;
+    background-color: white;
+    background-position: center;
+    background-size: cover;
 }
 
 .messenger--user__item__detail{
@@ -93,10 +111,16 @@
     font-size: 18px;
     font-weight: 500;
     margin-bottom: 2px;
+    color:#1f1d1d;
 }
 
 .messenger--user__item__detail--content{
     color:#797f87;
+    text-overflow: ellipsis;
+    overflow: hidden;
+    display: inline-block;
+    white-space: nowrap;
+    width: 150px;
 }
 
 .messenger--right{
@@ -133,8 +157,49 @@
 }
 
 .messenger-content--main--detail--user{
+    position: relative;
     background-color: var(--color--primary);
     color:white;
+}
+
+.messenger-content--main--detail--user:hover .messenger-content--main--detail--user__time{
+    display: flex;
+}
+
+.messenger-content--main--detail--user__time{
+    position: absolute;
+    top:0;
+    right:120%;
+    background-color: rgba(0,0,0,.4);
+    height: 100%;
+    border-radius: 10px;
+    padding:0 20px;
+    display: none;
+    align-items: center;
+    width: max-content;
+}
+
+.messenger-content--partner--detail--user{
+    position: relative;
+}
+
+.messenger-content--partner--detail--user:hover .messenger-content--partner--detail--user__time{
+    display: flex;
+}
+
+.messenger-content--partner--detail--user__time{
+    position: absolute;
+    top:0;
+    left:120%;
+    background-color: rgba(0,0,0,.4);
+    height: 100%;
+    border-radius: 10px;
+    padding:0 20px;
+    display: none;
+    /* display: flex; */
+    align-items: center;
+    width: max-content;
+    color: white;
 }
 
 .messenger-chat-input{
