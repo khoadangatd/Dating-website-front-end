@@ -8,6 +8,7 @@
     color:white;
     align-items: center;
     justify-content: center;
+    margin:0 auto;
 }
 .profile-update-avatar--detail{
     text-align: center;

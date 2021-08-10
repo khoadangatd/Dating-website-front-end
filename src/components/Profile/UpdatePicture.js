@@ -19,6 +19,8 @@ import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 import { Fragment } from 'react';
 
+import heart from '../../assets/img/heartbluee.gif'
+
 const UpdatePicture = (props) => {
     const { user } = props
     const dispatch = useDispatch();
@@ -29,7 +31,22 @@ const UpdatePicture = (props) => {
         status: false,
         idpic: null,
     });
-
+    const NextSlide = (props) => {
+        const { onClick } = props;
+        return (<div className="update-picture-button-slide update-picture-button-slide--left">
+            <span className="update-picture-button-slide--main" onClick={onClick}>
+                <i className="fas fa-chevron-left"></i>
+            </span>
+        </div>)
+    }
+    const PrevSlide = (props) => {
+        const { onClick } = props;
+        return (<div className="update-picture-button-slide update-picture-button-slide--right">
+            <span className="update-picture-button-slide--main" onClick={onClick}>
+                <i className="fas fa-chevron-right"></i>
+            </span>
+        </div>)
+    }
     const handleClickOpen = (e, idpic) => {
         e.stopPropagation();
         setOpen({
@@ -81,9 +98,7 @@ const UpdatePicture = (props) => {
             toast.error(error.response.data.message);
         }
     }
-    async function handleMoveImage(e) {
-        e.stopPropagation();
-    }
+
     const getPicture = async () => {
         try {
             const data = await callApi({
@@ -110,7 +125,6 @@ const UpdatePicture = (props) => {
                         <div className="board--profile-image__box board--profile-image__box--img"
                             key={index}
                             style={{ backgroundImage: `url("http://localhost/images/${pic.src}")` }}
-                            onClick={() => setdismodal({ item: pic, stt: index })}
                         >
                             {pic.src.includes(".mp4") ?
                                 <video className="board--profile-video" loop>
@@ -118,8 +132,8 @@ const UpdatePicture = (props) => {
                                 </video>
                                 : ""}
                             <div className="board--profile-image__box__button-contain">
-                                <button className="board--profile-image__box__button" onClick={handleMoveImage}>
-                                    <i class="fas fa-mouse"></i>
+                                <button className="board--profile-image__box__button" onClick={() => setdismodal({ item: pic, stt: index })}>
+                                    <i class="fas fa-arrows-alt"></i>
                                 </button>
                                 <button className="board--profile-image__box__button" onClick={(e) => handleClickOpen(e, pic._id)}>
                                     <i class="fas fa-times"></i>
@@ -171,6 +185,8 @@ const UpdatePicture = (props) => {
         slidesToShow: 4,
         slidesToScroll: 1,
         initialSlide: 0,
+        nextArrow: <PrevSlide />,
+        prevArrow: <NextSlide />,
         responsive: [
             {
                 breakpoint: 1300,
@@ -203,24 +219,28 @@ const UpdatePicture = (props) => {
     };
     return pictures && (
         <div className="board--profile-image">
-            <div className="board--profile-image__upload-main">
-                <input type="file" name="image" id="upload-image" onChange={onHandleChange} style={{ display: "none" }}></input>
-                {window.location.pathname === "/profile"
-                    ?
+            {window.location.pathname === "/profile"
+                ?
+                <div className="board--profile-image__upload-main">
+                    <input type="file" name="image" id="upload-image" onChange={onHandleChange} style={{ display: "none" }}></input>
                     <label for="upload-image" className="board--profile-image__box">
                         <div className="board--profile-image__box__detail" >
                             <i class="fas fa-camera"></i>
                             <p>Thêm ảnh của bạn</p>
                         </div>
                     </label>
-                    :
-                    ""
-                }
-            </div>
+                </div>
+                :
+                <div className="board--profile-image__upload-main">
+                    <div className="board--profile-other-heart">
+                        <img src={heart} className="board--profile-other-heart--img"></img>
+                    </div>
+                </div>
+            }
             <div className="board--profile-image__image-main" >
-                    <Slider {...settings}>
-                        {renderListImage()}
-                    </Slider> 
+                <Slider {...settings}>
+                    {renderListImage()}
+                </Slider>
             </div>
             {dismodal ? <ModalPicture src={dismodal} QuitModal={QuitModal} ChangeModal={ChangeModal}></ModalPicture> : ""}
             <Dialog

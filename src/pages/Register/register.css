@@ -83,8 +83,13 @@
     color: white;
     border-radius: 2px;
     cursor: pointer;
+    border: none;
 }
 
 .register-main-form--submit__main:hover{
     background-color: rgb(32, 134, 218);
+}
+
+.image--register{
+    
 }

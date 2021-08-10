@@ -38,7 +38,7 @@ const ProfileOther = () => {
                     <div className="board__heading">
                         <div className="board__heading__name">
                             <div style={{ backgroundImage: `url("http://localhost/images/${user.data.avatar}")` }} className="sidebar--avatar"></div>
-                            <h1>{user.data.name}, {user.data.age} tuổi</h1>
+                            <h1 className="board__heading__name--main">{user.data.name}, {user.data.age} tuổi</h1>
                         </div>
                         {/* <div className="board__heading__setting">
                             <button class="btn-board"><i class="fas fa-cog"></i></button>

@@ -4,7 +4,6 @@
     background: linear-gradient(262deg, var(--color--primary), #1d2b77);
     -webkit-box-shadow: 0px 0px 18px -1px rgba(0, 0, 0, 0.88);
     box-shadow: 0px 0px 18px -1px rgba(0, 0, 0, 0.88);
-    height: 220px;
 }
 
 .criteria-main {
@@ -50,6 +49,7 @@
 
 .criteria--submit{
     text-align: end;
+    margin-top: 10px;
 }
 
 .criteria--submit--btn{

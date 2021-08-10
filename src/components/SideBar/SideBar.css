@@ -168,6 +168,9 @@
     .sidebar--avatar{
         margin:0;
     }
+    .perform-update-avatar{
+        margin: 0 auto;
+    }
     /* Sidebar */
     .sidebar{
         width: max-content;
@@ -240,7 +243,12 @@
 }
 
 @media only screen and (max-width: 780px) {
-
+    .login-main-form{
+        max-width: 675px;
+    }
+    .register-main-form{
+        max-width: 685px;
+    }
 }
 
 @media only screen and (max-width: 768px) {
@@ -281,6 +289,18 @@
 @media only screen and (max-width: 720px) {
     .about-me-category--input--textarea{
         width: unset !important;
+    }
+    .login-main-form{
+        margin: 20px auto;
+    }
+    .quantity-people{
+
+    }
+    .login-main-form--external--login{
+        display: flex;
+    }
+    .login-first-intro{
+        display: none;
     }
 }
 
@@ -326,6 +346,12 @@
     .board.discovery__user--image{
         height: 550px;
     }
+    .image--register{
+        display: none;
+    }
+    .register-main-form{
+        margin:20px auto
+    }
 }
 
 @media only screen and (max-width: 563px) {
@@ -333,6 +359,9 @@
 }
 
 @media only screen and (max-width: 549px) {
+    .login-main-form--external-link {
+        padding: 7px 10px;
+    }
     .board--profile-image{
         flex-wrap: wrap;
     }
@@ -340,10 +369,28 @@
         justify-content: center;
     }
     .criteria--title{
-        font-size: 20px !important;
+        font-size: 18px !important;
     }
     .about-me-category--title{
         margin: 10px 0;
+    }
+    .messenger--main{
+        padding:0;
+    }
+    .messenger--left{
+        padding: 5px 10px;
+    }
+    .messenger--user__item--main-chat{
+        padding:10px 0 !important;
+    }
+    .criteria--content{
+        font-size: 15px !important;
+    }
+    .register-main-form--title{
+        font-size: 24px;
+    }
+    .register-main-form--logo{
+        width: 70px;
     }
 }
 
@@ -352,6 +399,12 @@
 }
 
 @media only screen and (max-width: 480px) {
+    .messenger--user__item__detail--content{
+        display: none !important;
+    }
+    .board--profile-other-heart{
+        display: none;
+    }
     .board--profile-image{
         justify-content: center;
     }
@@ -370,10 +423,18 @@
     .none-image{
         width: 250px;
     }
+    .discovery__user--image,.modal-board,.board{
+        height: 550px !important;
+    }
+    .modal-board{
+        width: 85% !important;
+    }
 }
 
 @media only screen and (max-width: 360px) {
-
+    .board--profile-image__image-main{
+        width: 200px;
+    }
 }
 
 @media only screen and (max-width: 338px) {

@@ -81,7 +81,7 @@ const Register = () => {
     return (
         <form class="register-main-form" onSubmit={onSubmitForm}>
             <div class="row">
-                <div class="col-lg-6">
+                <div class="col-lg-6 col-md-6 col-sm-6">
                     <img src={logo}
                         alt="" class="register-main-form--logo" />
                     <h1 class="register-main-form--title">Tạo tài khoản HAPE</h1>
@@ -127,7 +127,7 @@ const Register = () => {
                         <button type="submit" class="register-main-form--submit__main">Đăng ký</button>
                     </div>
                 </div>
-                <div class="col-lg-6">
+                <div class="col-lg-6 col-md-6 col-sm-6 image--register">
                     <img src="https://ssl.gstatic.com/accounts/signup/glif/account.svg" alt="" />
                 </div>
             </div>

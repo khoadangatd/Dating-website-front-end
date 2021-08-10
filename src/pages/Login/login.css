@@ -96,3 +96,6 @@
 .login-main-form--external-link:nth-child(2){
     background-color: #1778f2;
 }
+.login-main-form--external--login{
+    display: none;
+}

@@ -13,10 +13,17 @@
     align-items: flex-end;
 }
 
-.upgrade-heading--credit__decor{
+.upgrade-heading--credit__decor:first-child{
     flex: 1 1;
     height: 43px;
     border-radius: 0 6px 0 0;
+    background: #fff;
+}
+
+.upgrade-heading--credit__decor:last-child{
+    border-radius: 6px 0 0 0;
+    flex: 1 1;
+    height: 43px;
     background: #fff;
 }
 

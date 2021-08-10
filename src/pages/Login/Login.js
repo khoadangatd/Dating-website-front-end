@@ -86,7 +86,7 @@ const Login = (props) => {
     return (
         <form class="login-main-form" onSubmit={onSubmitForm}>
             <div class="row">
-                <div class="col-lg-6">
+                <div class="col-lg-6 col-md-6 login-first-intro">
                     <div class="descripttion-quantity-people">
                         <h3 class="quantity-people">100.000 </h3>
                         <p>người đã tham gia, đăng ký ngay</p>
@@ -106,7 +106,7 @@ const Login = (props) => {
                             callback={responseFacebook} />,
                     </div>
                 </div>
-                <div class="col-lg-6">
+                <div class="col-lg-6 col-md-6">
                     <img src={logo} alt="" class="login-main-form--logo" />
                     <h1 class="login-main-form--title">Đăng nhập</h1>
                     <h2 class="login-main-form--sub-title">Tiếp tục tới Hape</h2>
@@ -120,6 +120,20 @@ const Login = (props) => {
                     <div class="login-main-form--submit">
                         <Link to="/register" class="login-main-form--create">Tạo tài khoản</Link>
                         <input type="submit" class="login-main-form--submit__main" value="Đăng nhập"></input>
+                    </div>
+                    <div class="login-main-form--external login-main-form--external--login">
+                        <a href="" class="login-main-form--external-link">
+                            <i class="fab fa-google"></i>Google</a>
+                        <FacebookLogin
+                            appId="1375981766109023"
+                            autoLoad={false}
+                            fields="name,email,picture"
+                            scope="public_profile, email, user_birthday"
+                            render={renderProps => (
+                                <a href="" class="login-main-form--external-link">
+                                    <i class="fab fa-facebook"></i>Facebook</a>
+                            )}
+                            callback={responseFacebook} />,
                     </div>
                 </div>
             </div>

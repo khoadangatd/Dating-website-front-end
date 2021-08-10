@@ -440,7 +440,7 @@ ul {
 }
 
 .board--profile-image__box__button-contain button{
-    margin: 0 10px;
+    margin: 0 20px;
     padding: 5px 10px;
     border: none;
     background-color: rgba(0, 0, 0, 0.3);
@@ -489,6 +489,48 @@ ul {
     height: 100%;
     background-color: var(--color--primary);
     z-index: -1;
+}
+
+.board--profile-other-heart{
+    position: relative;
+    height: 200px;
+    cursor: pointer;
+    display: flex;
+    justify-content: center;
+}
+
+.board--profile-other-heart--img{
+    width: 100%;
+}
+
+.update-picture-button-slide{
+    position: absolute;
+    z-index: 1;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    top:0;
+    height: 100%;
+}
+
+.update-picture-button-slide--left{
+    left:0;
+
+}
+
+.update-picture-button-slide--right{
+    right: 0;
+}
+
+.update-picture-button-slide--main{
+    background-color: rgba(0, 0, 0, 0.3);
+    width: 15px;
+    height: 30px;
+    color:#fff;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
 }
 
 .LOGO_PREMIUM{

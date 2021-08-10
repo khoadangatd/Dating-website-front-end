@@ -132,7 +132,7 @@
 
 .messenger-content{
     height: 80%;
-    overflow: auto;
+    overflow-y: auto;
 }
 
 .messenger-content--main{
@@ -169,7 +169,7 @@
 .messenger-content--main--detail--user__time{
     position: absolute;
     top:0;
-    right:120%;
+    right:101%;
     background-color: rgba(0,0,0,.4);
     height: 100%;
     border-radius: 10px;

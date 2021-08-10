@@ -55,7 +55,7 @@ const MainChat = (props) => {
     function renderMessage() {
         var rs = null;
         if (messages.length > 0) {
-            rs = messages.map((message, index) => {
+            rs = messages.map((message, index, arr) => {
                 if (message.sender === user.data._id)
                     return (
                         <div className="messenger-content--main messenger-content--main--right" key={message._id}>
@@ -72,7 +72,10 @@ const MainChat = (props) => {
                 else
                     return (
                         <div className="messenger-content--main messenger-content--main--left" key={message._id}>
-                            <div style={{ backgroundImage: `url("http://localhost/images/${matcher.avatar}")` }} className="messenger--user__item-avatar--img"></div>
+                            {arr[index - 1].sender === user.data._id ?
+                                <div style={{ backgroundImage: `url("http://localhost/images/${matcher.avatar}")` }} className="messenger--user__item-avatar--img"></div>
+                                : <div className="messenger--user__item-avatar--img"></div>
+                            }
                             <div className="messenger-content--main--detail messenger-content--partner--detail--user">
                                 {message.text}
                                 <div className="messenger-content--partner--detail--user__time">
