@@ -23,7 +23,7 @@ const ItemReport = (props) => {
     async function handleClickWarning() {
         try {
             const data = await callApi({
-                url: `http://localhost/replies/warning`,
+                url: `https://hape-dating.herokuapp.com/replies/warning`,
                 method: `post`,
                 data: {
                     email: target.email,
@@ -41,7 +41,7 @@ const ItemReport = (props) => {
     async function handleClickDelete() {
         try {
             const data = await callApi({
-                url: `http://localhost/replies/`,
+                url: `https://hape-dating.herokuapp.com/replies/`,
                 method: `delete`,
                 data: {
                     _id: _id
@@ -61,7 +61,7 @@ const ItemReport = (props) => {
             <td>
                 <Link to={`/profileOther?id=${target._id}`}>
                     <div className="manage--users-item__name">
-                        <div className="manage--users-item__name--image" style={{ backgroundImage: `url("http://localhost/images/${target.avatar}"` }}>
+                        <div className="manage--users-item__name--image" style={{ backgroundImage: `url("https://hape-dating.herokuapp.com/images/${target.avatar}"` }}>
                         </div>
                         <div class="manage--users-item__name--detail">
                             <div class="manage--users-item__name--detail--main">
@@ -74,7 +74,7 @@ const ItemReport = (props) => {
             <td class="manage--users-item">
                 <Link to={`/profileOther?id=${user._id}`}>
                     <div className="manage--users-item__name">
-                        <div className="manage--users-item__name--image" style={{ backgroundImage: `url("http://localhost/images/${user.avatar}"` }}>
+                        <div className="manage--users-item__name--image" style={{ backgroundImage: `url("https://hape-dating.herokuapp.com/images/${user.avatar}"` }}>
                         </div>
                         <div class="manage--users-item__name--detail">
                             <div class="manage--users-item__name--detail--main">
@@ -112,7 +112,7 @@ const Report = () => {
     const getReport = async () => {
         try {
             const data = await callApi({
-                url: `http://localhost/replies/report`,
+                url: `https://hape-dating.herokuapp.com/replies/report`,
                 method: `GET`,
             })
             setReport(data.data);

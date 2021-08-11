@@ -16,11 +16,11 @@ const ModalPicture = (props) => {
         var rs = null;
         if (src.item.src.includes(".mp4")) {
             rs = <video className="board--profile-video--modal" controls poster="">
-                <source src={`http://localhost/images/${src.item.src}`} type="video/mp4"></source>
+                <source src={`https://hape-dating.herokuapp.com/images/${src.item.src}`} type="video/mp4"></source>
             </video>
         }
         else{
-            rs =<img src={`http://localhost/images/${src.item.src}`} alt="hinhanh" className="modal__body--image-detail"></img>
+            rs =<img src={`https://hape-dating.herokuapp.com/images/${src.item.src}`} alt="hinhanh" className="modal__body--image-detail"></img>
         }
         return rs;
     }

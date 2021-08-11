@@ -36,7 +36,8 @@
 }
 
 .login-main-form--forgot {
-
+    font-weight: 500;
+    cursor: pointer;
 }
 
 .descripttion-quantity-people{
@@ -64,7 +65,8 @@
 }
 
 .login-main-form--create {
-
+    font-weight: 500;
+    color:var(--color--primary)
 }
 
 .login-main-form--submit__main {

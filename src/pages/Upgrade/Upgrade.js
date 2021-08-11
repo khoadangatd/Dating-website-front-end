@@ -58,7 +58,7 @@ const Upgrade = () => {
     async function handleBuyingHP() {
         try {
             const data = await callApi({
-                url: `http://localhost/deals/create_payment_url`,
+                url: `https://hape-dating.herokuapp.com/deals/create_payment_url`,
                 method: `post`,
                 data: {
                     credit: parseFloat(user.data.credit),
@@ -75,7 +75,7 @@ const Upgrade = () => {
     async function handleUpgradeUser() {
         try {
             const data = await callApi({
-                url: `http://localhost/deals/premium`,
+                url: `https://hape-dating.herokuapp.com/deals/premium`,
                 method: `get`,
             })
             dispatch(FetchLoginUser())

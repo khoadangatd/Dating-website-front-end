@@ -26,7 +26,7 @@ const ItemFeedback = (props) => {
             <td>
                 <Link to={`/profileOther?id=${user._id}`}>
                     <div className="manage--users-item__name">
-                        <div className="manage--users-item__name--image" style={{backgroundImage:`url("http://localhost/images/${user.avatar}"`}}>
+                        <div className="manage--users-item__name--image" style={{backgroundImage:`url("https://hape-dating.herokuapp.com/images/${user.avatar}"`}}>
                         </div>
                         <div class="manage--users-item__name--detail">
                             <div class="manage--users-item__name--detail--main">
@@ -54,7 +54,7 @@ const Feedback = () => {
     const getFeedback = async () => {
         try {
             const data = await callApi({
-                url: `http://localhost/replies/feedback`,
+                url: `https://hape-dating.herokuapp.com/replies/feedback`,
                 method: `GET`,
             })
             console.log(data);

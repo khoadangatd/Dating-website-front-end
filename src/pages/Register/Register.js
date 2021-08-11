@@ -48,7 +48,7 @@ const Register = () => {
             e.preventDefault();
             if (validateForm()) {
                 const data = await callApi({
-                    url: `http://localhost/users/register`,
+                    url: `https://hape-dating.herokuapp.com/users/register`,
                     method: "post",
                     data: {
                         email: form.email,
@@ -119,11 +119,8 @@ const Register = () => {
                     </div>
                     <input type="checkbox" name="displaypass" id="displaypass" onClick={() => setdispass(!dispass)} />
                     <label for="displaypass">Hiển thị mật khẩu</label>
-                    <div class="register-main-form--forgot-contain">
-                        <a href="">Bạn quên địa chỉ email?</a>
-                    </div>
                     <div class="register-main-form--submit">
-                        <Link to='/login'>Đăng nhập</Link>
+                        <Link to='/login' className="login-main-form--create">Đăng nhập</Link>
                         <button type="submit" class="register-main-form--submit__main">Đăng ký</button>
                     </div>
                 </div>

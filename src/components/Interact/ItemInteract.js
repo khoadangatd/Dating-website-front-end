@@ -32,7 +32,7 @@ const ItemInteract = (props) => {
         }
         try {
             const data = await callApi({
-                url: `http://localhost/pictures/${other._id}`,
+                url: `https://hape-dating.herokuapp.com/pictures/${other._id}`,
                 method: "get",
             })
             console.log(data);
@@ -61,7 +61,7 @@ const ItemInteract = (props) => {
     useEffect(() => {
         if (!pictures) return;
         if (pictures.data.length > 0) {
-            setview("http://localhost/images/" + pictures.data[0].src);
+            setview("https://hape-dating.herokuapp.com/images/" + pictures.data[0].src);
         }
         else {
             setview("https://wallpaperaccess.com/full/173801.png");

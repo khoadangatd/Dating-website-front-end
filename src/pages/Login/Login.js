@@ -9,22 +9,42 @@ import { useDispatch, useSelector } from 'react-redux';
 import * as actions from '../../actions/index';
 import logo from '../../assets/img/LOGO.png';
 
+import Button from '@material-ui/core/Button';
+import TextField from '@material-ui/core/TextField';
+import Dialog from '@material-ui/core/Dialog';
+import DialogActions from '@material-ui/core/DialogActions';
+import DialogContent from '@material-ui/core/DialogContent';
+import DialogContentText from '@material-ui/core/DialogContentText';
+import DialogTitle from '@material-ui/core/DialogTitle';
+
 const Login = (props) => {
     const { setupSocket } = props;
     const user = useSelector(state => state.user);
+    const [totalUser, setTotalUser] = useState(null);
     const [form, setform] = useState({
-        email: null,
-        password: null,
+        email: '',
+        password: '',
     });
+    const [open, setOpen] = useState(false);
     const dispatch = useDispatch();
     // const user = useSelector(state => state.user);
     let history = useHistory();
     const [dispass, setdispass] = useState(false);
-    // useEffect(() => {
-    //     if(user===""){
-    //         history.push('/discovery');
-    //     }
-    // }, []);
+    const [forgot,setForgot] = useState('');
+    async function getTotalUser() {
+        const data = await callApi({
+            url: `https://hape-dating.herokuapp.com/users/totalUser/`,
+            method: `get`
+        });
+        setTotalUser(data.total);
+    }
+    const handleClickOpen = () => {
+        setOpen(true);
+    };
+
+    const handleClose = () => {
+        setOpen(false);
+    };
     function onChangeForm(e) {
         var name = e.target.name;
         var value = e.target.value;
@@ -33,9 +53,13 @@ const Login = (props) => {
             [name]: value
         })
     }
+    function formatMoney() {
+        if (!totalUser) return;
+        return (Math.round(totalUser * 100) / 100).toLocaleString();
+    }
     const responseFacebook = (response) => {
         callApi({
-            url: `http://localhost/users/loginfb`,
+            url: `https://hape-dating.herokuapp.com/users/loginfb`,
             method: "post",
             data: {
                 idFace: response.id,
@@ -67,7 +91,7 @@ const Login = (props) => {
         try {
             e.preventDefault();
             const data = await callApi({
-                url: `http://localhost/users/login`,
+                url: `https://hape-dating.herokuapp.com/users/login`,
                 method: "post",
                 data: form
             })
@@ -83,12 +107,30 @@ const Login = (props) => {
             toast.error(error.response.data.message);
         }
     }
+    async function handleSubmitForgotPassword(){
+        try{
+            await callApi({
+                url:`https://hape-dating.herokuapp.com/users/forgot`,
+                method:'post',
+                data:{
+                    email:forgot
+                }
+            })
+            toast.success("Đã gửi mật khẩu về email");
+        }
+        catch (error) {
+            toast.error(error.response.data.message);
+        }
+    }
+    useEffect(() => {
+        getTotalUser();
+    }, []);
     return (
         <form class="login-main-form" onSubmit={onSubmitForm}>
             <div class="row">
                 <div class="col-lg-6 col-md-6 login-first-intro">
                     <div class="descripttion-quantity-people">
-                        <h3 class="quantity-people">100.000 </h3>
+                        <h3 class="quantity-people">{formatMoney()}</h3>
                         <p>người đã tham gia, đăng ký ngay</p>
                     </div>
                     <div class="login-main-form--external">
@@ -115,7 +157,7 @@ const Login = (props) => {
                     <input type="checkbox" name="displaypass" id="displaypass" onClick={() => setdispass(!dispass)} />
                     <label for="displaypass">Hiển thị mật khẩu</label>
                     <div class="login-main-form--forgot-contain">
-                        <a href="" class="login-main-form--forgot">Bạn quên mật khẩu?</a>
+                        <span class="login-main-form--forgot" onClick={handleClickOpen}>Bạn quên mật khẩu?</span>
                     </div>
                     <div class="login-main-form--submit">
                         <Link to="/register" class="login-main-form--create">Tạo tài khoản</Link>
@@ -137,6 +179,32 @@ const Login = (props) => {
                     </div>
                 </div>
             </div>
+            <Dialog open={open} onClose={handleClose} aria-labelledby="form-dialog-title">
+                <DialogTitle id="form-dialog-title">Quên mật khẩu</DialogTitle>
+                <DialogContent>
+                    <DialogContentText>
+                        Hãy nhập email bạn đã đăng ký
+                    </DialogContentText>
+                    <TextField
+                        autoFocus
+                        margin="dense"
+                        id="name"
+                        label="Email"
+                        type="email"
+                        value={forgot}
+                        onChange={(e)=>{setForgot(e.target.value)}}
+                        fullWidth
+                    />
+                </DialogContent>
+                <DialogActions>
+                    <Button onClick={handleClose} color="primary">
+                        Hủy
+                    </Button>
+                    <Button onClick={handleSubmitForgotPassword} color="primary">
+                        Gửi Mail
+                    </Button>
+                </DialogActions>
+            </Dialog>
         </form>
     );
 };

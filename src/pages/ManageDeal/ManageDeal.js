@@ -23,7 +23,7 @@ const ItemDeal = (props) => {
             <td>
                 <Link to={`/profileOther?id=${user._id}`}>
                     <div className="manage--users-item__name">
-                        <div className="manage--users-item__name--image" style={{ backgroundImage: `url("http://localhost/images/${user.avatar}"` }}>
+                        <div className="manage--users-item__name--image" style={{ backgroundImage: `url("https://hape-dating.herokuapp.com/images/${user.avatar}"` }}>
                         </div>
                         <div class="manage--users-item__name--detail">
                             <div class="manage--users-item__name--detail--main">
@@ -56,7 +56,7 @@ const ManageDeal = () => {
     const getDeal = async () => {
         try {
             const data = await callApi({
-                url: `http://localhost/deals/`,
+                url: `https://hape-dating.herokuapp.com/deals/`,
                 method: `GET`,
             })
             setDeal(data.data);

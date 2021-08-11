@@ -17,7 +17,7 @@ const Match = () => {
     const getUserMatch = async () => {
         try {
             const data = await callApi({
-                url: `http://localhost/users/matchers`,
+                url: `https://hape-dating.herokuapp.com/users/matchers`,
                 method: `POST`,
                 data: {
                     match: user.data.match
@@ -79,7 +79,7 @@ const Match = () => {
     async function deleteNotifyServer() {
         try {
             await callApi({
-                url: `http://localhost/replies/notify/matched`,
+                url: `https://hape-dating.herokuapp.com/replies/notify/matched`,
                 method: `delete`
             })
         }

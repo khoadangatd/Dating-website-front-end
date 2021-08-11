@@ -13,7 +13,7 @@ const PictureView = (props) => {
             index.current = 0;
         if (index.current < 0)
             index.current = pictures.data.length - 1;
-        setview("http://localhost/images/" + pictures.data[index.current].src);
+        setview("https://hape-dating.herokuapp.com/images/" + pictures.data[index.current].src);
     }
     function onHandleReport() {
         if(!dialog) return;
@@ -22,7 +22,7 @@ const PictureView = (props) => {
     useEffect(() => {
         if (!pictures || pictures.data.length < 1) return;
         // if (pictures.data.length > 0 && pictures) {
-        setview("http://localhost/images/" + pictures.data[index.current].src);
+        setview("https://hape-dating.herokuapp.com/images/" + pictures.data[index.current].src);
         // }
         // else {
         //     setview(null);

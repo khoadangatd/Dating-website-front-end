@@ -19,7 +19,7 @@ const ProfileOther = () => {
     }
     useEffect(() => {
         CallApi({
-            url: `http://localhost/users/${id}`,
+            url: `https://hape-dating.herokuapp.com/users/${id}`,
             method: "get",
         }).then(data => {
             setuser(data);
@@ -37,7 +37,7 @@ const ProfileOther = () => {
                 <div className="board--main">
                     <div className="board__heading">
                         <div className="board__heading__name">
-                            <div style={{ backgroundImage: `url("http://localhost/images/${user.data.avatar}")` }} className="sidebar--avatar"></div>
+                            <div style={{ backgroundImage: `url("https://hape-dating.herokuapp.com/images/${user.data.avatar}")` }} className="sidebar--avatar"></div>
                             <h1 className="board__heading__name--main">{user.data.name}, {user.data.age} tuổi</h1>
                         </div>
                         {/* <div className="board__heading__setting">

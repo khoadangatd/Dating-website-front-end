@@ -68,7 +68,7 @@ const Criteria = (props) => {
         }
         try{
             const data=await CallApi({
-                url:`http://localhost/users/setting`,
+                url:`https://hape-dating.herokuapp.com/users/setting`,
                 method:`put`,
                 data: form,
             })

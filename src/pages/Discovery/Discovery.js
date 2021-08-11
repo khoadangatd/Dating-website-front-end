@@ -37,7 +37,7 @@ const Discovery = (props) => {
     const findPartner = async () => {
         // try{
         const userFind = await callApi({
-            url: `http://localhost/users/findUser`,
+            url: `https://hape-dating.herokuapp.com/users/findUser`,
             method: "post",
             data: {
                 setting: user.data.setting,
@@ -53,7 +53,7 @@ const Discovery = (props) => {
         var temp = [];
         for (let i = 0; i < data.length; i++) {
             var form = await callApi({
-                url: `http://localhost/pictures/${data[i]._id}`,
+                url: `https://hape-dating.herokuapp.com/pictures/${data[i]._id}`,
                 method: "get",
             })
             temp.push(form);
@@ -93,7 +93,7 @@ const Discovery = (props) => {
         if (userOther.length <= 0) return;
         try {
             const data = await callApi({
-                url: `http://localhost/replies/report`,
+                url: `https://hape-dating.herokuapp.com/replies/report`,
                 method: "post",
                 data: {
                     targetId: userOther[0]._id,

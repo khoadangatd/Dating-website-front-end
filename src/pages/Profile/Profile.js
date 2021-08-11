@@ -54,7 +54,7 @@ const Profile = () => {
         formData.append('name', avatar.name);
         try {
             await callApi({
-                url: `http://localhost/users/uploadAvatar`,
+                url: `https://hape-dating.herokuapp.com/users/uploadAvatar`,
                 method: "put",
                 data: formData,
             })
@@ -72,7 +72,7 @@ const Profile = () => {
                     <div className="board__heading">
                         <div className="board__heading__name">
                             <div
-                                style={{ backgroundImage: `url("http://localhost/images/${user.data.avatar}")` }}
+                                style={{ backgroundImage: `url("https://hape-dating.herokuapp.com/images/${user.data.avatar}")` }}
                                 className="sidebar--avatar update-avatar"
                                 onClick={handleClickOpen}
                                 title="Chỉnh sửa ảnh đại diện"
@@ -105,7 +105,7 @@ const Profile = () => {
                             <h3 className="perform-update-avatar--h3">Ảnh đại diện</h3>
                             <div
                                 ref={pictureAvatar}
-                                style={{ backgroundImage: `url("http://localhost/images/${user.data.avatar}")` }}
+                                style={{ backgroundImage: `url("https://hape-dating.herokuapp.com/images/${user.data.avatar}")` }}
                                 className="sidebar--avatar perform-update-avatar"
                                 title="Chỉnh sửa ảnh đại diện"
                             ></div>

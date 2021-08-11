@@ -80,15 +80,15 @@ const Dashboard = () => {
             var data = await Promise.all(
                 [
                     callApi({
-                        url: `http://localhost/users/registerMonth/${years}`,
+                        url: `https://hape-dating.herokuapp.com/users/registerMonth/${years}`,
                         method: `get`
                     }),
                     callApi({
-                        url: `http://localhost/users/resdetailMonth/${years}`,
+                        url: `https://hape-dating.herokuapp.com/users/resdetailMonth/${years}`,
                         method: `get`
                     }),
                     callApi({
-                        url: `http://localhost/chats/count/${years}`,
+                        url: `https://hape-dating.herokuapp.com/chats/count/${years}`,
                         method: `get`
                     }),
                 ]

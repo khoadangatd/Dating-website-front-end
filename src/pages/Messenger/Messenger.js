@@ -28,7 +28,7 @@ const Messenger = (props) => {
 
     const getConversation = async () => {
         const data = await callApi({
-            url: `http://localhost/chats/conversation/`,
+            url: `https://hape-dating.herokuapp.com/chats/conversation/`,
             method: "get",
         })
         return data.data;
@@ -39,7 +39,7 @@ const Messenger = (props) => {
         var data = [];
         for (let i = 0; i < conversation.length; i++) {
             form = await callApi({
-                url: `http://localhost/chats/message/newest/${conversation[i]._id}`,
+                url: `https://hape-dating.herokuapp.com/chats/message/newest/${conversation[i]._id}`,
                 method: "get",
             })
             data.push(form.data);
@@ -54,7 +54,7 @@ const Messenger = (props) => {
         console.log(form);
         if (!user || form.conversation.length === 0) return;
         const data = await callApi({
-            url: `http://localhost/users/matchers`,
+            url: `https://hape-dating.herokuapp.com/users/matchers`,
             method: "post",
             data: {
                 match: user.data.match
@@ -93,7 +93,7 @@ const Messenger = (props) => {
     async function deleteNotifyServer() {
         try {
             await callApi({
-                url: `http://localhost/replies/notify/messenger`,
+                url: `https://hape-dating.herokuapp.com/replies/notify/messenger`,
                 method: `delete`
             })
         }

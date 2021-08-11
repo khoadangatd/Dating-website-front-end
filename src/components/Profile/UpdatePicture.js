@@ -86,7 +86,7 @@ const UpdatePicture = (props) => {
         try {
             console.log(open.idpic);
             await callApi({
-                url: `http://localhost/pictures/${open.idpic}`,
+                url: `https://hape-dating.herokuapp.com/pictures/${open.idpic}`,
                 method: "delete",
             })
             setuploaded(!uploaded);
@@ -102,7 +102,7 @@ const UpdatePicture = (props) => {
     const getPicture = async () => {
         try {
             const data = await callApi({
-                url: `http://localhost/pictures/${user.data._id}`,
+                url: `https://hape-dating.herokuapp.com/pictures/${user.data._id}`,
                 method: "get",
             })
             console.log(data);
@@ -124,11 +124,11 @@ const UpdatePicture = (props) => {
                     <div className="item">
                         <div className="board--profile-image__box board--profile-image__box--img"
                             key={index}
-                            style={{ backgroundImage: `url("http://localhost/images/${pic.src}")` }}
+                            style={{ backgroundImage: `url("https://hape-dating.herokuapp.com/images/${pic.src}")` }}
                         >
                             {pic.src.includes(".mp4") ?
                                 <video className="board--profile-video" loop>
-                                    <source src={`http://localhost/images/${pic.src}`} type="video/mp4"></source>
+                                    <source src={`https://hape-dating.herokuapp.com/images/${pic.src}`} type="video/mp4"></source>
                                 </video>
                                 : ""}
                             <div className="board--profile-image__box__button-contain">
@@ -162,7 +162,7 @@ const UpdatePicture = (props) => {
         formData.append('name', picUpload.name);
         try {
             const data = await callApi({
-                url: `http://localhost/pictures/upload`,
+                url: `https://hape-dating.herokuapp.com/pictures/upload`,
                 method: "post",
                 data: formData,
             })
