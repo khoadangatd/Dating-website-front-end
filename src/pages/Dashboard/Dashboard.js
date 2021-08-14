@@ -1,5 +1,4 @@
 import React, { useEffect, useState } from 'react';
-import { useSelector } from 'react-redux';
 import { useHistory } from 'react-router-dom';
 import callApi from '../../helper/axiosClient';
 import { toast } from 'react-toastify';
@@ -17,7 +16,6 @@ import {
     ResponsiveContainer,
     PieChart,
     Pie,
-    Sector,
     Cell,
 } from "recharts";
 
@@ -28,7 +26,7 @@ function mergeArrayDetailMonth(temp, detail) {
         if (month.includes(detail[i].month))
             continue;
         for (let j = i + 1; j < detail.length; j++) {
-            if (detail[i].month == detail[j].month) {
+            if (detail[i].month === detail[j].month) {
                 temp[detail[i].month - 1] = { ...detail[i], ...detail[j] };
                 month.push(detail[i].month);
                 flag = true;
@@ -67,7 +65,6 @@ const renderCustomizedLabel = ({ cx, cy, midAngle, innerRadius, outerRadius, per
 };
 
 const Dashboard = () => {
-    const user = useSelector(state => state.user);
     const history = useHistory();
     const [dataUser, setDataUser] = useState(null);
     const [show, setShow] = useState({
@@ -159,11 +156,11 @@ const Dashboard = () => {
         if (mounted)
             getDataUser().then(data => {
                 console.log(data);
-                if (mounted == true)
+                if (mounted === true)
                     setDataUser(data);
             });
         return () => mounted = false;
-    }, [years])
+    }, [years])// eslint-disable-line react-hooks/exhaustive-deps
 
     return dataUser && (
         <div className="main-manage">
@@ -184,15 +181,15 @@ const Dashboard = () => {
                         </div>
                         <div className="manage-classified-by-year">
                             <button
-                                className={years == 2021 ? "manage__item--head--btn--current" : "manage__item--head--btn--sub"}
+                                className={years === 2021 ? "manage__item--head--btn--current" : "manage__item--head--btn--sub"}
                                 onClick={() => setYears(2021)}
                             >2021</button>
                             <button
-                                className={years == 2022 ? "manage__item--head--btn--current" : "manage__item--head--btn--sub"}
+                                className={years === 2022 ? "manage__item--head--btn--current" : "manage__item--head--btn--sub"}
                                 onClick={() => setYears(2022)}
                             >2022</button>
                             <button
-                                className={years == 2023 ? "manage__item--head--btn--current" : "manage__item--head--btn--sub"}
+                                className={years === 2023 ? "manage__item--head--btn--current" : "manage__item--head--btn--sub"}
                                 onClick={() => setYears(2023)}
                             >2023</button>
                         </div>

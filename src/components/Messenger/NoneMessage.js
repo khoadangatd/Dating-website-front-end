@@ -11,7 +11,7 @@ const NoneMessage = () => {
                 <p className="none-sub-content">
                     Khám phá ngay!
                 </p>
-                <img src={message} className="none-image"></img>
+                <img src={message} alt="message" className="none-image"></img>
             </div>
         </div>
     );

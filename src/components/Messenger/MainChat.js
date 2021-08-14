@@ -7,7 +7,7 @@ import Picker, { SKIN_TONE_MEDIUM_DARK } from "emoji-picker-react";
 import { Link } from 'react-router-dom';
 
 const MainChat = (props) => {
-    const { matcher, user, socket, idcon, sendMessage } = props;
+    const { matcher, user, socket, idcon, sendMessage, socketOff } = props;
     const online = useSelector(state => state.online);
     const [text, settext] = useState('');
     const [messages, setmessages] = useState([]);
@@ -22,31 +22,35 @@ const MainChat = (props) => {
             return false;
         }
     }
-    console.log(matcher);
+
     function onHandleChange(e) {
         settext(e.target.value);
     }
 
     function onClickEmoji(e, emoji) {
         settext(text + emoji.emoji);
-        console.log(emoji)
     }
 
     const getMessage = async () => {
         const data = await callApi({
-            url: `https://hape-dating.herokuapp.com/chats/message/${idcon}`
+            url: `https://hape-dating.herokuapp.com/chats/message/${idcon}`,
+            method: "get"
         })
         setmessages(data.data);
     }
-
+    
     useEffect(() => {
         if (!socket) return;
         socket.on("getMessage", (message) => {
-            if (message.idconversation != idcon)
-                return;
-            setmessages([...messages, message]);
+            if (message.idconversation === idcon) {
+                setmessages([...messages, message]);
+            }
         })
-    }, [socket, messages])
+        return ()=>{
+            socket.off('getMessage')
+            socketOff();
+        };
+    }, [socket, messages])// eslint-disable-line react-hooks/exhaustive-deps
 
     useEffect(() => {
         getMessage();
@@ -72,9 +76,9 @@ const MainChat = (props) => {
                 else
                     return (
                         <div className="messenger-content--main messenger-content--main--left" key={message._id}>
-                            {arr[index - 1].sender === user.data._id ?
-                                <div style={{ backgroundImage: `url("https://hape-dating.herokuapp.com/images/${matcher.avatar}")` }} className="messenger--user__item-avatar--img"></div>
-                                : <div className="messenger--user__item-avatar--img"></div>
+                            {arr[index - 1] && arr[index - 1].sender !== user.data._id ?
+                                <div className="messenger--user__item-avatar--img"></div>
+                                : <div style={{ backgroundImage: `url("https://hape-dating.herokuapp.com/images/${matcher.avatar}")` }} className="messenger--user__item-avatar--img"></div>
                             }
                             <div className="messenger-content--main--detail messenger-content--partner--detail--user">
                                 {message.text}
@@ -92,19 +96,20 @@ const MainChat = (props) => {
 
     function onHandleSubmit(e) {
         e.preventDefault();
-        console.log(text);
         if (text.trim() === '') return;
         setmessages([...messages, {
             idconversation: idcon,
             sender: user.data._id,
             text: text,
+            createdAt: new Date()
         }])
         settext("");
         setOpenEmoji(false);
         if (socket) {
             socket.emit("sendMessage", {
                 idconversation: idcon,
-                text: text
+                text: text,
+                createdAt: new Date()
             }, matcher._id)
         }
         else {
@@ -113,7 +118,7 @@ const MainChat = (props) => {
         sendMessage({
             idconversation: idcon,
             text,
-            sender: user.data._id
+            sender: user.data._id,
         });
     }
 
@@ -153,7 +158,6 @@ const MainChat = (props) => {
                                     groupNames={{ smileys_people: "PEOPLE" }}
                                     native
                                 />
-                                {/* {chosenEmoji && <EmojiData chosenEmoji={chosenEmoji} />} */}
                             </div>
                             :
                             ""

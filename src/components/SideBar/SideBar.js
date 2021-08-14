@@ -37,7 +37,7 @@ const SideBar = (props) => {
             ((notify.matched || 0) && notify.matched.noti.quantity) +
             ((notify.messenger || 0) && notify.messenger.noti.quantity);
         var pattern = /^\(\d+\)/;
-        if (count == 0) {
+        if (count === 0) {
             document.title = document.title.replace(pattern, "")
             return;
         }
@@ -74,7 +74,7 @@ const SideBar = (props) => {
             <Link to={to} className={`${!match ? "sidebar-category__item" : "sidebar-category__item--active"}`}>
                 <table>
                     <tbody>
-                        <tr style={{position:"relative"}}>
+                        <tr style={{ position: "relative" }}>
                             <td className="sidebar-category__item--td--icon">
                                 <i className={`${icon} sidebar-category__item--icon`}></i>
                             </td>
@@ -96,16 +96,25 @@ const SideBar = (props) => {
             </Link>
         );
     }
-    function logOut() {
+
+    async function logOut() {
         if (socket)
             socket.disconnect();
         dispatch(actions.logoutUser());
+        await callApi({
+            url: `https://hape-dating.herokuapp.com/users/logout`,
+            method: "post",
+            data: {
+                refreshToken: localStorage.getItem("refreshToken")
+            }
+        })
         localStorage.removeItem("accessToken");
         localStorage.removeItem("refreshToken");
         history.push('/login')
     }
+
     function renderSideBar() {
-        if (user.data.role == 0) {
+        if (user.data.role === 0) {
             return (
                 <Fragment>
                     <MenuLink label="Bảng điều khiển" to="/management" activeOnlyWhenExact={true} icon="fas fa-tachometer-alt"></MenuLink>
@@ -143,7 +152,7 @@ const SideBar = (props) => {
     }
     useEffect(() => {
         handleCountNotify();
-    }, [notify])
+    }, [notify])// eslint-disable-line react-hooks/exhaustive-deps
     return user && notify && (
         <div className="sidebar">
             <img src={logo} alt="logo" className="sidebar-logo"></img>

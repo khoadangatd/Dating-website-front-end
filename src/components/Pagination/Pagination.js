@@ -8,7 +8,7 @@ const Pagination = (props) => {
         var result = [];
         var start = Math.floor(crrpage / 5) * 5;
         for (let i = start; i <= start + 5; i++) {
-            if (i == 0) i++;
+            if (i === 0) i++;
             if (i - 1 === totalPage)
                 break;
             if (crrpage === i)

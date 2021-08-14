@@ -11,7 +11,7 @@ const NoneInfo = () => {
                 <p className="none-sub-content">
                     Hãy lựa chọn lại tiêu chí của bạn!
                 </p>
-                <img src={lamp} className="none-image"></img>
+                <img src={lamp} alt="lamp" className="none-image"></img>
             </div>
         </div>
     );

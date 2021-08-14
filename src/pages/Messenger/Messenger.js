@@ -1,8 +1,7 @@
 import React, { useEffect, useState } from 'react';
-import PropTypes from 'prop-types';
 import './messenger.css';
 import { useDispatch, useSelector } from 'react-redux';
-import { Link, useLocation, useHistory } from 'react-router-dom';
+import { useLocation } from 'react-router-dom';
 import callApi from '../../helper/axiosClient';
 import queryString from 'query-string';
 import ListChat from '../../components/Messenger/ListChat'
@@ -12,12 +11,10 @@ import { deleteNotify } from '../../actions/index';
 import NoneMessage from '../../components/Messenger/NoneMessage';
 import loadingGif from '../../assets/img/loading.gif';
 import NoneMain from '../../components/Messenger/NoneMain';
-import { useMediaPredicate } from "react-media-hook";
 
 const Messenger = (props) => {
     const { socket } = props;
     const dispatch = useDispatch();
-    const history = useHistory();
     const { search } = useLocation();
     // id của conversation
     const { idcon } = queryString.parse(search);
@@ -25,6 +22,11 @@ const Messenger = (props) => {
     const [matchers, setmatchers] = useState(null);
     const [matcher, setmatcher] = useState(null);
     const [loading, setLoading] = useState(true);
+    const [socketOff,setSocketOff]=useState(false);
+    
+    const handleSocketOff=()=>{
+        setSocketOff(!socketOff);
+    }
 
     const getConversation = async () => {
         const data = await callApi({
@@ -82,7 +84,8 @@ const Messenger = (props) => {
         })
         // Xử lý khi vào trang message sẽ auto chuyển đến trang có query string
         // history.push(`/messenger?idcon=${match[0].conversation._id}`)
-        return match;
+        setmatchers(match);
+        setLoading(false);
     };
 
     function handleGetChatPerson() {
@@ -110,15 +113,7 @@ const Messenger = (props) => {
             text: message.text,
             createdAt: new Date(),
         }
-        setmatchers(cloneMatchers)
-    }
-
-    function renderNone() {
-        return new Promise((resolve, reject) => {
-            setTimeout(() => {
-                resolve(!loading)
-            }, 500);
-        })
+        setmatchers(cloneMatchers);
     }
 
     function renderMessenger() {
@@ -141,26 +136,23 @@ const Messenger = (props) => {
                         socket={socket}
                         idcon={idcon}
                         sendMessage={sendMessage}
+                        socketOff={handleSocketOff}
                     ></MainChat>)
             }
             else {
                 rs.push(
-                    <NoneMain></NoneMain>
+                    <NoneMain
+                        key="none-main"
+                    ></NoneMain>
                 )
             }
         }
         else {
             if (loading) {
                 rs.push
-                    (<div className="none-contain">
-                        <img src={loadingGif} className="loading-gif"></img>
+                    (<div className="none-contain" key="none-main">
+                        <img src={loadingGif} alt="loading" className="loading-gif"></img>
                     </div>)
-                renderNone().then(a => setLoading(a));
-                rs.push(
-                    <div className="messenger--right" key="none-main">
-                        <img src={loadingGif} className="loading-gif"></img>
-                    </div>
-                )
             }
             else {
                 rs = <NoneMessage></NoneMessage>
@@ -173,18 +165,17 @@ const Messenger = (props) => {
         getConversation()
             .then((data) => getAllMessageNewest(data))
             .then((data) => getHandleMatcher(data))
-            .then((data) => setmatchers(data))
-    }, [user])
+    }, [user])// eslint-disable-line react-hooks/exhaustive-deps
 
     useEffect(() => {
         handleGetChatPerson();
-    }, [matchers, user, idcon])
+    }, [matchers, user, idcon])// eslint-disable-line react-hooks/exhaustive-deps
 
 
     useEffect(() => {
         deleteNotifyServer();
         dispatch(deleteNotify("messenger"));
-    }, [])
+    }, [])// eslint-disable-line react-hooks/exhaustive-deps
 
     useEffect(() => {
         if (!socket) return;
@@ -192,23 +183,17 @@ const Messenger = (props) => {
         socket.on("getMessage", (message) => {
             sendMessage(message);
         })
-    }, [socket, matchers])
+    }, [socket, matchers,socketOff])// eslint-disable-line react-hooks/exhaustive-deps
 
     return user && (
         <div className="main">
             <div className="board">
-                <div className="board--main messenger--main" style={{display:`${loading||!matchers?"block":"flex"}`}}>
+                <div className="board--main messenger--main" style={{ display: `${loading || !matchers ? "block" : "flex"}` }}>
                     {renderMessenger()}
                 </div>
             </div>
         </div>
     );
 };
-
-
-Messenger.propTypes = {
-
-};
-
 
 export default Messenger;

@@ -22,8 +22,9 @@ import Report from './pages/Report/Report';
 import Feedback from './pages/Feedback/Feedback';
 import Upgrade from './pages/Upgrade/Upgrade';
 import callApi from './helper/axiosClient';
-import { useSelector } from 'react-redux';
 import ManageDeal from './pages/ManageDeal/ManageDeal';
+import ResponsiveHeight from './components/ResponsiveHeight/ResponsiveHeight';
+
 
 function App() {
     const [Ssocket, setSsocket] = useState(null);
@@ -40,7 +41,7 @@ function App() {
             Ssocket.on("matched", async (data) => {
                 toast.success(data.message);
                 dispatch(actions.interactUser(data.id, "match"))
-                if (window.location.pathname != "/loved") {
+                if (window.location.pathname !== "/loved") {
                     await callApi({
                         url: `https://hape-dating.herokuapp.com/replies/notify/matched`,
                         method: `post`
@@ -51,7 +52,7 @@ function App() {
             Ssocket.on("liked", async (data) => {
                 toast.success(data.message);
                 dispatch(actions.interactUser(data.id, "liked"))
-                if (window.location.pathname != "/liked") {
+                if (window.location.pathname !== "/liked") {
                     await callApi({
                         url: `https://hape-dating.herokuapp.com/replies/notify/liked`,
                         method: `post`
@@ -63,7 +64,7 @@ function App() {
                 dispatch(actions.onlineUser(online));
             })
             Ssocket.on("getMessage", async (message) => {
-                if (window.location.pathname != "/messenger") {
+                if (window.location.pathname !== "/messenger") {
                     await callApi({
                         url: `https://hape-dating.herokuapp.com/replies/notify/messenger`,
                         method: `post`
@@ -105,6 +106,7 @@ function App() {
     return (
         <Router>
             <SideBar socket={Ssocket}></SideBar>
+            <ResponsiveHeight></ResponsiveHeight>
             <Switch>
                 <PrivateRoute path='/discovery' exact={true} component={Discovery}></PrivateRoute>
                 <PrivateRoute path='/profile' exact={true} component={Profile}></PrivateRoute>

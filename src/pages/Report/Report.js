@@ -1,6 +1,5 @@
 import React, { useEffect, useState } from 'react';
 import callApi from '../../helper/axiosClient';
-import { useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
 import { toast } from 'react-toastify';
 
@@ -18,7 +17,7 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 const ItemReport = (props) => {
-    const { _id, detail, createdAt, reason, target, user } = props.report;
+    const { _id, detail, reason, target, user } = props.report;
     const { stt } = props;
     async function handleClickWarning() {
         try {

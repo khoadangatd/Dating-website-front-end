@@ -1,8 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import callApi from '../../helper/axiosClient';
-import { useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
-import { toast } from 'react-toastify';
 
 import { makeStyles } from '@material-ui/core/styles';
 import SearchIcon from '@material-ui/icons/Search';

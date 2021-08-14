@@ -1,4 +1,4 @@
-import React, { useEffect, useRef, useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useHistory, useLocation } from 'react-router-dom';
 import callApi from '../../helper/axiosClient';
@@ -58,11 +58,11 @@ const ItemUser = (props) => {
                 {city}
             </td>
             <td class="manage--users-item">
-                {role == 1 ?
+                {role === 1 ?
                     <div class="manage--users-item--member manage--users-item--member--free">
                         Free
                     </div> :
-                    role == 0 ?
+                    role === 0 ?
                         <div class="manage--users-item--member manage--users-item--member--admin">
                             Admin
                         </div> :
@@ -116,12 +116,12 @@ const ManageUser = () => {
     useEffect(() => {
         if (!user) return;
         getAllUser();
-    }, [user, q, page])
+    }, [user, q, page])// eslint-disable-line react-hooks/exhaustive-deps
     function onHandleChange(e) {
         setFind(e.target.value);
         // var filterUser=null
         // filterUser=allUser.data.filter((user,index)=>{
-        //     return user.name.toLowerCase().indexOf(e.target.value.toLowerCase()) !== -1;
+        //     return user.name.toLowerCase().indexOf(e.target.value.toLowerCase()) !=== -1;
         // })
         // console.log(filterUser);
         // setAllUser({

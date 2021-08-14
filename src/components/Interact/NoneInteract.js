@@ -11,7 +11,7 @@ const NoneInteract = () => {
                 <p className="none-sub-content">
                     Khám phá ngay!
                 </p>
-                <img src={heartBlue} className="none-image"></img>
+                <img src={heartBlue} alt="heartBlue" className="none-image"></img>
             </div>
         </div>
     );

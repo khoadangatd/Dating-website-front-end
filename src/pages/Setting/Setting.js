@@ -1,5 +1,4 @@
-import PropTypes from 'prop-types';
-import { useDispatch, useSelector } from 'react-redux';
+import { useSelector } from 'react-redux';
 import React, { useEffect, useState } from 'react';
 import callApi from '../../helper/axiosClient';
 import { makeStyles } from '@material-ui/core/styles';

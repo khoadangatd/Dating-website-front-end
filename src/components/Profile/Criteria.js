@@ -55,32 +55,32 @@ const PrettoSlider = withStyles({
 const Criteria = (props) => {
     const { user } = props
     const [age, setAge] = useState(user.data.setting.age);
-    const [gender,setGender] =useState(user.data.setting.gender);
-    const dispatch= useDispatch();
+    const [gender, setGender] = useState(user.data.setting.gender);
+    const dispatch = useDispatch();
     const classes = useStyles();
     const handleChange = (event, newValue) => {
         setAge(newValue);
     };
-    async function onSubmitEditForm(){
-        var form ={
+    async function onSubmitEditForm() {
+        var form = {
             age,
             gender
         }
-        try{
-            const data=await CallApi({
-                url:`https://hape-dating.herokuapp.com/users/setting`,
-                method:`put`,
+        try {
+            const data = await CallApi({
+                url: `https://hape-dating.herokuapp.com/users/setting`,
+                method: `put`,
                 data: form,
             })
             dispatch(actions.FetchLoginUser())
             toast.success(data.message);
             // toast.success(data.submessage);
         }
-        catch{
+        catch {
             toast.error("Có lỗi gì đó!");
         }
     }
-    function onHandleChange(e){
+    function onHandleChange(e) {
         setGender(e.target.value);
     }
     return (
@@ -88,10 +88,10 @@ const Criteria = (props) => {
             <div className="criteria-main row">
                 <div className="criteria-main--part col-lg-6">
                     <h3 className="criteria--title">Cài đặt tìm kiếm</h3>
-                    <Typography id="range-slider" gutterBottom>
+                    <Typography component='span' id="range-slider" gutterBottom>
                         <div className="criteria--age">
                             <p className="criteria--content">Độ tuổi</p>
-                            <p className="criteria--content">{age[0]}<i class="fas fa-arrow-right"></i>{age[1]} tuổi</p>
+                            <p className="criteria--content">{age[0]}<i className="fas fa-arrow-right"></i>{age[1]} tuổi</p>
                         </div>
                     </Typography>
                     <PrettoSlider

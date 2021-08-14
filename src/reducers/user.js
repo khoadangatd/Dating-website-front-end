@@ -17,7 +17,7 @@ const reducer = (state = initialState, action) => {
             };
         case types.REMOVE_INTERACT:
             let index = state.data[name].findIndex((id) => {
-                return id == _id;
+                return id === _id;
             })
             state.data[name].split(index, 1);
             return {

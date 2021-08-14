@@ -11,7 +11,7 @@ const NoneMain = () => {
                 <p className="none-sub-content">
                     Chat ngay!
                 </p>
-                <img src={heart} className="none-image"></img>
+                <img src={heart} alt="heart" className="none-image"></img>
             </div>
         </div>
     );

@@ -9,7 +9,6 @@ import loadingGif from '../../assets/img/loading.gif';
 
 const Match = () => {
     const [userMatch, setUserMatch] = useState(null);
-    console.log(userMatch);
     const user = useSelector(state => state.user);
     const dispatch = useDispatch();
     const [loading,setLoading]= useState(true);
@@ -24,9 +23,10 @@ const Match = () => {
                 }
             })
             setUserMatch(data.data);
+            setLoading(false);
         }
         catch (err) {
-            console.log(err);
+            toast.error("Có lỗi cơ sở dữ liệu. Vui lòng truy cập lại sau!")
         }
     }
 
@@ -44,22 +44,13 @@ const Match = () => {
         return rs;
     }
 
-    function renderNone() {
-        return new Promise((resolve, reject) => {
-            setTimeout(() => {
-                resolve(false)
-            }, 500);
-        })
-    }
-
     function renderInteract() {
         var rs = null;
         if (loading) {
             rs = 
             (<div className="none-contain">
-                <img src={loadingGif} className="loading-gif"></img>
+                <img src={loadingGif} alt="loading" className="loading-gif"></img>
             </div>)
-            renderNone().then(a => setLoading(a));
             return rs;
         }
         if (noneUser) {
@@ -91,14 +82,14 @@ const Match = () => {
     useEffect(() => {
         deleteNotifyServer();
         dispatch(deleteNotify("matched"));
-    }, [])
+    }, [])// eslint-disable-line react-hooks/exhaustive-deps
 
     useEffect(() => {
         if (user)
             getUserMatch();
-    }, [user])
+    }, [user])// eslint-disable-line react-hooks/exhaustive-deps
 
-    return userMatch && (
+    return (
         <div className="main">
             <div className="board">
                 {renderInteract()}

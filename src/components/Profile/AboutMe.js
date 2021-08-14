@@ -1,5 +1,4 @@
-import React, { useState } from 'react';
-import PropTypes from 'prop-types';
+import React, { useEffect, useState } from 'react';
 import './aboutme.css';
 import citys from '../../helper/City';
 import gif from '../../assets/img/heartprofile.gif';
@@ -18,15 +17,15 @@ const AboutMe = (props) => {
         about: false,
     })
     const [form, setform] = useState({
-        aboutme: user.data.aboutme,
-        job: user.data.job,
-        target: user.data.target,
-        gender: user.data.gender,
-        marriage: user.data.marriage,
-        height: user.data.height,
-        smoking: user.data.smoking,
-        liquor: user.data.liquor,
-        city: user.data.city,
+        aboutme: '',
+        job: '',
+        target: '',
+        gender: '',
+        marriage: '',
+        height: '',
+        smoking: '',
+        liquor: '',
+        city: '',
     })
     function renderFormCity() {
         var rs = null;
@@ -76,10 +75,23 @@ const AboutMe = (props) => {
             toast.error("Có lỗi gì đó!");
         }
     }
+    useEffect(() => {
+        setform({
+            aboutme: user.data.aboutme,
+            job: user.data.job,
+            target: user.data.target,
+            gender: user.data.gender,
+            marriage: user.data.marriage,
+            height: user.data.height,
+            smoking: user.data.smoking,
+            liquor: user.data.liquor,
+            city: user.data.city,
+        })
+    }, [])// eslint-disable-line react-hooks/exhaustive-deps
     return (
         <div className="about-me">
             <div className={window.location.pathname === "/profile" ? "about-me-category" : ""} onClick={(e) => onHandleInput(e, "job", true)}>
-                <h3 className="about-me-category--title">Công việc & học vấn<i class="far fa-edit about-me-category--edit"></i></h3>
+                <h3 className="about-me-category--title">Công việc & học vấn<i className="far fa-edit about-me-category--edit"></i></h3>
                 {!edit.job ?
                     <p>{form.job || "Hãy cho mọi người biết thêm về bạn bằng cách điền thông tin về công việc và học vấn"}</p>
                     : <div>
@@ -90,7 +102,7 @@ const AboutMe = (props) => {
                 }
             </div>
             <div className={window.location.pathname === "/profile" ? "about-me-category" : ""} onClick={(e) => onHandleInput(e, "city", true)}>
-                <h3 className="about-me-category--title">Vị trí<i class="far fa-edit about-me-category--edit"></i></h3>
+                <h3 className="about-me-category--title">Vị trí<i className="far fa-edit about-me-category--edit"></i></h3>
                 {!edit.city ?
                     <p>{form.city || "Hãy cho vị trí của bạn"}</p>
                     : <div>
@@ -103,7 +115,7 @@ const AboutMe = (props) => {
                 }
             </div>
             <div className={window.location.pathname === "/profile" ? "about-me-category" : ""} onClick={(e) => onHandleInput(e, "target", true)}>
-                <h3 className="about-me-category--title">Tôi ở đây để <i class="far fa-edit about-me-category--edit"></i></h3>
+                <h3 className="about-me-category--title">Tôi ở đây để <i className="far fa-edit about-me-category--edit"></i></h3>
                 {!edit.target ?
                     <p>{form.target || "Hãy cho mọi người câu trả lời chính xác từ bạn"}</p>
                     :
@@ -116,94 +128,95 @@ const AboutMe = (props) => {
                             <option value="Hẹn hò nghiêm túc">Hẹn hò nghiêm túc</option>
                             <option value="Xem điều gì xảy ra">Xem điều gì xảy ra</option>
                         </select>
-                        {/* <input type="text" className="about-me-category--input" name="target" onChange={onHandleChange} value={form.target || ""}></input> */}
                         <button className="about-me-btn--save-part-small about-me-btn--save-part-small--save" onClick={(e) => onHandleInput(e, "target", false, true)}>Lưu</button>
                         <button className="about-me-btn--save-part-small" onClick={(e) => onHandleInput(e, "target", false, false)}>Hủy</button>
                     </div>
                 }
             </div>
             <div className={window.location.pathname === "/profile" ? "about-me-category" : ""} onClick={(e) => onHandleInput(e, "about", true)}>
-                <h3 className="about-me-category--title">Thông tin cá nhân <i class="far fa-edit about-me-category--edit"></i></h3>
+                <h3 className="about-me-category--title">Thông tin cá nhân <i className="far fa-edit about-me-category--edit"></i></h3>
                 <table className="about-me-category--child">
-                    <tr className="about-me-category--child--tr">
-                        <th>
-                            <p className="about-me-category--child--title">Về tôi</p>
-                        </th>
-                        <td>
-                            {!edit.about ?
-                                <p className="about-me-category--child--title__content">{form.aboutme || "Hãy mô tả về bản thân bạn"}</p> :
-                                <textarea type="text" rows="4" className="about-me-category--input about-me-category--input--textarea" name="aboutme" onChange={onHandleChange} value={form.aboutme} placeholder="Hãy viết gì đó chân thật nhất về bản thân bạn"></textarea>
-                            }
-                        </td>
-                    </tr>
-                    <tr className="about-me-category--child--tr">
-                        <th>
-                            <p className="about-me-category--child--title">Về hôn nhân</p>
-                        </th>
-                        <td>
-                            {!edit.about ?
-                                <p className="about-me-category--child--title__content">{form.marriage || "Chưa xác định"}</p> :
-                                <input type="text" className="about-me-category--input" name="marriage" onChange={onHandleChange} value={form.marriage} placeholder="Chưa xác định"></input>
-                            }
-                        </td>
-                    </tr>
-                    <tr className="about-me-category--child--tr">
-                        <th>
-                            <p className="about-me-category--child--title">Giới tính</p>
-                        </th>
-                        <td>
-                            {!edit.about ?
-                                <p className="about-me-category--child--title__content">{form.gender || "Chưa xác định"}</p> :
-                                <select className="about-me-category--input" name="gender" onChange={onHandleChange} value={form.gender} required>
-                                    <option value="Nam">Nam</option>
-                                    <option value="Nữ">Nữ</option>
-                                </select>
-                            }
-                        </td>
-                    </tr>
-                    <tr className="about-me-category--child--tr">
-                        <th>
-                            <p className="about-me-category--child--title">Chiều cao</p>
-                        </th>
-                        <td>
-                            {!edit.about ?
-                                <p className="about-me-category--child--title__content">{form.height || "Chưa xác định"}</p> :
-                                <input type="text" className="about-me-category--input" name="height" onChange={onHandleChange} value={form.height} placeholder="Chưa xác định"></input>
-                            }
-                        </td>
-                    </tr>
-                    <tr className="about-me-category--child--tr">
-                        <th>
-                            <p className="about-me-category--child--title">Hút thuốc</p>
-                        </th>
-                        <td>
-                            {!edit.about ?
-                                <p className="about-me-category--child--title__content">{form.smoking || "Chưa xác định"}</p> :
-                                <select className="about-me-category--input" name="smoking" onChange={onHandleChange} value={form.smoking} required>
-                                    <option value="" disabled selected>--Hút thuốc--</option>
-                                    <option value="Không">Không </option>
-                                    <option value="Thỉnh thoảng">Thỉnh thoảng</option>
-                                    <option value="Thường xuyên">Thường xuyên</option>
-                                </select>
-                            }
-                        </td>
-                    </tr>
-                    <tr className="about-me-category--child--tr">
-                        <th>
-                            <p className="about-me-category--child--title">Rượu bia</p>
-                        </th>
-                        <td>
-                            {!edit.about ?
-                                <p className="about-me-category--child--title__content">{form.liquor || "Chưa xác định"}</p> :
-                                <select className="about-me-category--input" name="liquor" onChange={onHandleChange} value={form.liquor} required>
-                                    <option value="" disabled selected>--Rượu bia--</option>
-                                    <option value="Không">Không </option>
-                                    <option value="Thỉnh thoảng">Thỉnh thoảng</option>
-                                    <option value="Thường xuyên">Thường xuyên</option>
-                                </select>
-                            }
-                        </td>
-                    </tr>
+                    <tbody>
+                        <tr className="about-me-category--child--tr">
+                            <th>
+                                <p className="about-me-category--child--title">Về tôi</p>
+                            </th>
+                            <td>
+                                {!edit.about ?
+                                    <p className="about-me-category--child--title__content">{form.aboutme || "Hãy mô tả về bản thân bạn"}</p> :
+                                    <textarea type="text" rows="4" className="about-me-category--input about-me-category--input--textarea" name="aboutme" onChange={onHandleChange} value={form.aboutme} placeholder="Hãy viết gì đó chân thật nhất về bản thân bạn"></textarea>
+                                }
+                            </td>
+                        </tr>
+                        <tr className="about-me-category--child--tr">
+                            <th>
+                                <p className="about-me-category--child--title">Về hôn nhân</p>
+                            </th>
+                            <td>
+                                {!edit.about ?
+                                    <p className="about-me-category--child--title__content">{form.marriage || "Chưa xác định"}</p> :
+                                    <input type="text" className="about-me-category--input" name="marriage" onChange={onHandleChange} value={form.marriage} placeholder="Chưa xác định"></input>
+                                }
+                            </td>
+                        </tr>
+                        <tr className="about-me-category--child--tr">
+                            <th>
+                                <p className="about-me-category--child--title">Giới tính</p>
+                            </th>
+                            <td>
+                                {!edit.about ?
+                                    <p className="about-me-category--child--title__content">{form.gender || "Chưa xác định"}</p> :
+                                    <select className="about-me-category--input" name="gender" onChange={onHandleChange} value={form.gender} required>
+                                        <option value="Nam">Nam</option>
+                                        <option value="Nữ">Nữ</option>
+                                    </select>
+                                }
+                            </td>
+                        </tr>
+                        <tr className="about-me-category--child--tr">
+                            <th>
+                                <p className="about-me-category--child--title">Chiều cao</p>
+                            </th>
+                            <td>
+                                {!edit.about ?
+                                    <p className="about-me-category--child--title__content">{form.height || "Chưa xác định"}</p> :
+                                    <input type="text" className="about-me-category--input" name="height" onChange={onHandleChange} value={form.height} placeholder="Chưa xác định"></input>
+                                }
+                            </td>
+                        </tr>
+                        <tr className="about-me-category--child--tr">
+                            <th>
+                                <p className="about-me-category--child--title">Hút thuốc</p>
+                            </th>
+                            <td>
+                                {!edit.about ?
+                                    <p className="about-me-category--child--title__content">{form.smoking || "Chưa xác định"}</p> :
+                                    <select className="about-me-category--input" name="smoking" onChange={onHandleChange} value={form.smoking} required>
+                                        <option value="" disabled selected>--Hút thuốc--</option>
+                                        <option value="Không">Không </option>
+                                        <option value="Thỉnh thoảng">Thỉnh thoảng</option>
+                                        <option value="Thường xuyên">Thường xuyên</option>
+                                    </select>
+                                }
+                            </td>
+                        </tr>
+                        <tr className="about-me-category--child--tr">
+                            <th>
+                                <p className="about-me-category--child--title">Rượu bia</p>
+                            </th>
+                            <td>
+                                {!edit.about ?
+                                    <p className="about-me-category--child--title__content">{form.liquor || "Chưa xác định"}</p> :
+                                    <select className="about-me-category--input" name="liquor" onChange={onHandleChange} value={form.liquor} required>
+                                        <option value="" disabled selected>--Rượu bia--</option>
+                                        <option value="Không">Không </option>
+                                        <option value="Thỉnh thoảng">Thỉnh thoảng</option>
+                                        <option value="Thường xuyên">Thường xuyên</option>
+                                    </select>
+                                }
+                            </td>
+                        </tr>
+                    </tbody>
                 </table>
                 {!edit.about ? "" :
                     <div className="about-me-btn--save-part-small--contain">
@@ -223,11 +236,5 @@ const AboutMe = (props) => {
         </div>
     );
 };
-
-
-AboutMe.propTypes = {
-
-};
-
 
 export default AboutMe;

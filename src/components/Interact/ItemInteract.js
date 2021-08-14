@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import callApi from '../../helper/axiosClient';
-import { Link, useHistory } from 'react-router-dom';
-import { Fragment } from 'react';
+import { useHistory } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
 import { interactUser } from '../../actions/index';
 
@@ -70,7 +69,7 @@ const ItemInteract = (props) => {
 
     function handleInteract(e, data) {
         e.stopPropagation();
-        if(me.data.role==1){
+        if(me.data.role===1){
             setOpen(true);
             return;
         }
@@ -106,7 +105,7 @@ const ItemInteract = (props) => {
                         {/* <p className="interaction--item__name--main--title">Đã thích bạn</p> */}
                     </div>
                     <div className="interaction--item--hover">
-                        {window.location.pathname == "/loved" ?
+                        {window.location.pathname === "/loved" ?
                             <i class="fas fa-user-friends"></i> :
                             <div className="row interaction--item--hover--liked">
                                 <div className="col-lg-6 interaction--item--hover--liked__icon" onClick={(e) => handleInteract(e, true)}>

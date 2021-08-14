@@ -1,6 +1,6 @@
-import React, { useEffect, useRef, useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import './discovery.css';
-import { useSelector, useDispatch } from 'react-redux';
+import { useSelector } from 'react-redux';
 import callApi from '../../helper/axiosClient';
 import Info from './../../components/Discovery/Info';
 import PictureView from './../../components/Discovery/PictureView';
@@ -22,8 +22,14 @@ import Checkbox from '@material-ui/core/Checkbox';
 
 const Discovery = (props) => {
     const { socket } = props;
+    // User người đăng nhập
+    const user = useSelector(state => state.user);
+    const history = useHistory();
+    //state này dùng để lưu giá trị api trả về khi thực hiện tìm đối phương (5 người)
     const [userOther, setuserOther] = useState([]);
+    //state này dùng để lưu hình ảnh api trả về khi cũng từng người (5 người)
     const [images, setimages] = useState([]);
+    //state này dùng để đóng mở dialog tố cáo
     const [open, setOpen] = useState(false);
     const [report, setReport] = useState({
         checkedA: false,
@@ -31,23 +37,31 @@ const Discovery = (props) => {
         checkedC: false,
         detail: null
     });
+    //Ban đầu chạy sẽ chạy loading khi nào api trả về thì set lại false
     const [loading, setLoading] = useState(true);
-    const user = useSelector(state => state.user);
-    const history = useHistory();
+
+    // Hàm tìm đối phương 
     const findPartner = async () => {
-        // try{
-        const userFind = await callApi({
-            url: `https://hape-dating.herokuapp.com/users/findUser`,
-            method: "post",
-            data: {
-                setting: user.data.setting,
-                unlike: user.data.unlike,
-                like: user.data.like,
-            }
-        })
-        setuserOther(userFind.data);
-        return userFind.data;
+        try {
+            const userFind = await callApi({
+                url: `https://hape-dating.herokuapp.com/users/findUser`,
+                method: "post",
+                data: {
+                    setting: user.data.setting,
+                    unlike: user.data.unlike,
+                    like: user.data.like,
+                }
+            })
+            // setuserOther(userFind.data);
+            return userFind.data;
+        }
+        catch (error) {
+            toast.error("Hiện tại cơ sở dữ liệu bị lỗi. Hãy quay lại sau!")
+            return null;
+        }
     }
+
+    // Khi có đối phương rồi thực hiện lấy hình ảnh của người đó
     const getPicture = async (data) => {
         if (!data) return;
         var temp = [];
@@ -58,17 +72,12 @@ const Discovery = (props) => {
             })
             temp.push(form);
         }
-        setimages(temp);
+        // setimages(temp);
+        return temp;
     }
-    useEffect(() => {
-        if (!user) return;
-        if (user.data.role == 0)
-            history.push('/management')
-        else
-            findPartner().then((data) => getPicture(data));
-    }, [user, userOther.length == 0]);
-    function removeUserOther() {
-        console.log(userOther);
+
+    // Hàm xóa người khỏi state UserOther khi người đó interact(Like hoặc unlike)
+    const removeUserOther = () => {
         var cloneuserOther = [...userOther];
         var cloneimages = [...images];
         cloneuserOther.shift();
@@ -76,18 +85,24 @@ const Discovery = (props) => {
         setimages(cloneimages);
         setuserOther(cloneuserOther);
     }
+
+    // Đóng dialog
     const handleClose = () => {
         setOpen(false);
     };
+    // Mở dialog
     function handleClickOpen() {
         setOpen(true);
     }
+
+    // Thay đổi form trong Dialog
     const handleChange = (event) => {
         setReport({
             ...report,
             [event.target.name]: event.target.checked || event.target.value
         });
     };
+    // Gửi Tố cáo (Dialog)
     const onSubmitReport = async (e) => {
         e.preventDefault();
         if (userOther.length <= 0) return;
@@ -117,13 +132,8 @@ const Discovery = (props) => {
             toast.error(error.response.data.message);
         }
     }
-    function renderNone() {
-        return new Promise((resolve, reject) => {
-            setTimeout(() => {
-                resolve(!loading)
-            }, 500);
-        })
-    }
+
+    // Hàm hiển thị đối phương
     function renderInfo() {
         var rs = null;
         if (userOther.length > 0 && images.length > 0 && user) {
@@ -143,11 +153,10 @@ const Discovery = (props) => {
         }
         else {
             if (loading) {
-                rs = 
-                (<div className="none-contain">
-                    <img src={loadingGif} className="loading-gif"></img>
-                </div>);
-                renderNone().then(a => setLoading(a));
+                rs =
+                    (<div className="none-contain">
+                        <img src={loadingGif} alt="loading" className="loading-gif"></img>
+                    </div>);
             }
             else {
                 rs = <NoneInfo></NoneInfo>
@@ -155,6 +164,23 @@ const Discovery = (props) => {
         }
         return rs;
     }
+
+    useEffect(() => {
+        if (!user) return;
+        if (user.data.role === 0)
+            history.push('/management')
+        else
+            findPartner()
+                .then(data => {
+                    setuserOther(data);
+                    return getPicture(data);
+                })
+                .then(data => {
+                    setimages(data);
+                    setLoading(false);
+                })
+    }, [user, userOther.length === 0]);// eslint-disable-line react-hooks/exhaustive-deps
+
     return (
         <div className="main">
             <div className="board">

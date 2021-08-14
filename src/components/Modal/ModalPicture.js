@@ -1,17 +1,15 @@
 import React, { useEffect } from 'react';
-import PropTypes from 'prop-types';
-
 
 const ModalPicture = (props) => {
     const { src, QuitModal, ChangeModal } = props;
     useEffect(() => {
         var modal = document.querySelector(".modal");
         window.addEventListener("click", (e) => {
-            if (e.target == modal) {
+            if (e.target === modal) {
                 QuitModal();
             }
         });
-    }, []);
+    }, []);// eslint-disable-line react-hooks/exhaustive-deps
     function renderMainModal() {
         var rs = null;
         if (src.item.src.includes(".mp4")) {
@@ -33,11 +31,5 @@ const ModalPicture = (props) => {
         </div>
     );
 };
-
-
-ModalPicture.propTypes = {
-
-};
-
 
 export default ModalPicture;

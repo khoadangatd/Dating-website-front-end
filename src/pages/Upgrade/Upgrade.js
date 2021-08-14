@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useState } from 'react';
 import callApi from '../../helper/axiosClient';
 import { useDispatch, useSelector } from 'react-redux';
 import './upgrade.css';
@@ -34,7 +34,7 @@ const Upgrade = () => {
         // // Tìm tổng số trong credit vd như 800 sẽ có 3 số
         var rs = [];
         var temp = parseInt(user.data.credit);
-        if (temp == 0) {
+        if (temp === 0) {
             rs = <div class="upgrade--credits-header__counter__list__item">
                 0
             </div>
@@ -120,19 +120,19 @@ const Upgrade = () => {
                     <div className="upgrade-main">
                         <div className="row">
                             <div className="col-lg-4 col-md-4 upgrade-main__item">
-                                <img src={message} className="upgrade-main--image"></img>
+                                <img src={message} alt="message" className="upgrade-main--image"></img>
                                 <p>
                                     Bạn có thể gửi tin nhắn cho bất kì ai
                                 </p>
                             </div>
                             <div className="col-lg-4 col-md-4 upgrade-main__item">
-                                <img src={liked} className="upgrade-main--image"></img>
+                                <img src={liked} alt="liked" className="upgrade-main--image"></img>
                                 <p>
                                     Xem được những người đã thích bạn
                                 </p>
                             </div>
                             <div className="col-lg-4 col-md-4 upgrade-main__item">
-                                <img src={present} className="upgrade-main--image"></img>
+                                <img src={present} alt="present" className="upgrade-main--image"></img>
                                 <p>
                                     Tặng quà cho người nhắn tin
                                 </p>

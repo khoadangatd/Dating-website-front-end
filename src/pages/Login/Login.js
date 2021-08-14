@@ -1,11 +1,11 @@
 import React, { useEffect, useState } from 'react';
 import './login.css';
-import { Link, Redirect, withRouter } from 'react-router-dom';
+import { Link, withRouter } from 'react-router-dom';
 import FacebookLogin from 'react-facebook-login/dist/facebook-login-render-props';
 import callApi from '../../helper/axiosClient';
 import { toast } from 'react-toastify';
 import { useHistory } from "react-router-dom";
-import { useDispatch, useSelector } from 'react-redux';
+import { useDispatch } from 'react-redux';
 import * as actions from '../../actions/index';
 import logo from '../../assets/img/LOGO.png';
 
@@ -19,7 +19,6 @@ import DialogTitle from '@material-ui/core/DialogTitle';
 
 const Login = (props) => {
     const { setupSocket } = props;
-    const user = useSelector(state => state.user);
     const [totalUser, setTotalUser] = useState(null);
     const [form, setform] = useState({
         email: '',
@@ -30,7 +29,7 @@ const Login = (props) => {
     // const user = useSelector(state => state.user);
     let history = useHistory();
     const [dispass, setdispass] = useState(false);
-    const [forgot,setForgot] = useState('');
+    const [forgot, setForgot] = useState('');
     async function getTotalUser() {
         const data = await callApi({
             url: `https://hape-dating.herokuapp.com/users/totalUser/`,
@@ -107,13 +106,13 @@ const Login = (props) => {
             toast.error(error.response.data.message);
         }
     }
-    async function handleSubmitForgotPassword(){
-        try{
+    async function handleSubmitForgotPassword() {
+        try {
             await callApi({
-                url:`https://hape-dating.herokuapp.com/users/forgot`,
-                method:'post',
-                data:{
-                    email:forgot
+                url: `https://hape-dating.herokuapp.com/users/forgot`,
+                method: 'post',
+                data: {
+                    email: forgot
                 }
             })
             toast.success("Đã gửi mật khẩu về email");
@@ -126,54 +125,54 @@ const Login = (props) => {
         getTotalUser();
     }, []);
     return (
-        <form class="login-main-form" onSubmit={onSubmitForm}>
-            <div class="row">
-                <div class="col-lg-6 col-md-6 login-first-intro">
-                    <div class="descripttion-quantity-people">
-                        <h3 class="quantity-people">{formatMoney()}</h3>
+        <form className="login-main-form" onSubmit={onSubmitForm}>
+            <div className="row">
+                <div className="col-lg-6 col-md-6 login-first-intro">
+                    <div className="descripttion-quantity-people">
+                        <h3 className="quantity-people">{formatMoney()}</h3>
                         <p>người đã tham gia, đăng ký ngay</p>
                     </div>
-                    <div class="login-main-form--external">
-                        <a href="" class="login-main-form--external-link">
-                            <i class="fab fa-google"></i>Google</a>
+                    <div className="login-main-form--external">
+                        <div href="" className="login-main-form--external-link">
+                            <i className="fab fa-google"></i>Google</div>
                         <FacebookLogin
                             appId="1375981766109023"
                             autoLoad={false}
                             fields="name,email,picture"
                             scope="public_profile, email, user_birthday"
                             render={renderProps => (
-                                <a href="" class="login-main-form--external-link">
-                                    <i class="fab fa-facebook"></i>Facebook</a>
+                                <div href="" className="login-main-form--external-link">
+                                    <i className="fab fa-facebook"></i>Facebook</div>
                             )}
                             callback={responseFacebook} />,
                     </div>
                 </div>
-                <div class="col-lg-6 col-md-6">
-                    <img src={logo} alt="" class="login-main-form--logo" />
-                    <h1 class="login-main-form--title">Đăng nhập</h1>
-                    <h2 class="login-main-form--sub-title">Tiếp tục tới Hape</h2>
-                    <input type="email" class="login-main-form--input" name="email" value={form.email} onChange={onChangeForm} placeholder="Email" required />
-                    <input type={`${!dispass ? "password" : "text"}`} class="login-main-form--input" name="password" value={form.password} onChange={onChangeForm} placeholder="Mật khẩu" required />
+                <div className="col-lg-6 col-md-6">
+                    <img src={logo} alt="" className="login-main-form--logo" />
+                    <h1 className="login-main-form--title">Đăng nhập</h1>
+                    <h2 className="login-main-form--sub-title">Tiếp tục tới Hape</h2>
+                    <input type="email" className="login-main-form--input" name="email" value={form.email} onChange={onChangeForm} placeholder="Email" required />
+                    <input type={`${!dispass ? "password" : "text"}`} className="login-main-form--input" name="password" value={form.password} onChange={onChangeForm} placeholder="Mật khẩu" required />
                     <input type="checkbox" name="displaypass" id="displaypass" onClick={() => setdispass(!dispass)} />
-                    <label for="displaypass">Hiển thị mật khẩu</label>
-                    <div class="login-main-form--forgot-contain">
-                        <span class="login-main-form--forgot" onClick={handleClickOpen}>Bạn quên mật khẩu?</span>
+                    <label htmlFor="displaypass">Hiển thị mật khẩu</label>
+                    <div className="login-main-form--forgot-contain">
+                        <span className="login-main-form--forgot" onClick={handleClickOpen}>Bạn quên mật khẩu?</span>
                     </div>
-                    <div class="login-main-form--submit">
-                        <Link to="/register" class="login-main-form--create">Tạo tài khoản</Link>
-                        <input type="submit" class="login-main-form--submit__main" value="Đăng nhập"></input>
+                    <div className="login-main-form--submit">
+                        <Link to="/register" className="login-main-form--create">Tạo tài khoản</Link>
+                        <input type="submit" className="login-main-form--submit__main" value="Đăng nhập"></input>
                     </div>
-                    <div class="login-main-form--external login-main-form--external--login">
-                        <a href="" class="login-main-form--external-link">
-                            <i class="fab fa-google"></i>Google</a>
+                    <div className="login-main-form--external login-main-form--external--login">
+                        <div className="login-main-form--external-link">
+                            <i className="fab fa-google"></i>Google</div>
                         <FacebookLogin
                             appId="1375981766109023"
                             autoLoad={false}
                             fields="name,email,picture"
                             scope="public_profile, email, user_birthday"
                             render={renderProps => (
-                                <a href="" class="login-main-form--external-link">
-                                    <i class="fab fa-facebook"></i>Facebook</a>
+                                <div className="login-main-form--external-link">
+                                    <i className="fab fa-facebook"></i>Facebook</div>
                             )}
                             callback={responseFacebook} />,
                     </div>
@@ -192,7 +191,7 @@ const Login = (props) => {
                         label="Email"
                         type="email"
                         value={forgot}
-                        onChange={(e)=>{setForgot(e.target.value)}}
+                        onChange={(e) => { setForgot(e.target.value) }}
                         fullWidth
                     />
                 </DialogContent>

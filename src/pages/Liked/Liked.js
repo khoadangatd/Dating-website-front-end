@@ -24,11 +24,11 @@ const Liked = (props) => {
                     liked: user.data.liked
                 }
             })
-            console.log(data);
             setUserLiked(data.data);
+            setLoading(false);
         }
         catch {
-            setTimeout(getUserLiked, 3000);
+            toast.error("Có lỗi cơ sở dữ liệu. Vui lòng truy cập lại sau!")
         }
     }
 
@@ -46,22 +46,13 @@ const Liked = (props) => {
         return rs;
     }
 
-    function renderNone() {
-        return new Promise((resolve, reject) => {
-            setTimeout(() => {
-                resolve(false)
-            }, 500);
-        })
-    }
-
     function renderInteract() {
         var rs = null;
         if (loading) {
             rs = 
             (<div className="none-contain">
-                <img src={loadingGif} className="loading-gif"></img>
+                <img src={loadingGif} alt="loading" className="loading-gif"></img>
             </div>)
-            renderNone().then(a => setLoading(a));
             return rs;
         }
         if (noneUser) {
@@ -93,12 +84,12 @@ const Liked = (props) => {
     useEffect(() => {
         deleteNotifyServer();
         dispatch(deleteNotify("liked"));
-    }, [])
+    }, [])// eslint-disable-line react-hooks/exhaustive-deps
 
     useEffect(() => {
         if (user)
             getUserLiked();
-    }, [user])
+    }, [user])// eslint-disable-line react-hooks/exhaustive-deps
     return (
         <div className="main">
             <div className="board">

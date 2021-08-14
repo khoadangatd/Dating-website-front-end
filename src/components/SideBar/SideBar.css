@@ -192,7 +192,6 @@
     /* Main App.css */
     .main{
         margin-left: 108px;
-        align-items: unset;
         border-left:20px solid transparent;
         border-right: 20px solid transparent;
     }
@@ -437,14 +436,14 @@
     }
 }
 
-@media only screen and (max-width: 338px) {
-
-}
-
-@media only screen and (max-width: 330px) {
-
-}
-
-@media only screen and (max-width: 320px) {
-
+@media only screen and (max-height: 560px) {
+    .responsive-height{
+        display:flex;
+    }
+    .main{
+        display: none;
+    }
+    .sidebar{
+        display: none;
+    }
 }

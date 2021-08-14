@@ -1,9 +1,7 @@
 import React, { useEffect, useState } from 'react';
-import PropTypes from 'prop-types';
 import queryString from 'query-string';
 import { useLocation } from 'react-router-dom';
 import UpdatePicture from './../../components/Profile/UpdatePicture';
-import Criteria from './../../components/Profile/Criteria';
 import AboutMe from './../../components/Profile/AboutMe';
 import Modal from './../../components/Modal/Modal';
 import CallApi from '../../helper/axiosClient';
@@ -23,9 +21,8 @@ const ProfileOther = () => {
             method: "get",
         }).then(data => {
             setuser(data);
-            console.log(data);
         });
-    }, []);
+    }, []);// eslint-disable-line react-hooks/exhaustive-deps
     function renderProfileUser() {
         if (!user || user.data.length < 0) {
             setTimeout(function () {
@@ -60,11 +57,5 @@ const ProfileOther = () => {
         </div>
     );
 };
-
-
-ProfileOther.propTypes = {
-
-};
-
 
 export default ProfileOther;

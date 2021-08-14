@@ -1,6 +1,5 @@
-import React, { useEffect, useRef, useState } from 'react';
-import PropTypes from 'prop-types';
-import { useDispatch, useSelector } from 'react-redux';
+import React, { useEffect, useState } from 'react';
+import { useDispatch } from 'react-redux';
 import callApi from '../../helper/axiosClient';
 import FormData from 'form-data';
 import { toast } from 'react-toastify';
@@ -17,7 +16,6 @@ import DialogTitle from '@material-ui/core/DialogTitle';
 import Slider from "react-slick";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
-import { Fragment } from 'react';
 
 import heart from '../../assets/img/heartbluee.gif'
 
@@ -92,7 +90,6 @@ const UpdatePicture = (props) => {
             setuploaded(!uploaded);
             toast.success("Xóa hình ảnh thành công");
             handleClose();
-
         }
         catch (error) {
             toast.error(error.response.data.message);
@@ -105,25 +102,25 @@ const UpdatePicture = (props) => {
                 url: `https://hape-dating.herokuapp.com/pictures/${user.data._id}`,
                 method: "get",
             })
-            console.log(data);
             setpictures(data);
         }
         catch (err) {
             toast.error(err.msg);
         }
     }
+    
     useEffect(() => {
         getPicture();
-    }, [uploaded]);
+    }, [uploaded]);// eslint-disable-line react-hooks/exhaustive-deps
+
     function renderListImage() {
         var result = null;
         if (!pictures) return;
         if (pictures && pictures.data.length > 0) {
             result = pictures.data.map((pic, index) => {
                 return (
-                    <div className="item">
+                    <div className="item" key={index}>
                         <div className="board--profile-image__box board--profile-image__box--img"
-                            key={index}
                             style={{ backgroundImage: `url("https://hape-dating.herokuapp.com/images/${pic.src}")` }}
                         >
                             {pic.src.includes(".mp4") ?
@@ -133,10 +130,10 @@ const UpdatePicture = (props) => {
                                 : ""}
                             <div className="board--profile-image__box__button-contain">
                                 <button className="board--profile-image__box__button" onClick={() => setdismodal({ item: pic, stt: index })}>
-                                    <i class="fas fa-arrows-alt"></i>
+                                    <i className="fas fa-arrows-alt"></i>
                                 </button>
                                 <button className="board--profile-image__box__button" onClick={(e) => handleClickOpen(e, pic._id)}>
-                                    <i class="fas fa-times"></i>
+                                    <i className="fas fa-times"></i>
                                 </button>
                             </div>
                         </div>
@@ -217,15 +214,15 @@ const UpdatePicture = (props) => {
             }
         ]
     };
-    return pictures && (
+    return (
         <div className="board--profile-image">
             {window.location.pathname === "/profile"
                 ?
                 <div className="board--profile-image__upload-main">
                     <input type="file" name="image" id="upload-image" onChange={onHandleChange} style={{ display: "none" }}></input>
-                    <label for="upload-image" className="board--profile-image__box">
+                    <label htmlFor="upload-image" className="board--profile-image__box">
                         <div className="board--profile-image__box__detail" >
-                            <i class="fas fa-camera"></i>
+                            <i className="fas fa-camera"></i>
                             <p>Thêm ảnh của bạn</p>
                         </div>
                     </label>
@@ -233,7 +230,7 @@ const UpdatePicture = (props) => {
                 :
                 <div className="board--profile-image__upload-main">
                     <div className="board--profile-other-heart">
-                        <img src={heart} className="board--profile-other-heart--img"></img>
+                        <img src={heart} alt="heart" className="board--profile-other-heart--img"></img>
                     </div>
                 </div>
             }
@@ -267,11 +264,5 @@ const UpdatePicture = (props) => {
         </div>
     );
 };
-
-
-UpdatePicture.propTypes = {
-
-};
-
 
 export default UpdatePicture;

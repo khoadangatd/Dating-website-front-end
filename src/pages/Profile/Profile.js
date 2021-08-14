@@ -1,7 +1,6 @@
-import React, { useEffect, useRef, useState } from 'react';
-import PropTypes from 'prop-types';
+import React, { useRef, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { Link, useHistory } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import callApi from '../../helper/axiosClient';
 import UpdatePicture from './../../components/Profile/UpdatePicture';
 import Modal from './../../components/Modal/Modal';
@@ -21,9 +20,9 @@ const Profile = () => {
     const user = useSelector(state => state.user);
     const [modal, setmodal] = useState(false);
     const [open, setOpen] = useState(false);
-    const [avatar,setAvatar]= useState(null);
-    const pictureAvatar= useRef(null);
-    const dispatch= useDispatch();
+    const [avatar, setAvatar] = useState(null);
+    const pictureAvatar = useRef(null);
+    const dispatch = useDispatch();
     const handleClickOpen = () => {
         setOpen(true);
     };
@@ -40,15 +39,15 @@ const Profile = () => {
             name: e.target.files[0].name
         }
         // Byte->Megabyte
-        var maxsize=e.target.files[0].size/(1000*1000);
-        if(maxsize>8){
+        var maxsize = e.target.files[0].size / (1000 * 1000);
+        if (maxsize > 8) {
             toast.error("Vui lòng chọn file nhỏ hơn 8 MB");
             return;
         }
         setAvatar(picUpload);
-        pictureAvatar.current.style.backgroundImage=`url('${URL.createObjectURL(e.target.files[0])}`;
+        pictureAvatar.current.style.backgroundImage = `url('${URL.createObjectURL(e.target.files[0])}`;
     }
-    async function onSubmitUpdateAvatar(){
+    async function onSubmitUpdateAvatar() {
         const formData = new FormData();
         formData.append('image', avatar.file);
         formData.append('name', avatar.name);
@@ -81,9 +80,9 @@ const Profile = () => {
                         </div>
                         <div className="board__heading__setting">
                             <Link to="setting">
-                                <button class="btn-board"><i class="fas fa-cog"></i></button>
+                                <button className="btn-board"><i className="fas fa-cog"></i></button>
                             </Link>
-                            <button class="btn-board" onClick={() => setmodal(true)}><i class="fas fa-user"></i></button>
+                            <button className="btn-board" onClick={() => setmodal(true)}><i className="fas fa-user"></i></button>
                         </div>
                     </div>
                     <UpdatePicture user={user}></UpdatePicture>
@@ -113,9 +112,9 @@ const Profile = () => {
                         <div className="col-lg-6">
                             <h3 className="perform-update-avatar--h3">Ảnh chỉnh sửa</h3>
                             <input type="file" name="image" id="upload-avatar" onChange={onUpdateAvatar} style={{ display: "none" }}></input>
-                            <label for="upload-avatar" className="profile-update-avatar">
+                            <label htmlFor="upload-avatar" className="profile-update-avatar">
                                 <div className="profile-update-avatar--detail" >
-                                    <i class="fas fa-camera"></i>
+                                    <i className="fas fa-camera"></i>
                                     <p>Chọn ảnh đại diện</p>
                                 </div>
                             </label>

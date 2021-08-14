@@ -21,12 +21,7 @@ const PictureView = (props) => {
     }
     useEffect(() => {
         if (!pictures || pictures.data.length < 1) return;
-        // if (pictures.data.length > 0 && pictures) {
         setview("https://hape-dating.herokuapp.com/images/" + pictures.data[index.current].src);
-        // }
-        // else {
-        //     setview(null);
-        // }
     }, [pictures])
     // Socket
     function handleInteract(data) {

@@ -34,7 +34,7 @@ const ListChat = (props) => {
             sortMatch(viewList);
             result = viewList.map((match, index) => {
                 return (
-                    <Link to={`/messenger?idcon=${match.conversation._id}`} className={`${match.conversation._id == idcon ? "messenger--user__item--active" : ""} messenger--user__item`} key={match._id}>
+                    <Link to={`/messenger?idcon=${match.conversation._id}`} className={`${match.conversation._id === idcon ? "messenger--user__item--active" : ""} messenger--user__item`} key={match._id}>
                         <div className="messenger--user__item-avatar">
                             <div style={{ backgroundImage: `url("https://hape-dating.herokuapp.com/images/${match.avatar}")` }} className="sidebar--avatar"></div>
                             <div class={`messenger--user__item-avatar-circle ${handleOnline(match) ? "user__item-avatar-circle--online" : "user__item-avatar-circle--offline"}`}></div>

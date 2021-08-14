@@ -7,7 +7,6 @@ import './modal.css'
 const Modal = (props) => {
     const { user, dismodal } = props;
     const [pictures, setpictures] = useState(null);
-    console.log(user);
     const getPicture = async () => {
         try{
             const data = await callApi({
@@ -28,13 +27,13 @@ const Modal = (props) => {
                 dismodal(false);
             }
         });
-    }, []);
+    }, []);// eslint-disable-line react-hooks/exhaustive-deps
     return (
         <div className="modal">
             <div className="modal-board">
                 <div className="modal-main">
                     <PictureView pictures={pictures} other={user.data} removeUserOther={()=>{}}></PictureView>
-                    <Info user={user.data}></Info>
+                    {pictures&&<Info user={user.data}></Info>}
                 </div>
             </div>
         </div>
