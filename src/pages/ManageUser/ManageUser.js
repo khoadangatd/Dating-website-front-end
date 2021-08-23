@@ -39,7 +39,7 @@ const ItemUser = (props) => {
             <td class="manage--users-item">#{stt}</td>
             <td>
                 <div className="manage--users-item__name">
-                    <div className="manage--users-item__name--image" style={{ backgroundImage: `url("https://hape-dating.herokuapp.com/images/${avatar}"` }}>
+                    <div className="manage--users-item__name--image" style={{ backgroundImage: `url("https://localhost/images/${avatar}"` }}>
                     </div>
                     <div class="manage--users-item__name--detail">
                         <div class="manage--users-item__name--detail--main">
@@ -92,7 +92,7 @@ const ManageUser = () => {
     async function getAllUser() {
         try {
             const data = await callApi({
-                url: `https://hape-dating.herokuapp.com/users/all?page=${page}${q ? `&search=${q}` : ""}`,
+                url: `https://localhost/users/all?page=${page}${q ? `&search=${q}` : ""}`,
                 method: `get`
             })
             setAllUser(data);
@@ -158,7 +158,7 @@ const ManageUser = () => {
 
     async function onClickDisable() {
         await callApi({
-            url: `https://hape-dating.herokuapp.com/users/disable`,
+            url: `https://localhost/users/disable`,
             method: `put`,
             data: {
                 id: formDisabled._id,

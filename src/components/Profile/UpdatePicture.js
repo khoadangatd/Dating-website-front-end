@@ -84,7 +84,7 @@ const UpdatePicture = (props) => {
         try {
             console.log(open.idpic);
             await callApi({
-                url: `https://hape-dating.herokuapp.com/pictures/${open.idpic}`,
+                url: `https://localhost/pictures/${open.idpic}`,
                 method: "delete",
             })
             setuploaded(!uploaded);
@@ -99,7 +99,7 @@ const UpdatePicture = (props) => {
     const getPicture = async () => {
         try {
             const data = await callApi({
-                url: `https://hape-dating.herokuapp.com/pictures/${user.data._id}`,
+                url: `https://localhost/pictures/${user.data._id}`,
                 method: "get",
             })
             setpictures(data);
@@ -121,11 +121,11 @@ const UpdatePicture = (props) => {
                 return (
                     <div className="item" key={index}>
                         <div className="board--profile-image__box board--profile-image__box--img"
-                            style={{ backgroundImage: `url("https://hape-dating.herokuapp.com/images/${pic.src}")` }}
+                            style={{ backgroundImage: `url("https://localhost/images/${pic.src}")` }}
                         >
                             {pic.src.includes(".mp4") ?
                                 <video className="board--profile-video" loop>
-                                    <source src={`https://hape-dating.herokuapp.com/images/${pic.src}`} type="video/mp4"></source>
+                                    <source src={`https://localhost/images/${pic.src}`} type="video/mp4"></source>
                                 </video>
                                 : ""}
                             <div className="board--profile-image__box__button-contain">
@@ -159,7 +159,7 @@ const UpdatePicture = (props) => {
         formData.append('name', picUpload.name);
         try {
             const data = await callApi({
-                url: `https://hape-dating.herokuapp.com/pictures/upload`,
+                url: `https://localhost/pictures/upload`,
                 method: "post",
                 data: formData,
             })

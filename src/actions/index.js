@@ -13,7 +13,7 @@ export const loginUser = (data) => {
 export const FetchLoginUser = () => {
     return (dispatch) => {
         return CallApi({
-            url: `https://hape-dating.herokuapp.com/users/`,
+            url: `https://localhost/users/`,
             method: "get",
         }).then(data => {
             dispatch(loginUser(data));
@@ -71,7 +71,7 @@ export const receiveNotify = (data) => {
 export const FetchReceiveNotify = () => {
     return (dispatch) => {
         return CallApi({
-            url: "https://hape-dating.herokuapp.com/replies/notify",
+            url: "https://localhost/replies/notify",
             method: "get",
         }).then(data => {
             var newNotify={};

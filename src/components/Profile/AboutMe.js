@@ -63,7 +63,7 @@ const AboutMe = (props) => {
         // console.log(form);
         try {
             const data = await CallApi({
-                url: `https://hape-dating.herokuapp.com/users/info`,
+                url: `https://localhost/users/info`,
                 method: `put`,
                 data: form,
             })

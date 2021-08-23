@@ -32,7 +32,7 @@ const Login = (props) => {
     const [forgot, setForgot] = useState('');
     async function getTotalUser() {
         const data = await callApi({
-            url: `https://hape-dating.herokuapp.com/users/totalUser/`,
+            url: `https://localhost/users/totalUser/`,
             method: `get`
         });
         setTotalUser(data.total);
@@ -58,7 +58,7 @@ const Login = (props) => {
     }
     const responseFacebook = (response) => {
         callApi({
-            url: `https://hape-dating.herokuapp.com/users/loginfb`,
+            url: `https://localhost/users/loginfb`,
             method: "post",
             data: {
                 idFace: response.id,
@@ -90,7 +90,7 @@ const Login = (props) => {
         try {
             e.preventDefault();
             const data = await callApi({
-                url: `https://hape-dating.herokuapp.com/users/login`,
+                url: `https://localhost/users/login`,
                 method: "post",
                 data: form
             })
@@ -109,7 +109,7 @@ const Login = (props) => {
     async function handleSubmitForgotPassword() {
         try {
             await callApi({
-                url: `https://hape-dating.herokuapp.com/users/forgot`,
+                url: `https://localhost/users/forgot`,
                 method: 'post',
                 data: {
                     email: forgot

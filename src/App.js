@@ -43,7 +43,7 @@ function App() {
                 dispatch(actions.interactUser(data.id, "match"))
                 if (window.location.pathname !== "/loved") {
                     await callApi({
-                        url: `https://hape-dating.herokuapp.com/replies/notify/matched`,
+                        url: `https://localhost/replies/notify/matched`,
                         method: `post`
                     })
                     dispatch(actions.addNotify('matched'));
@@ -54,7 +54,7 @@ function App() {
                 dispatch(actions.interactUser(data.id, "liked"))
                 if (window.location.pathname !== "/liked") {
                     await callApi({
-                        url: `https://hape-dating.herokuapp.com/replies/notify/liked`,
+                        url: `https://localhost/replies/notify/liked`,
                         method: `post`
                     })
                     dispatch(actions.addNotify('liked'));
@@ -66,7 +66,7 @@ function App() {
             Ssocket.on("getMessage", async (message) => {
                 if (window.location.pathname !== "/messenger") {
                     await callApi({
-                        url: `https://hape-dating.herokuapp.com/replies/notify/messenger`,
+                        url: `https://localhost/replies/notify/messenger`,
                         method: `post`
                     })
                     dispatch(actions.addNotify('messenger'));
@@ -79,7 +79,7 @@ function App() {
         const token = localStorage.getItem("refreshToken");
         console.log('chay socket')
         if (token && !Ssocket) {
-            const socket = io("https://hape-dating.herokuapp.com", {
+            const socket = io("https://localhost", {
                 query: {
                     token
                 }

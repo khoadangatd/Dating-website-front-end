@@ -18,7 +18,7 @@ const Liked = (props) => {
     const getUserLiked = async () => {
         try {
             const data = await callApi({
-                url: `https://hape-dating.herokuapp.com/users/likers`,
+                url: `https://localhost/users/likers`,
                 method: `POST`,
                 data: {
                     liked: user.data.liked
@@ -72,7 +72,7 @@ const Liked = (props) => {
     async function deleteNotifyServer() {
         try {
             await callApi({
-                url: `https://hape-dating.herokuapp.com/replies/notify/liked`,
+                url: `https://localhost/replies/notify/liked`,
                 method: `delete`
             })
         }

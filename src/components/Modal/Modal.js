@@ -10,7 +10,7 @@ const Modal = (props) => {
     const getPicture = async () => {
         try{
             const data = await callApi({
-                url: `https://hape-dating.herokuapp.com/pictures/${user.data._id}`,
+                url: `https://localhost/pictures/${user.data._id}`,
                 method: "get",
             })
             setpictures(data);

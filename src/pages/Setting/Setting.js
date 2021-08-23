@@ -81,7 +81,7 @@ const Setting = () => {
         try {
             if (validateForm()) {
                 const data = await callApi({
-                    url: `https://hape-dating.herokuapp.com/users/private`,
+                    url: `https://localhost/users/private`,
                     method: "PUT",
                     data: {
                         name: form.fullname,

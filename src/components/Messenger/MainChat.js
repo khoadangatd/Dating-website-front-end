@@ -33,7 +33,7 @@ const MainChat = (props) => {
 
     const getMessage = async () => {
         const data = await callApi({
-            url: `https://hape-dating.herokuapp.com/chats/message/${idcon}`,
+            url: `https://localhost/chats/message/${idcon}`,
             method: "get"
         })
         setmessages(data.data);
@@ -70,7 +70,7 @@ const MainChat = (props) => {
                                     ${new Date(message.createdAt).getUTCHours()}:${new Date(message.createdAt).getUTCMinutes()}`}
                                 </div>
                             </div>
-                            {/* <div style={{ backgroundImage: `url("https://hape-dating.herokuapp.com/images/${user.data.avatar}")` }} className="sidebar--avatar"></div> */}
+                            {/* <div style={{ backgroundImage: `url("https://localhost/images/${user.data.avatar}")` }} className="sidebar--avatar"></div> */}
                         </div>
                     )
                 else
@@ -78,7 +78,7 @@ const MainChat = (props) => {
                         <div className="messenger-content--main messenger-content--main--left" key={message._id}>
                             {arr[index - 1] && arr[index - 1].sender !== user.data._id ?
                                 <div className="messenger--user__item-avatar--img"></div>
-                                : <div style={{ backgroundImage: `url("https://hape-dating.herokuapp.com/images/${matcher.avatar}")` }} className="messenger--user__item-avatar--img"></div>
+                                : <div style={{ backgroundImage: `url("https://localhost/images/${matcher.avatar}")` }} className="messenger--user__item-avatar--img"></div>
                             }
                             <div className="messenger-content--main--detail messenger-content--partner--detail--user">
                                 {message.text}
@@ -127,7 +127,7 @@ const MainChat = (props) => {
             <Link to={`/profileOther?id=${matcher._id}`} className="messenger--user__item messenger--user__item--main-chat">
                 <div style={{ display: "flex" }}>
                     <div className="messenger--user__item-avatar">
-                        <div style={{ backgroundImage: `url("https://hape-dating.herokuapp.com/images/${matcher.avatar}")` }} className="messenger--user__item-avatar--img"></div>
+                        <div style={{ backgroundImage: `url("https://localhost/images/${matcher.avatar}")` }} className="messenger--user__item-avatar--img"></div>
                         <div class={`messenger--user__item-avatar-circle ${handleOnline() ? "user__item-avatar-circle--online" : "user__item-avatar-circle--offline"}`}></div>
                     </div>
                     <div className="messenger--user__item__detail">

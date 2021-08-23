@@ -48,7 +48,7 @@ const Register = () => {
             e.preventDefault();
             if (validateForm()) {
                 const data = await callApi({
-                    url: `https://hape-dating.herokuapp.com/users/register`,
+                    url: `https://localhost/users/register`,
                     method: "post",
                     data: {
                         email: form.email,
