@@ -54,7 +54,10 @@ const Messenger = (props) => {
 
     const getHandleMatcher = async (form) => {
         console.log(form);
-        if (!user || form.conversation.length === 0) return;
+        if (!user || form.conversation.length === 0) {
+            setLoading(false);
+            return;
+        }
         const data = await callApi({
             url: `http://localhost/users/matchers`,
             method: "post",
