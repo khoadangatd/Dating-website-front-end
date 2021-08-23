@@ -77,15 +77,15 @@ const Dashboard = () => {
             var data = await Promise.all(
                 [
                     callApi({
-                        url: `https://localhost/users/registerMonth/${years}`,
+                        url: `http://localhost/users/registerMonth/${years}`,
                         method: `get`
                     }),
                     callApi({
-                        url: `https://localhost/users/resdetailMonth/${years}`,
+                        url: `http://localhost/users/resdetailMonth/${years}`,
                         method: `get`
                     }),
                     callApi({
-                        url: `https://localhost/chats/count/${years}`,
+                        url: `http://localhost/chats/count/${years}`,
                         method: `get`
                     }),
                 ]

@@ -81,7 +81,7 @@ const Setting = () => {
         try {
             if (validateForm()) {
                 const data = await callApi({
-                    url: `https://localhost/users/private`,
+                    url: `http://localhost/users/private`,
                     method: "PUT",
                     data: {
                         name: form.fullname,
@@ -119,7 +119,7 @@ const Setting = () => {
             <div className="board">
                 <div className="board--main">
                     <div className="board__heading">
-                        <h1>Thông tin hồ sơ</h1>
+                        <h1 className="board__setting-title">Thông tin hồ sơ</h1>
                         <Link to="/profile">
                             <button class="btn-board"><i class="fas fa-undo"></i></button>
                         </Link>

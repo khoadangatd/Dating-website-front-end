@@ -1,12 +1,13 @@
 .sidebar{
     width: 270px;
-    min-height: 100vh;
+    height: 100vh;
     background-color: white;
     text-align: center;
     padding:20px 0;
     position: fixed;
     top:0;
     left:0;
+    overflow: auto;
 }
 
 .sidebar-credit--contain{
@@ -336,6 +337,9 @@
         font-size: 18px;
         margin-left: 10px;
     }
+    .board__setting-title{
+        font-size: 18px;
+    }
     .board--profile-image{
         margin-top: 10px;
     }
@@ -423,7 +427,7 @@
         width: 250px;
     }
     .discovery__user--image,.modal-board,.board{
-        height: 550px !important;
+        height: 630px !important;
     }
     .modal-board{
         width: 85% !important;
@@ -434,8 +438,16 @@
     .board--profile-image__image-main{
         width: 200px;
     }
+    div.messenger-chat-input-icon-emoji--contain__main{
+        position: fixed ;
+        bottom:50px;
+        right:20px;
+    }
+    .discovery__user--image,.modal-board,.board{
+        height: 550px !important;
+    }
 }
-
+/* 
 @media only screen and (max-height: 560px) {
     .responsive-height{
         display:flex;
@@ -446,4 +458,4 @@
     .sidebar{
         display: none;
     }
-}
+} */

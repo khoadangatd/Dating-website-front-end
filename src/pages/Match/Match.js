@@ -16,7 +16,7 @@ const Match = () => {
     const getUserMatch = async () => {
         try {
             const data = await callApi({
-                url: `https://localhost/users/matchers`,
+                url: `http://localhost/users/matchers`,
                 method: `POST`,
                 data: {
                     match: user.data.match
@@ -70,7 +70,7 @@ const Match = () => {
     async function deleteNotifyServer() {
         try {
             await callApi({
-                url: `https://localhost/replies/notify/matched`,
+                url: `http://localhost/replies/notify/matched`,
                 method: `delete`
             })
         }

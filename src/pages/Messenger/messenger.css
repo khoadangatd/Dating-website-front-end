@@ -204,17 +204,21 @@
 
 .messenger-chat-input{
     background-color:#f0f2f5;
-    display: flex;
-    align-items: center;
     border-radius: 100px;
     /* overflow: hidden; */
+}
+
+.messenger-chat-input--container{
+    display: flex;
+    align-items: center;
+    width: 98%;
 }
 
 .messenger-chat-input i{
     color:#797f87;
     font-size: 20px;
-    margin-right: 20px;
     cursor: pointer;
+    margin:0 10px;
 }
 
 .messenger-chat-input i:hover{
@@ -227,6 +231,7 @@
     background-color:#f0f2f5;
     padding: 10px;
     width: 100%;
+    border-radius: 100px;
 }
 
 .messenger-chat-input-contain-icon{
@@ -235,6 +240,7 @@
 
 .messenger-chat-input-icon-submit{
     border: none;
+    padding:0;
 }
 
 .messenger-chat-input-icon-emoji-contain{

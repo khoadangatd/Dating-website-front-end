@@ -13,7 +13,7 @@ const PictureView = (props) => {
             index.current = 0;
         if (index.current < 0)
             index.current = pictures.data.length - 1;
-        setview("https://localhost/images/" + pictures.data[index.current].src);
+        setview("http://localhost/images/" + pictures.data[index.current].src);
     }
     function onHandleReport() {
         if(!dialog) return;
@@ -21,7 +21,7 @@ const PictureView = (props) => {
     }
     useEffect(() => {
         if (!pictures || pictures.data.length < 1) return;
-        setview("https://localhost/images/" + pictures.data[index.current].src);
+        setview("http://localhost/images/" + pictures.data[index.current].src);
     }, [pictures])
     // Socket
     function handleInteract(data) {

@@ -25,6 +25,9 @@ ul {
     margin: 0;
     padding: 0;
 }
+#root{
+    overflow: auto;
+}
 /* width */
 ::-webkit-scrollbar {
     width:8px;
@@ -361,17 +364,16 @@ ul {
     
 }
 .board{
-    /* position: absolute;
-    top:50%;
-    left: 50%;
-    transform: translate(-50%,-50%); */
-    /* animation: AppearBoard 0.8s; */
     width: 100%;
     background-color: white;
-    height: 600px;
+    height: 85%;
     border-radius: 10px;
     box-shadow: 0 20px 40px rgb(0 0 0 / 10%);
     overflow-y: auto;
+}
+
+.board-message{
+    overflow: unset !important;
 }
 
 .board--main{

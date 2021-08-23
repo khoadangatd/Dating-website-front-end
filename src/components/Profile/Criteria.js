@@ -68,7 +68,7 @@ const Criteria = (props) => {
         }
         try {
             const data = await CallApi({
-                url: `https://localhost/users/setting`,
+                url: `http://localhost/users/setting`,
                 method: `put`,
                 data: form,
             })

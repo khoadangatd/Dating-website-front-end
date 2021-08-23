@@ -48,7 +48,7 @@ const Register = () => {
             e.preventDefault();
             if (validateForm()) {
                 const data = await callApi({
-                    url: `https://localhost/users/register`,
+                    url: `http://localhost/users/register`,
                     method: "post",
                     data: {
                         email: form.email,
@@ -125,7 +125,7 @@ const Register = () => {
                     </div>
                 </div>
                 <div class="col-lg-6 col-md-6 col-sm-6 image--register">
-                    <img src="https://ssl.gstatic.com/accounts/signup/glif/account.svg" alt="" />
+                    <img src="http://ssl.gstatic.com/accounts/signup/glif/account.svg" alt="" />
                 </div>
             </div>
         </form>

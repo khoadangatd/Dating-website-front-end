@@ -24,7 +24,7 @@ const ItemFeedback = (props) => {
             <td>
                 <Link to={`/profileOther?id=${user._id}`}>
                     <div className="manage--users-item__name">
-                        <div className="manage--users-item__name--image" style={{backgroundImage:`url("https://localhost/images/${user.avatar}"`}}>
+                        <div className="manage--users-item__name--image" style={{backgroundImage:`url("http://localhost/images/${user.avatar}"`}}>
                         </div>
                         <div class="manage--users-item__name--detail">
                             <div class="manage--users-item__name--detail--main">
@@ -52,7 +52,7 @@ const Feedback = () => {
     const getFeedback = async () => {
         try {
             const data = await callApi({
-                url: `https://localhost/replies/feedback`,
+                url: `http://localhost/replies/feedback`,
                 method: `GET`,
             })
             console.log(data);

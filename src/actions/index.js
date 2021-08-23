@@ -13,7 +13,7 @@ export const loginUser = (data) => {
 export const FetchLoginUser = () => {
     return (dispatch) => {
         return CallApi({
-            url: `https://localhost/users/`,
+            url: `http://localhost/users/`,
             method: "get",
         }).then(data => {
             dispatch(loginUser(data));
@@ -71,7 +71,7 @@ export const receiveNotify = (data) => {
 export const FetchReceiveNotify = () => {
     return (dispatch) => {
         return CallApi({
-            url: "https://localhost/replies/notify",
+            url: "http://localhost/replies/notify",
             method: "get",
         }).then(data => {
             var newNotify={};

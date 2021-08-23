@@ -58,7 +58,7 @@ const Upgrade = () => {
     async function handleBuyingHP() {
         try {
             const data = await callApi({
-                url: `https://localhost/deals/create_payment_url`,
+                url: `http://localhost/deals/create_payment_url`,
                 method: `post`,
                 data: {
                     credit: parseFloat(user.data.credit),
@@ -75,7 +75,7 @@ const Upgrade = () => {
     async function handleUpgradeUser() {
         try {
             const data = await callApi({
-                url: `https://localhost/deals/premium`,
+                url: `http://localhost/deals/premium`,
                 method: `get`,
             })
             dispatch(FetchLoginUser())

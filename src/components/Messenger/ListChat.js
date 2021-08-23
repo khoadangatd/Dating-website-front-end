@@ -36,7 +36,7 @@ const ListChat = (props) => {
                 return (
                     <Link to={`/messenger?idcon=${match.conversation._id}`} className={`${match.conversation._id === idcon ? "messenger--user__item--active" : ""} messenger--user__item`} key={match._id}>
                         <div className="messenger--user__item-avatar">
-                            <div style={{ backgroundImage: `url("https://localhost/images/${match.avatar}")` }} className="sidebar--avatar"></div>
+                            <div style={{ backgroundImage: `url("http://localhost/images/${match.avatar}")` }} className="sidebar--avatar"></div>
                             <div class={`messenger--user__item-avatar-circle ${handleOnline(match) ? "user__item-avatar-circle--online" : "user__item-avatar-circle--offline"}`}></div>
                         </div>
                         <div className="messenger--user__item__detail">

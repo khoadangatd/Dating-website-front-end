@@ -14,11 +14,11 @@ const ModalPicture = (props) => {
         var rs = null;
         if (src.item.src.includes(".mp4")) {
             rs = <video className="board--profile-video--modal" controls poster="">
-                <source src={`https://localhost/images/${src.item.src}`} type="video/mp4"></source>
+                <source src={`http://localhost/images/${src.item.src}`} type="video/mp4"></source>
             </video>
         }
         else{
-            rs =<img src={`https://localhost/images/${src.item.src}`} alt="hinhanh" className="modal__body--image-detail"></img>
+            rs =<img src={`http://localhost/images/${src.item.src}`} alt="hinhanh" className="modal__body--image-detail"></img>
         }
         return rs;
     }

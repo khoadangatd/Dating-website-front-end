@@ -30,7 +30,7 @@ const Messenger = (props) => {
 
     const getConversation = async () => {
         const data = await callApi({
-            url: `https://localhost/chats/conversation/`,
+            url: `http://localhost/chats/conversation/`,
             method: "get",
         })
         return data.data;
@@ -41,7 +41,7 @@ const Messenger = (props) => {
         var data = [];
         for (let i = 0; i < conversation.length; i++) {
             form = await callApi({
-                url: `https://localhost/chats/message/newest/${conversation[i]._id}`,
+                url: `http://localhost/chats/message/newest/${conversation[i]._id}`,
                 method: "get",
             })
             data.push(form.data);
@@ -56,7 +56,7 @@ const Messenger = (props) => {
         console.log(form);
         if (!user || form.conversation.length === 0) return;
         const data = await callApi({
-            url: `https://localhost/users/matchers`,
+            url: `http://localhost/users/matchers`,
             method: "post",
             data: {
                 match: user.data.match
@@ -96,7 +96,7 @@ const Messenger = (props) => {
     async function deleteNotifyServer() {
         try {
             await callApi({
-                url: `https://localhost/replies/notify/messenger`,
+                url: `http://localhost/replies/notify/messenger`,
                 method: `delete`
             })
         }
@@ -187,7 +187,7 @@ const Messenger = (props) => {
 
     return user && (
         <div className="main">
-            <div className="board">
+            <div className="board board-message">
                 <div className="board--main messenger--main" style={{ display: `${loading || !matchers ? "block" : "flex"}` }}>
                     {renderMessenger()}
                 </div>

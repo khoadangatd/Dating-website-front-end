@@ -31,7 +31,7 @@ const ItemInteract = (props) => {
         }
         try {
             const data = await callApi({
-                url: `https://localhost/pictures/${other._id}`,
+                url: `http://localhost/pictures/${other._id}`,
                 method: "get",
             })
             console.log(data);
@@ -60,10 +60,10 @@ const ItemInteract = (props) => {
     useEffect(() => {
         if (!pictures) return;
         if (pictures.data.length > 0) {
-            setview("https://localhost/images/" + pictures.data[0].src);
+            setview("http://localhost/images/" + pictures.data[0].src);
         }
         else {
-            setview("https://wallpaperaccess.com/full/173801.png");
+            setview("http://wallpaperaccess.com/full/173801.png");
         }
     }, [pictures])
 

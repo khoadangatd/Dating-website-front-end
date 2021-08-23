@@ -10,7 +10,7 @@ const Modal = (props) => {
     const getPicture = async () => {
         try{
             const data = await callApi({
-                url: `https://localhost/pictures/${user.data._id}`,
+                url: `http://localhost/pictures/${user.data._id}`,
                 method: "get",
             })
             setpictures(data);

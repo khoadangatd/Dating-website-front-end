@@ -63,7 +63,7 @@ const AboutMe = (props) => {
         // console.log(form);
         try {
             const data = await CallApi({
-                url: `https://localhost/users/info`,
+                url: `http://localhost/users/info`,
                 method: `put`,
                 data: form,
             })

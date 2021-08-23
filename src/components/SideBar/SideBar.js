@@ -52,7 +52,7 @@ const SideBar = (props) => {
         e.preventDefault();
         try {
             const data = await callApi({
-                url: `https://localhost/replies/feedback`,
+                url: `http://localhost/replies/feedback`,
                 method: "post",
                 data: {
                     mess: feedback,
@@ -102,7 +102,7 @@ const SideBar = (props) => {
             socket.disconnect();
         dispatch(actions.logoutUser());
         await callApi({
-            url: `https://localhost/users/logout`,
+            url: `http://localhost/users/logout`,
             method: "post",
             data: {
                 refreshToken: localStorage.getItem("refreshToken")
@@ -158,7 +158,7 @@ const SideBar = (props) => {
             <img src={logo} alt="logo" className="sidebar-logo"></img>
             <h1 className="sidebar-logo--des">HAPE</h1>
             <div className="sidebar__intro">
-                <Link to="/profile" style={{ backgroundImage: `url("https://localhost/images/${user.data.avatar}")` }} className="sidebar--avatar"></Link>
+                <Link to="/profile" style={{ backgroundImage: `url("http://localhost/images/${user.data.avatar}")` }} className="sidebar--avatar"></Link>
                 <p className="sidebar__intro__name">{user.data.name}</p>
             </div>
             <div className="sidebar-credit--contain">
