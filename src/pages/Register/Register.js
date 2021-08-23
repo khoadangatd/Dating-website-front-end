@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import './register.css';
 import { Link, useHistory } from 'react-router-dom';
 import callApi from '../../helper/axiosClient';
@@ -78,6 +78,10 @@ const Register = () => {
         })
         return rs;
     }
+    useEffect(()=>{
+        if(localStorage.getItem("refreshToken")||localStorage.getItem('accessToken'))
+            history.push('/discovery')
+    },[])
     return (
         <form class="register-main-form" onSubmit={onSubmitForm}>
             <div class="row">
@@ -131,11 +135,5 @@ const Register = () => {
         </form>
     );
 };
-
-
-Register.propTypes = {
-
-};
-
 
 export default Register;

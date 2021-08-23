@@ -24,6 +24,7 @@ import Upgrade from './pages/Upgrade/Upgrade';
 import callApi from './helper/axiosClient';
 import ManageDeal from './pages/ManageDeal/ManageDeal';
 import ResponsiveHeight from './components/ResponsiveHeight/ResponsiveHeight';
+import NotPage from './pages/NotPage/NotPage';
 
 
 function App() {
@@ -127,6 +128,7 @@ function App() {
                 <PrivateRoute path='/management/report' exact={true} component={Report}></PrivateRoute>
                 <PrivateRoute path='/management/credit' exact={true} component={ManageDeal}></PrivateRoute>
                 <PrivateRoute path='/management/feedback' exact={true} component={Feedback}></PrivateRoute>
+                <Route component={NotPage} />
             </Switch>
             <ToastContainer />
         </Router>

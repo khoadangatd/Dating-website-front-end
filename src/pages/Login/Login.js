@@ -123,6 +123,8 @@ const Login = (props) => {
     }
     useEffect(() => {
         getTotalUser();
+        if(localStorage.getItem("refreshToken")||localStorage.getItem('accessToken'))
+            history.push('/discovery')
     }, []);
     return (
         <form className="login-main-form" onSubmit={onSubmitForm}>
